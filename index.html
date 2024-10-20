@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShowBiz AI - Simplify Animated Content Creation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <!-- Animate.css for animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Stylesheet -->
+    <style>
+        /* Reset Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Fonts */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: #00BFFF; /* Bright blue text color */
+            background-color: #000000; /* Black background */
+            /* Removed overflow: hidden; to enable scrolling */
+        }
+
+        /* Outer Space Background with Animated Stars */
+        .stars, .stars2, .stars3 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            z-index: 0;
+        }
+
+        .stars {
+            background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
+            animation: animStar 50s linear infinite;
+        }
+
+        .stars2 {
+            background: url('https://www.script-tutorials.com/demos/360/images/stars2.png') repeat top center;
+            animation: animStar 100s linear infinite;
+        }
+
+        .stars3 {
+            background: url('https://www.script-tutorials.com/demos/360/images/stars3.png') repeat top center;
+            animation: animStar 150s linear infinite;
+        }
+
+        @keyframes animStar {
+            from { transform: translateY(0); }
+            to { transform: translateY(-1000px); }
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2; /* Place above the background */
+        }
+
+        /* Navbar */
+        .navbar {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 3;
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+        }
+
+        .logo img {
+            width: 150px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            float: right;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #00BFFF;
+            font-weight: 600;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #1E90FF; /* Lighter blue on hover */
+            transform: scale(1.05);
+        }
+
+        /* Header */
+        header {
+            min-height: 100vh; /* Changed from height to min-height */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            color: #00BFFF;
+            padding-top: 80px; /* To prevent overlap with navbar */
+        }
+
+        .header-content h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .header-content .tagline {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            color: #ADD8E6; /* Light blue for tagline */
+        }
+
+        .cta-button {
+            text-decoration: none;
+            padding: 15px 30px;
+            background-color: #1E90FF;
+            color: #ffffff;
+            font-size: 1.2em;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #00BFFF;
+            transform: translateY(-5px);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #00BFFF;
+        }
+
+        .description, .waitlist {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #00BFFF;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+        }
+
+        .description h2, .waitlist h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #1E90FF;
+            text-align: center;
+        }
+
+        .description p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: #ADD8E6;
+        }
+
+        /* Features */
+        .features {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #1E90FF;
+        }
+
+        .features-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+        }
+
+        .feature-item {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+            max-width: 350px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
+            color: #00BFFF;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-10px);
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .feature-item .icon img {
+            width: 80px;
+            margin-bottom: 20px;
+        }
+
+        .feature-item h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #1E90FF;
+        }
+
+        .feature-item p {
+            font-size: 1em;
+            line-height: 1.6;
+            color: #ADD8E6;
+        }
+
+        /* Waitlist */
+        .waitlist h2 {
+            margin-bottom: 40px;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        form input,
+        form select {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #4D4D4D;
+            border-radius: 30px;
+            font-size: 1em;
+            background-color: #2D2D2D;
+            color: #FFFFFF;
+            transition: border-color 0.3s ease;
+        }
+
+        form input::placeholder,
+        form select {
+            color: #AAAAAA;
+        }
+
+        form input:focus,
+        form select:focus {
+            outline: none;
+            border-color: #1E90FF;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #1E90FF;
+            border: none;
+            border-radius: 30px;
+            color: #FFFFFF;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #00BFFF;
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.9);
+            color: #ADD8E6;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer a {
+            color: #1E90FF;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Animations */
+        .header-content {
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 3em;
+            }
+
+            .header-content .tagline {
+                font-size: 1.2em;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+
+        /* Hamburger Menu Styles */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            float: right;
+            margin-top: 15px;
+        }
+
+        .hamburger div {
+            width: 35px;
+            height: 4px;
+            background-color: #FFFFFF;
+            margin: 6px 0;
+            transition: 0.4s;
+        }
+
+        .nav-active {
+            display: block !important;
+        }
+
+        .toggle div:nth-child(1) {
+            transform: rotate(-45deg) translate(-9px, 6px);
+        }
+
+        .toggle div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .toggle div:nth-child(3) {
+            transform: rotate(45deg) translate(-8px, -8px);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                background-color: rgba(0, 0, 0, 0.9);
+                position: absolute;
+                top: 70px;
+                right: 0;
+                width: 100%;
+                text-align: center;
+                z-index: 99;
+            }
+
+            .nav-links li {
+                margin: 20px 0;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Layers -->
+    <div class="stars"></div>
+    <div class="stars2"></div>
+    <div class="stars3"></div>
+
+    <!-- Header Section -->
+    <header>
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">
+                    <!-- Uncomment and replace with your logo URL -->
+                    <!-- <img src="your-logo-url.png" alt="ShowBiz AI Logo"> -->
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#waitlist">Waitlist</a></li>
+                    <li><a href="mailto:officialshowbizai@gmail.com">Contact</a></li>
+                </ul>
+                <!-- Hamburger Menu -->
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </nav>
+        <div class="header-content animate__animated animate__fadeIn">
+            <div class="container">
+                <h1>ShowBiz AI</h1>
+                <p class="tagline">Using AI to Simplify Animated Content Creation</p>
+                <a href="#waitlist" class="cta-button">Join Our Waitlist</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Description Section -->
+        <section class="description">
+            <div class="container">
+                <h2>What We Do</h2>
+                <p>We are a text-to-animation software, leveraging AI to streamline the entire process of making animated content for TV, film, game development, and more!</p>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features" id="features">
+            <div class="container">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-item animate__animated animate__zoomIn">
+                        <div class="icon">
+                            <!-- Replace with your icon URL -->
+                            <!-- <img src="3d-icon.png" alt="3D Asset Creation"> -->
+                        </div>
+                        <h3>3D Asset Creation</h3>
+                        <p>Create stunning 3D assets with ease using our AI-powered tools.</p>
+                    </div>
+                    <div class="feature-item animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
+                        <div class="icon">
+                            <!-- Replace with your icon URL -->
+                            <!-- <img src="ai-icon.png" alt="AI-Driven Animation"> -->
+                        </div>
+                        <h3>AI-Driven Animation</h3>
+                        <p>Our AI is trained on animation principles to bring your creations to life.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Waitlist Section -->
+        <section class="waitlist" id="waitlist">
+            <div class="container">
+                <h2>Join Our Waitlist</h2>
+                <form action="https://formspree.io/f/xzzbbqqw" method="POST" class="animate__animated animate__fadeInUp">
+                    <div class="form-group">
+                        <input type="text" name="name" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <select name="profession" required>
+                            <option value="" disabled selected>Profession</option>
+                            <option value="Animator">Animator</option>
+                            <option value="Game Developer">Game Developer</option>
+                            <option value="Filmmaker">Filmmaker</option>
+                            <option value="Hobbyist">Hobbyist</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-button">Sign Up</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>© 2023 ShowBiz AI. All rights reserved.</p>
+            <p>Contact us at <a href="mailto:officialshowbizai@gmail.com">officialshowbizai@gmail.com</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Hamburger Menu Toggle
+        const navLinks = document.querySelector('.nav-links');
+        const hamburger = document.querySelector('.hamburger');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            hamburger.classList.toggle('toggle');
+        });
+    </script>
+</body>
+</html>
