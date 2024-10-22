@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <!-- Animate.css for animations -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <!-- Swiper.js for Carousel -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
     <!-- Stylesheet -->
     <style>
         /* Reset Styles */
@@ -22,7 +24,8 @@
             font-family: 'Open Sans', sans-serif;
             color: #00BFFF; /* Bright blue text color */
             background-color: #000000; /* Black background */
-            /* Removed overflow: hidden; to enable scrolling */
+            overflow-y: auto; /* Enable vertical scrolling */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         /* Outer Space Background with Animated Stars */
@@ -30,8 +33,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 200%;
+            height: 200%;
             background: transparent;
             z-index: 0;
         }
@@ -114,12 +117,14 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 4em;
             margin-bottom: 20px;
+            animation: bounceInDown 1.5s;
         }
 
         .header-content .tagline {
             font-size: 1.5em;
             margin-bottom: 40px;
             color: #ADD8E6; /* Light blue for tagline */
+            animation: fadeInUp 2s;
         }
 
         .cta-button {
@@ -130,6 +135,7 @@
             font-size: 1.2em;
             border-radius: 30px;
             transition: background-color 0.3s ease, transform 0.2s ease;
+            animation: pulse 2s infinite;
         }
 
         .cta-button:hover {
@@ -150,6 +156,7 @@
             border-radius: 15px;
             padding: 40px;
             margin-bottom: 40px;
+            animation: fadeInUp 1s;
         }
 
         .description h2, .waitlist h2 {
@@ -198,6 +205,7 @@
             transition: transform 0.3s ease, background-color 0.3s ease;
             box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
             color: #00BFFF;
+            animation: fadeInUp 1s;
         }
 
         .feature-item:hover {
@@ -208,6 +216,7 @@
         .feature-item .icon img {
             width: 80px;
             margin-bottom: 20px;
+            animation: rotate 10s linear infinite;
         }
 
         .feature-item h3 {
@@ -220,6 +229,98 @@
             font-size: 1em;
             line-height: 1.6;
             color: #ADD8E6;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #00BFFF;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #1E90FF;
+            animation: fadeInUp 1s;
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
+            animation: zoomIn 1s;
+        }
+
+        .video-container iframe, .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #00BFFF;
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #1E90FF;
+            animation: fadeInUp 1s;
+        }
+
+        .swiper-container {
+            width: 100%;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
+        }
+
+        .testimonial-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .testimonial-content img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
+            animation: bounce 2s infinite;
+        }
+
+        .testimonial-content p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #ADD8E6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .testimonial-content h3 {
+            font-size: 1.5em;
+            color: #00BFFF;
         }
 
         /* Waitlist */
@@ -269,6 +370,7 @@
             font-size: 1.2em;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
+            animation: pulse 2s infinite;
         }
 
         .submit-button:hover {
@@ -294,18 +396,44 @@
         }
 
         /* Animations */
-        .header-content {
-            animation: fadeInUp 1s ease-in-out;
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(30, 144, 255, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(30, 144, 255, 0);
             }
         }
 
@@ -394,11 +522,12 @@
         <nav class="navbar">
             <div class="container">
                 <a href="#" class="logo">
-                    <!-- Uncomment and replace with your logo URL -->
-                    <!-- <img src="your-logo-url.png" alt="ShowBiz AI Logo"> -->
+                    <!-- Logo -->
+                    <img src="https://i.postimg.cc/DZMSyb6c/Showbiz-AI-Logo.png" alt="ShowBiz AI Logo">
                 </a>
                 <ul class="nav-links">
                     <li><a href="#features">Features</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
                     <li><a href="#waitlist">Waitlist</a></li>
                     <li><a href="mailto:officialshowbizai@gmail.com">Contact</a></li>
                 </ul>
@@ -429,6 +558,27 @@
             </div>
         </section>
 
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="container">
+                <h2>See It In Action</h2>
+                <div class="video-container">
+                    <!-- Video Placeholder -->
+                    <!-- Replace 'your-video-url.mp4' with your actual video URL -->
+                    <!-- For YouTube/Vimeo, you can use an iframe -->
+                    <!-- Example for YouTube: -->
+                    <!--
+                    <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
+                    -->
+                    <!-- Placeholder Video -->
+                    <video controls poster="https://via.placeholder.com/800x450.png?text=ShowBiz+AI+Demo">
+                        <source src="your-video-url.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </section>
+
         <!-- Features Section -->
         <section class="features" id="features">
             <div class="container">
@@ -437,7 +587,7 @@
                     <div class="feature-item animate__animated animate__zoomIn">
                         <div class="icon">
                             <!-- Replace with your icon URL -->
-                            <!-- <img src="3d-icon.png" alt="3D Asset Creation"> -->
+                            <img src="https://via.placeholder.com/80.png?text=3D" alt="3D Asset Creation">
                         </div>
                         <h3>3D Asset Creation</h3>
                         <p>Create stunning 3D assets with ease using our AI-powered tools.</p>
@@ -445,11 +595,51 @@
                     <div class="feature-item animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
                         <div class="icon">
                             <!-- Replace with your icon URL -->
-                            <!-- <img src="ai-icon.png" alt="AI-Driven Animation"> -->
+                            <img src="https://via.placeholder.com/80.png?text=AI" alt="AI-Driven Animation">
                         </div>
                         <h3>AI-Driven Animation</h3>
                         <p>Our AI is trained on animation principles to bring your creations to life.</p>
                     </div>
+                    <!-- Add more features as needed -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials" id="testimonials">
+            <div class="container">
+                <h2>What Our Users Say</h2>
+                <!-- Swiper -->
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- Testimonial 1 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-content">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Photo">
+                                <p>"ShowBiz AI has revolutionized the way I create animations. The AI-driven tools are intuitive and powerful!"</p>
+                                <h3>- Alex Turner, Animator</h3>
+                            </div>
+                        </div>
+                        <!-- Testimonial 2 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-content">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Photo">
+                                <p>"As a game developer, integrating 3D assets has never been easier. ShowBiz AI is a game-changer."</p>
+                                <h3>- Lisa Wong, Game Developer</h3>
+                            </div>
+                        </div>
+                        <!-- Testimonial 3 -->
+                        <div class="swiper-slide">
+                            <div class="testimonial-content">
+                                <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="User Photo">
+                                <p>"The text-to-animation feature saved me countless hours. Highly recommend ShowBiz AI."</p>
+                                <h3>- Michael Lee, Filmmaker</h3>
+                            </div>
+                        </div>
+                        <!-- Add more testimonials as needed -->
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
@@ -490,6 +680,8 @@
     </footer>
 
     <!-- JavaScript -->
+    <!-- Swiper JS for Carousel -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script>
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -508,6 +700,17 @@
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('nav-active');
             hamburger.classList.toggle('toggle');
+        });
+
+        // Initialize Swiper
+        var swiper = new Swiper('.swiper-container', {
+            loop: true,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            autoplay: {
+                delay: 5000,
+            },
         });
     </script>
 </body>
