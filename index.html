@@ -24,47 +24,19 @@
             font-family: 'Open Sans', sans-serif;
             color: #00BFFF; /* Bright blue text color */
             background-color: #000000; /* Black background */
-            overflow-y: auto; /* Enable vertical scrolling */
             overflow-x: hidden; /* Prevent horizontal scroll */
             position: relative;
             min-height: 100vh;
         }
 
-        /* Background Stars */
-        body::before {
-            content: '';
+        /* Canvas Background */
+        #starfield {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://i.postimg.cc/59FsSw22/alexander-andrews-fs-H1-Kjbdj-E8-unsplash.jpg') repeat;
-            background-size: cover;
-            z-index: -2;
-            animation: starsMove 100s linear infinite, brightnessAnim 5s ease-in-out infinite;
-        }
-
-        @keyframes starsMove {
-            from { background-position: 0 0; }
-            to { background-position: -1000px -1000px; }
-        }
-
-        @keyframes brightnessAnim {
-            0%, 100% { filter: brightness(1.5); }
-            50% { filter: brightness(2); }
-        }
-
-        /* Twinkling Stars Overlay */
-        .twinkling {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent url('https://i.postimg.cc/02DHP7TB/bryan-goff-f7-YQo-e-YHd-M-unsplash.jpg') repeat;
-            background-size: cover;
             z-index: -1;
-            animation: twinkling 200s linear infinite, brightnessAnim 5s ease-in-out infinite;
         }
 
         /* Navbar */
@@ -158,7 +130,7 @@
 
         /* Sections */
         section {
-            padding: 80px 0;
+            padding: 80px 20px;
             color: #00BFFF;
         }
 
@@ -510,8 +482,8 @@
     </style>
 </head>
 <body>
-    <!-- Star Background -->
-    <div class="twinkling"></div>
+    <!-- Starfield Canvas -->
+    <canvas id="starfield"></canvas>
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -679,6 +651,88 @@
     <!-- JavaScript -->
     <!-- Swiper JS for Carousel -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+    <!-- Starfield Script -->
+    <script>
+        // Starfield Canvas
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
+
+        let stars = [];
+        const numStars = 200;
+
+        // Resize canvas to fill the window
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Star class
+        class Star {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.z = Math.random() * canvas.width;
+                this.size = Math.random() * 1.5;
+                this.speed = (Math.random() * 0.5) + 0.2;
+                this.brightness = Math.random() * 0.5 + 0.5;
+                this.brightnessChange = (Math.random() * 0.02) - 0.01;
+            }
+
+            update() {
+                this.z -= this.speed;
+                if (this.z <= 0) {
+                    this.reset();
+                    this.z = canvas.width;
+                }
+
+                this.brightness += this.brightnessChange;
+                if (this.brightness <= 0.5 || this.brightness >= 1) {
+                    this.brightnessChange *= -1;
+                }
+            }
+
+            draw() {
+                const x = (this.x - canvas.width / 2) * (canvas.width / this.z) + canvas.width / 2;
+                const y = (this.y - canvas.height / 2) * (canvas.width / this.z) + canvas.height / 2;
+                const size = this.size * (canvas.width / this.z);
+
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.brightness})`;
+                ctx.fill();
+            }
+        }
+
+        // Initialize stars
+        function initStars() {
+            stars = [];
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+        }
+        initStars();
+
+        // Animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let star of stars) {
+                star.update();
+                star.draw();
+            }
+
+            requestAnimationFrame(animate);
+        }
+        animate();
+    </script>
+    <!-- Other Scripts -->
     <script>
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
