@@ -70,23 +70,35 @@
 
         /* Navbar */
         .navbar {
-            padding: 20px 0;
+            padding: 10px 20px;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 3;
             background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
         }
 
         .logo img {
-            width: 150px;
+            width: 120px;
+            height: auto;
+        }
+
+        .logo a {
+            display: inline-block;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
             gap: 20px;
-            float: right;
         }
 
         .nav-links li a {
@@ -293,6 +305,30 @@
             max-width: 800px;
             margin: 0 auto;
             box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Cartoon Border */
+        .swiper-slide::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: url('https://i.postimg.cc/PxMsCtqB/cartoon-border.png') repeat;
+            z-index: -1;
+            animation: borderAnimation 5s linear infinite;
+        }
+
+        @keyframes borderAnimation {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         .testimonial-content {
@@ -460,15 +496,14 @@
         .hamburger {
             display: none;
             cursor: pointer;
-            float: right;
-            margin-top: 15px;
+            flex-direction: column;
+            gap: 5px;
         }
 
         .hamburger div {
-            width: 35px;
-            height: 4px;
+            width: 30px;
+            height: 3px;
             background-color: #FFFFFF;
-            margin: 6px 0;
             transition: 0.4s;
         }
 
@@ -476,16 +511,16 @@
             display: block !important;
         }
 
-        .toggle div:nth-child(1) {
-            transform: rotate(-45deg) translate(-9px, 6px);
+        .toggle .hamburger div:nth-child(1) {
+            transform: rotate(-45deg) translate(-5px, 6px);
         }
 
-        .toggle div:nth-child(2) {
+        .toggle .hamburger div:nth-child(2) {
             opacity: 0;
         }
 
-        .toggle div:nth-child(3) {
-            transform: rotate(45deg) translate(-8px, -8px);
+        .toggle .hamburger div:nth-child(3) {
+            transform: rotate(45deg) translate(-5px, -6px);
         }
 
         @media (max-width: 768px) {
@@ -506,7 +541,7 @@
             }
 
             .hamburger {
-                display: block;
+                display: flex;
             }
         }
     </style>
@@ -520,23 +555,23 @@
     <!-- Header Section -->
     <header>
         <nav class="navbar">
-            <div class="container">
-                <a href="#" class="logo">
-                    <!-- Logo -->
-                    <img src="https://i.postimg.cc/DZMSyb6c/Showbiz-AI-Logo.png" alt="ShowBiz AI Logo">
+            <div class="logo">
+                <!-- Logo -->
+                <a href="#">
+                    <img src="https://i.postimg.cc/jqQzcMyc/white-logo.png" alt="ShowBiz AI Logo">
                 </a>
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#testimonials">Testimonials</a></li>
-                    <li><a href="#waitlist">Waitlist</a></li>
-                    <li><a href="mailto:officialshowbizai@gmail.com">Contact</a></li>
-                </ul>
-                <!-- Hamburger Menu -->
-                <div class="hamburger">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#waitlist">Waitlist</a></li>
+                <li><a href="mailto:officialshowbizai@gmail.com">Contact</a></li>
+            </ul>
+            <!-- Hamburger Menu -->
+            <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
         </nav>
         <div class="header-content animate__animated animate__fadeIn">
@@ -640,6 +675,9 @@
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
+                    <!-- Add Navigation Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </section>
@@ -707,6 +745,16 @@
             loop: true,
             pagination: {
                 el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            effect: 'flip',
+            flipEffect: {
+                rotate: 30,
+                slideShadows: false,
             },
             autoplay: {
                 delay: 5000,
