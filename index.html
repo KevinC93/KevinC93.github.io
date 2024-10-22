@@ -26,6 +26,8 @@
             background-color: #000000; /* Black background */
             overflow-y: auto; /* Enable vertical scrolling */
             overflow-x: hidden; /* Prevent horizontal scroll */
+            position: relative;
+            min-height: 100vh;
         }
 
         /* Background Stars */
@@ -34,16 +36,37 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat;
-            z-index: -1;
-            animation: animStar 50s linear infinite;
+            width: 200%;
+            height: 200%;
+            background: black url('https://i.postimg.cc/5t3cZVYv/starfield.png') repeat top center;
+            background-size: contain;
+            z-index: -2;
+            animation: starsMove 200s linear infinite;
         }
 
-        @keyframes animStar {
-            from { background-position: 0 0; }
-            to { background-position: -10000px 5000px; }
+        /* Twinkling Stars */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 200%;
+            height: 200%;
+            background: transparent url('https://i.postimg.cc/J4xC0Xph/twinkling.png') repeat top center;
+            background-size: contain;
+            z-index: -1;
+            animation: twinkling 5s linear infinite;
+        }
+
+        @keyframes starsMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(-1000px); }
+        }
+
+        @keyframes twinkling {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
         }
 
         /* Navbar */
@@ -258,6 +281,8 @@
 
         .swiper-container {
             width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
             padding-bottom: 50px;
         }
 
@@ -265,8 +290,6 @@
             background-color: rgba(0, 0, 0, 0.7);
             padding: 40px;
             border-radius: 15px;
-            max-width: 800px;
-            margin: 0 auto;
             box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
             position: relative;
             overflow: hidden;
@@ -561,16 +584,16 @@
                 <div class="features-grid">
                     <div class="feature-item animate__animated animate__zoomIn">
                         <div class="icon">
-                            <!-- Replace with your icon URL -->
-                            <img src="https://i.postimg.cc/8cRZ1p1P/cartoon-rocket.png" alt="3D Asset Creation">
+                            <!-- Using your logo as placeholder -->
+                            <img src="https://i.postimg.cc/jqQzcMyc/white-logo.png" alt="Feature Image">
                         </div>
                         <h3>3D Asset Creation</h3>
                         <p>Create stunning 3D assets with ease using our AI-powered tools.</p>
                     </div>
                     <div class="feature-item animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
                         <div class="icon">
-                            <!-- Replace with your icon URL -->
-                            <img src="https://i.postimg.cc/4dHDZGxg/cartoon-robot.png" alt="AI-Driven Animation">
+                            <!-- Using your logo as placeholder -->
+                            <img src="https://i.postimg.cc/jqQzcMyc/white-logo.png" alt="Feature Image">
                         </div>
                         <h3>AI-Driven Animation</h3>
                         <p>Our AI is trained on animation principles to bring your creations to life.</p>
@@ -615,9 +638,6 @@
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
-                    <!-- Add Navigation Arrows -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
                 </div>
             </div>
         </section>
@@ -687,15 +707,7 @@
                 el: '.swiper-pagination',
                 clickable: true,
             },
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
-            effect: 'flip',
-            flipEffect: {
-                rotate: 30,
-                slideShadows: false,
-            },
+            effect: 'fade',
             autoplay: {
                 delay: 5000,
             },
