@@ -36,37 +36,36 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 200%;
-            height: 200%;
-            background: black url('https://i.postimg.cc/5t3cZVYv/starfield.png') repeat top center;
-            background-size: contain;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.postimg.cc/59FsSw22/alexander-andrews-fs-H1-Kjbdj-E8-unsplash.jpg') repeat;
+            background-size: cover;
             z-index: -2;
-            animation: starsMove 200s linear infinite;
-        }
-
-        /* Twinkling Stars */
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background: transparent url('https://i.postimg.cc/J4xC0Xph/twinkling.png') repeat top center;
-            background-size: contain;
-            z-index: -1;
-            animation: twinkling 5s linear infinite;
+            animation: starsMove 100s linear infinite;
         }
 
         @keyframes starsMove {
-            from { transform: translateY(0); }
-            to { transform: translateY(-1000px); }
+            from { background-position: 0 0; }
+            to { background-position: -1000px -1000px; }
+        }
+
+        /* Twinkling Stars Overlay */
+        .twinkling {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent url('https://i.postimg.cc/02DHP7TB/bryan-goff-f7-YQo-e-YHd-M-unsplash.jpg') repeat;
+            background-size: cover;
+            z-index: -1;
+            animation: twinkling 200s linear infinite;
         }
 
         @keyframes twinkling {
-            0% { opacity: 0.5; }
+            from { opacity: 0.8; }
             50% { opacity: 1; }
-            100% { opacity: 0.5; }
+            to { opacity: 0.8; }
         }
 
         /* Navbar */
@@ -283,23 +282,19 @@
             width: 100%;
             max-width: 800px;
             margin: 0 auto;
-            padding-bottom: 50px;
+            overflow: hidden;
         }
 
         .swiper-slide {
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-            border: 2px solid #1E90FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .testimonial-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
         }
 
         .testimonial-content img {
@@ -316,7 +311,6 @@
             line-height: 1.6;
             color: #ADD8E6;
             margin-bottom: 20px;
-            text-align: center;
         }
 
         .testimonial-content h3 {
@@ -514,6 +508,9 @@
     </style>
 </head>
 <body>
+    <!-- Star Background -->
+    <div class="twinkling"></div>
+
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
@@ -703,11 +700,11 @@
         // Initialize Swiper
         var swiper = new Swiper('.swiper-container', {
             loop: true,
+            speed: 800,
             pagination: {
                 el: '.swiper-pagination',
                 clickable: true,
             },
-            effect: 'fade',
             autoplay: {
                 delay: 5000,
             },
