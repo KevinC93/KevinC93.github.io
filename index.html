@@ -23,69 +23,56 @@
         body {
             font-family: 'Open Sans', sans-serif;
             color: #00BFFF; /* Bright blue text color */
-            background-color: #000000; /* Black background */
+            background-color: #000000; /* Fallback black background */
             overflow-x: hidden; /* Prevent horizontal scroll */
             position: relative;
             min-height: 100vh;
         }
 
-        /* Starry Background */
-        body::before {
-            content: '';
+        /* Background Layers */
+        .background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 200vh; /* Extend background for scrolling */
-            background: #000;
-            background-image: radial-gradient(white 1px, transparent 1px);
-            background-size: 3px 3px;
-            z-index: -1;
-            animation: scrollStars 100s linear infinite;
+            height: 100%;
+            overflow: hidden;
+            z-index: -3;
         }
 
-        @keyframes scrollStars {
-            from { background-position: 0 0; }
-            to { background-position: 0 -2000px; }
+        .background .layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Background Stars */
+        .background .stars {
+            background-image: url('https://i.postimg.cc/59FsSw22/alexander-andrews-fs-H1-Kjbdj-E8-unsplash.jpg');
+            animation: starsMove 100s linear infinite;
+        }
+
+        @keyframes starsMove {
+            from { transform: translateY(0); }
+            to { transform: translateY(-1000px); }
         }
 
         /* Twinkling Stars */
-        .stars {
-            position: absolute;
-            width: 100%;
-            height: 200vh;
-            background: transparent;
-            z-index: -1;
+        .background .twinkling {
+            background-image: url('https://i.postimg.cc/02DHP7TB/bryan-goff-f7-YQo-e-YHd-M-unsplash.jpg');
+            animation: twinkling 200s linear infinite, glimmer 5s ease-in-out infinite;
+            opacity: 0.8;
         }
 
-        .stars::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200%;
-            height: 200%;
-            background: transparent;
-            box-shadow:
-                /* Randomly generated stars */
-                50px 200px #fff,
-                150px 80px #fff,
-                250px 300px #fff,
-                350px 150px #fff,
-                450px 400px #fff,
-                550px 250px #fff,
-                650px 100px #fff,
-                750px 350px #fff,
-                850px 50px #fff,
-                950px 200px #fff,
-                /* ... add more stars as needed */
-                1050px 400px #fff,
-                1150px 150px #fff;
-            animation: twinkle 5s infinite;
+        @keyframes twinkling {
+            from { transform: translateY(0); }
+            to { transform: translateY(-2000px); }
         }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.8; }
+        @keyframes glimmer {
+            0%, 100% { opacity: 0.6; }
             50% { opacity: 1; }
         }
 
@@ -102,18 +89,9 @@
             justify-content: space-between;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
         .logo img {
             width: 120px;
             height: auto;
-        }
-
-        .logo a {
-            display: inline-block;
         }
 
         .nav-links {
@@ -131,7 +109,7 @@
         }
 
         .nav-links li a:hover {
-            color: #1E90FF; /* Lighter blue on hover */
+            color: #1E90FF;
             transform: scale(1.05);
         }
 
@@ -143,7 +121,7 @@
             justify-content: center;
             text-align: center;
             color: #00BFFF;
-            padding-top: 80px; /* To prevent overlap with navbar */
+            padding-top: 80px;
         }
 
         .header-content h1 {
@@ -157,7 +135,7 @@
         .header-content .tagline {
             font-size: 1.5em;
             margin-bottom: 40px;
-            color: #ADD8E6; /* Light blue for tagline */
+            color: #ADD8E6;
             animation: fadeInUp 2s;
             text-shadow: 1px 1px 2px #000;
         }
@@ -272,7 +250,7 @@
 
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             max-width: 800px;
@@ -532,13 +510,15 @@
     </style>
 </head>
 <body>
-    <!-- Stars Overlay -->
-    <div class="stars"></div>
+    <!-- Background Layers -->
+    <div class="background">
+        <div class="layer stars"></div>
+        <div class="layer twinkling"></div>
+    </div>
 
     <!-- Navbar -->
     <nav class="navbar">
         <div class="logo">
-            <!-- Logo -->
             <a href="#">
                 <img src="https://i.postimg.cc/jqQzcMyc/white-logo.png" alt="ShowBiz AI Logo">
             </a>
