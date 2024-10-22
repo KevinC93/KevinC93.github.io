@@ -41,12 +41,17 @@
             background: url('https://i.postimg.cc/59FsSw22/alexander-andrews-fs-H1-Kjbdj-E8-unsplash.jpg') repeat;
             background-size: cover;
             z-index: -2;
-            animation: starsMove 100s linear infinite;
+            animation: starsMove 100s linear infinite, brightnessAnim 5s ease-in-out infinite;
         }
 
         @keyframes starsMove {
             from { background-position: 0 0; }
             to { background-position: -1000px -1000px; }
+        }
+
+        @keyframes brightnessAnim {
+            0%, 100% { filter: brightness(1.5); }
+            50% { filter: brightness(2); }
         }
 
         /* Twinkling Stars Overlay */
@@ -59,13 +64,7 @@
             background: transparent url('https://i.postimg.cc/02DHP7TB/bryan-goff-f7-YQo-e-YHd-M-unsplash.jpg') repeat;
             background-size: cover;
             z-index: -1;
-            animation: twinkling 200s linear infinite;
-        }
-
-        @keyframes twinkling {
-            from { opacity: 0.8; }
-            50% { opacity: 1; }
-            to { opacity: 0.8; }
+            animation: twinkling 200s linear infinite, brightnessAnim 5s ease-in-out infinite;
         }
 
         /* Navbar */
@@ -75,7 +74,7 @@
             width: 100%;
             top: 0;
             z-index: 10;
-            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            background-color: transparent;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -106,6 +105,7 @@
             color: #00BFFF;
             font-weight: 600;
             transition: color 0.3s ease, transform 0.3s ease;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .nav-links li a:hover {
@@ -129,6 +129,7 @@
             font-size: 4em;
             margin-bottom: 20px;
             animation: fadeInDown 1.5s;
+            text-shadow: 2px 2px 4px #000;
         }
 
         .header-content .tagline {
@@ -136,6 +137,7 @@
             margin-bottom: 40px;
             color: #ADD8E6; /* Light blue for tagline */
             animation: fadeInUp 2s;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .cta-button {
@@ -157,7 +159,6 @@
         /* Sections */
         section {
             padding: 80px 0;
-            background-color: rgba(0, 0, 0, 0.7);
             color: #00BFFF;
         }
 
@@ -166,6 +167,7 @@
             margin-bottom: 20px;
             color: #1E90FF;
             text-align: center;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .description p {
@@ -175,6 +177,7 @@
             margin: 0 auto;
             text-align: center;
             color: #ADD8E6;
+            text-shadow: 1px 1px 2px #000;
         }
 
         /* Features */
@@ -183,6 +186,7 @@
             font-size: 2.5em;
             margin-bottom: 60px;
             color: #1E90FF;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .features-grid {
@@ -193,22 +197,21 @@
         }
 
         .feature-item {
-            background-color: rgba(0, 0, 0, 0.7);
             padding: 40px;
             text-align: center;
             flex: 1;
             min-width: 280px;
             max-width: 350px;
             border-radius: 10px;
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            transition: transform 0.3s ease;
             box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
             color: #00BFFF;
             animation: fadeInUp 1s;
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
         .feature-item:hover {
             transform: translateY(-10px);
-            background-color: rgba(0, 0, 0, 0.9);
         }
 
         .feature-item .icon img {
@@ -220,18 +223,19 @@
             font-size: 1.8em;
             margin-bottom: 15px;
             color: #1E90FF;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .feature-item p {
             font-size: 1em;
             line-height: 1.6;
             color: #ADD8E6;
+            text-shadow: 1px 1px 2px #000;
         }
 
         /* Video Section */
         .video-section {
             padding: 80px 0;
-            background-color: rgba(0, 0, 0, 0.7);
             color: #00BFFF;
             text-align: center;
         }
@@ -241,6 +245,7 @@
             margin-bottom: 40px;
             color: #1E90FF;
             animation: fadeInUp 1s;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .video-container {
@@ -266,7 +271,6 @@
         /* Testimonials Section */
         .testimonials {
             padding: 80px 0;
-            background-color: rgba(0, 0, 0, 0.7);
             color: #00BFFF;
             text-align: center;
         }
@@ -276,6 +280,7 @@
             margin-bottom: 40px;
             color: #1E90FF;
             animation: fadeInUp 1s;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .swiper-container {
@@ -295,6 +300,10 @@
             max-width: 700px;
             margin: 0 auto;
             text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
         }
 
         .testimonial-content img {
@@ -303,7 +312,6 @@
             border-radius: 50%;
             margin-bottom: 20px;
             object-fit: cover;
-            animation: bounce 2s infinite;
         }
 
         .testimonial-content p {
@@ -311,16 +319,19 @@
             line-height: 1.6;
             color: #ADD8E6;
             margin-bottom: 20px;
+            text-shadow: 1px 1px 2px #000;
         }
 
         .testimonial-content h3 {
             font-size: 1.5em;
             color: #00BFFF;
+            text-shadow: 1px 1px 2px #000;
         }
 
         /* Waitlist */
         .waitlist h2 {
             margin-bottom: 40px;
+            text-shadow: 1px 1px 2px #000;
         }
 
         form {
@@ -339,7 +350,7 @@
             border: 1px solid #4D4D4D;
             border-radius: 30px;
             font-size: 1em;
-            background-color: #2D2D2D;
+            background-color: rgba(0, 0, 0, 0.5);
             color: #FFFFFF;
             transition: border-color 0.3s ease;
         }
@@ -375,7 +386,7 @@
 
         /* Footer */
         footer {
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.5);
             color: #ADD8E6;
             padding: 40px 0;
             text-align: center;
@@ -410,15 +421,6 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-15px);
             }
         }
 
