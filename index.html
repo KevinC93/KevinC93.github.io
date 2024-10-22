@@ -28,44 +28,28 @@
             overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        /* Outer Space Background with Animated Stars */
-        .stars, .stars2, .stars3 {
-            position: fixed;
+        /* Parallax Background */
+        .parallax {
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .parallax__layer {
+            position: absolute;
             top: 0;
             left: 0;
-            width: 200%;
-            height: 200%;
-            background: transparent;
-            z-index: 0;
+            right: 0;
+            bottom: 0;
         }
 
-        .stars {
+        .parallax__layer--back {
             background: url('https://www.script-tutorials.com/demos/360/images/stars.png') repeat top center;
-            animation: animStar 50s linear infinite;
+            transform: translateZ(-1px) scale(2);
+            z-index: 1;
         }
 
-        .stars2 {
-            background: url('https://www.script-tutorials.com/demos/360/images/stars2.png') repeat top center;
-            animation: animStar 100s linear infinite;
-        }
-
-        .stars3 {
-            background: url('https://www.script-tutorials.com/demos/360/images/stars3.png') repeat top center;
-            animation: animStar 150s linear infinite;
-        }
-
-        @keyframes animStar {
-            from { transform: translateY(0); }
-            to { transform: translateY(-1000px); }
-        }
-
-        /* Container */
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2; /* Place above the background */
+        .parallax__layer--base {
+            z-index: 2;
         }
 
         /* Navbar */
@@ -74,7 +58,7 @@
             position: fixed;
             width: 100%;
             top: 0;
-            z-index: 3;
+            z-index: 5;
             background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
             display: flex;
             align-items: center;
@@ -115,7 +99,7 @@
 
         /* Header */
         header {
-            min-height: 100vh; /* Changed from height to min-height */
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -129,7 +113,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 4em;
             margin-bottom: 20px;
-            animation: bounceInDown 1.5s;
+            animation: fadeInDown 1.5s;
         }
 
         .header-content .tagline {
@@ -158,8 +142,19 @@
         /* Sections */
         section {
             padding: 80px 0;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: transparent;
             color: #00BFFF;
+            position: relative;
+        }
+
+        .section-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
         }
 
         .description, .waitlist {
@@ -189,7 +184,7 @@
 
         /* Features */
         .features {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: transparent;
         }
 
         .features h2 {
@@ -228,7 +223,50 @@
         .feature-item .icon img {
             width: 80px;
             margin-bottom: 20px;
-            animation: rotate 10s linear infinite;
+            /* Removed rotating animation */
+        }
+
+        .feature-item .icon {
+            position: relative;
+        }
+
+        /* Cartoony Animations */
+        .feature-item .icon::before,
+        .feature-item .icon::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: url('https://i.postimg.cc/43YhYgKk/star.png') no-repeat center;
+            background-size: contain;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .feature-item .icon::before {
+            top: -20px;
+            left: -20px;
+            animation-delay: 0s;
+        }
+
+        .feature-item .icon::after {
+            bottom: -20px;
+            right: -20px;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-20px);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(0px);
+                opacity: 1;
+            }
         }
 
         .feature-item h3 {
@@ -246,9 +284,14 @@
         /* Video Section */
         .video-section {
             padding: 80px 0;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: transparent;
             color: #00BFFF;
             text-align: center;
+            position: relative;
+        }
+
+        .video-section .section-background {
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         .video-section h2 {
@@ -281,9 +324,14 @@
         /* Testimonials Section */
         .testimonials {
             padding: 80px 0;
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: transparent;
             color: #00BFFF;
             text-align: center;
+            position: relative;
+        }
+
+        .testimonials .section-background {
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         .testimonials h2 {
@@ -307,28 +355,7 @@
             box-shadow: 0px 8px 15px rgba(0, 191, 255, 0.2);
             position: relative;
             overflow: hidden;
-        }
-
-        /* Cartoon Border */
-        .swiper-slide::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            right: -10px;
-            bottom: -10px;
-            background: url('https://i.postimg.cc/PxMsCtqB/cartoon-border.png') repeat;
-            z-index: -1;
-            animation: borderAnimation 5s linear infinite;
-        }
-
-        @keyframes borderAnimation {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            border: 2px solid #1E90FF; /* Added border around carousel slides */
         }
 
         .testimonial-content {
@@ -443,21 +470,23 @@
             }
         }
 
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @keyframes bounce {
             0%, 100% {
                 transform: translateY(0);
             }
             50% {
                 transform: translateY(-15px);
-            }
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
             }
         }
 
@@ -547,175 +576,180 @@
     </style>
 </head>
 <body>
-    <!-- Background Layers -->
-    <div class="stars"></div>
-    <div class="stars2"></div>
-    <div class="stars3"></div>
+    <!-- Parallax Background -->
+    <div class="parallax">
+        <div class="parallax__layer parallax__layer--back"></div>
+        <div class="parallax__layer parallax__layer--base">
+            <!-- Header Section -->
+            <header>
+                <nav class="navbar">
+                    <div class="logo">
+                        <!-- Logo -->
+                        <a href="#">
+                            <img src="https://i.postimg.cc/jqQzcMyc/white-logo.png" alt="ShowBiz AI Logo">
+                        </a>
+                    </div>
+                    <ul class="nav-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#waitlist">Waitlist</a></li>
+                        <li><a href="mailto:officialshowbizai@gmail.com">Contact</a></li>
+                    </ul>
+                    <!-- Hamburger Menu -->
+                    <div class="hamburger">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </nav>
+                <div class="header-content animate__animated animate__fadeIn">
+                    <div class="container">
+                        <h1>ShowBiz AI</h1>
+                        <p class="tagline">Using AI to Simplify Animated Content Creation</p>
+                        <a href="#waitlist" class="cta-button">Join Our Waitlist</a>
+                    </div>
+                </div>
+            </header>
 
-    <!-- Header Section -->
-    <header>
-        <nav class="navbar">
-            <div class="logo">
-                <!-- Logo -->
-                <a href="#">
-                    <img src="https://i.postimg.cc/jqQzcMyc/white-logo.png" alt="ShowBiz AI Logo">
-                </a>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#testimonials">Testimonials</a></li>
-                <li><a href="#waitlist">Waitlist</a></li>
-                <li><a href="mailto:officialshowbizai@gmail.com">Contact</a></li>
-            </ul>
-            <!-- Hamburger Menu -->
-            <div class="hamburger">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-        </nav>
-        <div class="header-content animate__animated animate__fadeIn">
-            <div class="container">
-                <h1>ShowBiz AI</h1>
-                <p class="tagline">Using AI to Simplify Animated Content Creation</p>
-                <a href="#waitlist" class="cta-button">Join Our Waitlist</a>
-            </div>
+            <!-- Main Content -->
+            <main>
+                <!-- Description Section -->
+                <section class="description">
+                    <div class="section-background"></div>
+                    <div class="container">
+                        <h2>What We Do</h2>
+                        <p>We are a text-to-animation software, leveraging AI to streamline the entire process of making animated content for TV, film, game development, and more!</p>
+                    </div>
+                </section>
+
+                <!-- Video Section -->
+                <section class="video-section">
+                    <div class="section-background"></div>
+                    <div class="container">
+                        <h2>See It In Action</h2>
+                        <div class="video-container">
+                            <!-- Video Placeholder -->
+                            <!-- Replace 'your-video-url.mp4' with your actual video URL -->
+                            <!-- For YouTube/Vimeo, you can use an iframe -->
+                            <!--
+                            <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
+                            -->
+                            <!-- Placeholder Video -->
+                            <video controls poster="https://via.placeholder.com/800x450.png?text=ShowBiz+AI+Demo">
+                                <source src="your-video-url.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section class="features" id="features">
+                    <div class="section-background"></div>
+                    <div class="container">
+                        <h2>Key Features</h2>
+                        <div class="features-grid">
+                            <div class="feature-item animate__animated animate__zoomIn">
+                                <div class="icon">
+                                    <!-- Replace with your icon URL -->
+                                    <img src="https://i.postimg.cc/8cRZ1p1P/cartoon-rocket.png" alt="3D Asset Creation">
+                                </div>
+                                <h3>3D Asset Creation</h3>
+                                <p>Create stunning 3D assets with ease using our AI-powered tools.</p>
+                            </div>
+                            <div class="feature-item animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
+                                <div class="icon">
+                                    <!-- Replace with your icon URL -->
+                                    <img src="https://i.postimg.cc/4dHDZGxg/cartoon-robot.png" alt="AI-Driven Animation">
+                                </div>
+                                <h3>AI-Driven Animation</h3>
+                                <p>Our AI is trained on animation principles to bring your creations to life.</p>
+                            </div>
+                            <!-- Add more features as needed -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Testimonials Section -->
+                <section class="testimonials" id="testimonials">
+                    <div class="section-background"></div>
+                    <div class="container">
+                        <h2>What Our Users Say</h2>
+                        <!-- Swiper -->
+                        <div class="swiper-container">
+                            <div class="swiper-wrapper">
+                                <!-- Testimonial 1 -->
+                                <div class="swiper-slide">
+                                    <div class="testimonial-content">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Photo">
+                                        <p>"ShowBiz AI has revolutionized the way I create animations. The AI-driven tools are intuitive and powerful!"</p>
+                                        <h3>- Alex Turner, Animator</h3>
+                                    </div>
+                                </div>
+                                <!-- Testimonial 2 -->
+                                <div class="swiper-slide">
+                                    <div class="testimonial-content">
+                                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Photo">
+                                        <p>"As a game developer, integrating 3D assets has never been easier. ShowBiz AI is a game-changer."</p>
+                                        <h3>- Lisa Wong, Game Developer</h3>
+                                    </div>
+                                </div>
+                                <!-- Testimonial 3 -->
+                                <div class="swiper-slide">
+                                    <div class="testimonial-content">
+                                        <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="User Photo">
+                                        <p>"The text-to-animation feature saved me countless hours. Highly recommend ShowBiz AI."</p>
+                                        <h3>- Michael Lee, Filmmaker</h3>
+                                    </div>
+                                </div>
+                                <!-- Add more testimonials as needed -->
+                            </div>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Add Navigation Arrows -->
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Waitlist Section -->
+                <section class="waitlist" id="waitlist">
+                    <div class="section-background"></div>
+                    <div class="container">
+                        <h2>Join Our Waitlist</h2>
+                        <form action="https://formspree.io/f/xzzbbqqw" method="POST" class="animate__animated animate__fadeInUp">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group">
+                                <select name="profession" required>
+                                    <option value="" disabled selected>Profession</option>
+                                    <option value="Animator">Animator</option>
+                                    <option value="Game Developer">Game Developer</option>
+                                    <option value="Filmmaker">Filmmaker</option>
+                                    <option value="Hobbyist">Hobbyist</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="submit-button">Sign Up</button>
+                        </form>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Footer Section -->
+            <footer>
+                <div class="container">
+                    <p>© 2023 ShowBiz AI. All rights reserved.</p>
+                    <p>Contact us at <a href="mailto:officialshowbizai@gmail.com">officialshowbizai@gmail.com</a></p>
+                </div>
+            </footer>
         </div>
-    </header>
-
-    <!-- Main Content -->
-    <main>
-        <!-- Description Section -->
-        <section class="description">
-            <div class="container">
-                <h2>What We Do</h2>
-                <p>We are a text-to-animation software, leveraging AI to streamline the entire process of making animated content for TV, film, game development, and more!</p>
-            </div>
-        </section>
-
-        <!-- Video Section -->
-        <section class="video-section">
-            <div class="container">
-                <h2>See It In Action</h2>
-                <div class="video-container">
-                    <!-- Video Placeholder -->
-                    <!-- Replace 'your-video-url.mp4' with your actual video URL -->
-                    <!-- For YouTube/Vimeo, you can use an iframe -->
-                    <!-- Example for YouTube: -->
-                    <!--
-                    <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
-                    -->
-                    <!-- Placeholder Video -->
-                    <video controls poster="https://via.placeholder.com/800x450.png?text=ShowBiz+AI+Demo">
-                        <source src="your-video-url.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-            </div>
-        </section>
-
-        <!-- Features Section -->
-        <section class="features" id="features">
-            <div class="container">
-                <h2>Key Features</h2>
-                <div class="features-grid">
-                    <div class="feature-item animate__animated animate__zoomIn">
-                        <div class="icon">
-                            <!-- Replace with your icon URL -->
-                            <img src="https://via.placeholder.com/80.png?text=3D" alt="3D Asset Creation">
-                        </div>
-                        <h3>3D Asset Creation</h3>
-                        <p>Create stunning 3D assets with ease using our AI-powered tools.</p>
-                    </div>
-                    <div class="feature-item animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
-                        <div class="icon">
-                            <!-- Replace with your icon URL -->
-                            <img src="https://via.placeholder.com/80.png?text=AI" alt="AI-Driven Animation">
-                        </div>
-                        <h3>AI-Driven Animation</h3>
-                        <p>Our AI is trained on animation principles to bring your creations to life.</p>
-                    </div>
-                    <!-- Add more features as needed -->
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonials Section -->
-        <section class="testimonials" id="testimonials">
-            <div class="container">
-                <h2>What Our Users Say</h2>
-                <!-- Swiper -->
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
-                        <!-- Testimonial 1 -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-content">
-                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Photo">
-                                <p>"ShowBiz AI has revolutionized the way I create animations. The AI-driven tools are intuitive and powerful!"</p>
-                                <h3>- Alex Turner, Animator</h3>
-                            </div>
-                        </div>
-                        <!-- Testimonial 2 -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-content">
-                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Photo">
-                                <p>"As a game developer, integrating 3D assets has never been easier. ShowBiz AI is a game-changer."</p>
-                                <h3>- Lisa Wong, Game Developer</h3>
-                            </div>
-                        </div>
-                        <!-- Testimonial 3 -->
-                        <div class="swiper-slide">
-                            <div class="testimonial-content">
-                                <img src="https://randomuser.me/api/portraits/men/65.jpg" alt="User Photo">
-                                <p>"The text-to-animation feature saved me countless hours. Highly recommend ShowBiz AI."</p>
-                                <h3>- Michael Lee, Filmmaker</h3>
-                            </div>
-                        </div>
-                        <!-- Add more testimonials as needed -->
-                    </div>
-                    <!-- Add Pagination -->
-                    <div class="swiper-pagination"></div>
-                    <!-- Add Navigation Arrows -->
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Waitlist Section -->
-        <section class="waitlist" id="waitlist">
-            <div class="container">
-                <h2>Join Our Waitlist</h2>
-                <form action="https://formspree.io/f/xzzbbqqw" method="POST" class="animate__animated animate__fadeInUp">
-                    <div class="form-group">
-                        <input type="text" name="name" placeholder="Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" name="email" placeholder="Email" required>
-                    </div>
-                    <div class="form-group">
-                        <select name="profession" required>
-                            <option value="" disabled selected>Profession</option>
-                            <option value="Animator">Animator</option>
-                            <option value="Game Developer">Game Developer</option>
-                            <option value="Filmmaker">Filmmaker</option>
-                            <option value="Hobbyist">Hobbyist</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="submit-button">Sign Up</button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer Section -->
-    <footer>
-        <div class="container">
-            <p>© 2023 ShowBiz AI. All rights reserved.</p>
-            <p>Contact us at <a href="mailto:officialshowbizai@gmail.com">officialshowbizai@gmail.com</a></p>
-        </div>
-    </footer>
+    </div>
 
     <!-- JavaScript -->
     <!-- Swiper JS for Carousel -->
@@ -759,6 +793,13 @@
             autoplay: {
                 delay: 5000,
             },
+        });
+
+        // Parallax Scrolling Effect
+        document.addEventListener('scroll', function() {
+            const scrolledHeight = window.pageYOffset;
+            const parallax = document.querySelector('.parallax__layer--back');
+            parallax.style.transform = 'translateY(' + scrolledHeight * 0.5 + 'px)';
         });
     </script>
 </body>
