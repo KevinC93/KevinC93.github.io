@@ -24,45 +24,60 @@
             font-family: 'Open Sans', sans-serif;
             color: #00BFFF; /* Bright blue text color */
             background-color: #000000; /* Black background */
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            position: relative;
-            min-height: 100vh;
             background-image: url('https://i.postimg.cc/59FsSw22/alexander-andrews-fs-H1-Kjbdj-E8-unsplash.jpg');
-            background-attachment: scroll;
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
+            background-attachment: scroll; /* Background moves with scroll */
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            min-height: 100vh;
+            position: relative;
         }
 
-        /* Twinkling Stars Overlay */
-        .twinkling {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            background: transparent url('https://i.postimg.cc/02DHP7TB/bryan-goff-f7-YQo-e-YHd-M-unsplash.jpg') repeat;
-            background-size: cover;
-            z-index: -1;
-        }
-
-        /* Twinkling Effect */
-        .twinkling::after {
-            content: '';
-            position: absolute;
+        /* Stars Overlay */
+        .stars {
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background: transparent;
-            background-image: radial-gradient(circle, #ffffff 2px, transparent 2px);
-            background-size: 3px 3px;
-            animation: twinkling 2s infinite ease-in-out;
+            pointer-events: none;
+            z-index: -1;
         }
 
-        @keyframes twinkling {
-            0%, 100% { opacity: 0.5; }
+        .stars::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: transparent;
+            box-shadow: 
+                10px 20px #fff,
+                50px 100px #fff,
+                100px 150px #fff,
+                150px 200px #fff,
+                200px 250px #fff,
+                250px 300px #fff,
+                300px 350px #fff,
+                350px 400px #fff,
+                400px 450px #fff,
+                450px 500px #fff,
+                500px 550px #fff,
+                550px 600px #fff,
+                600px 650px #fff,
+                650px 700px #fff,
+                700px 750px #fff,
+                750px 800px #fff,
+                800px 850px #fff,
+                850px 900px #fff,
+                900px 950px #fff,
+                950px 1000px #fff;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
             50% { opacity: 1; }
         }
 
@@ -99,7 +114,7 @@
         }
 
         .nav-links li a:hover {
-            color: #1E90FF; /* Lighter blue on hover */
+            color: #1E90FF;
             transform: scale(1.05);
         }
 
@@ -111,7 +126,7 @@
             justify-content: center;
             text-align: center;
             color: #00BFFF;
-            padding-top: 80px; /* To prevent overlap with navbar */
+            padding-top: 80px;
         }
 
         .header-content h1 {
@@ -125,7 +140,7 @@
         .header-content .tagline {
             font-size: 1.5em;
             margin-bottom: 40px;
-            color: #ADD8E6; /* Light blue for tagline */
+            color: #ADD8E6;
             animation: fadeInUp 2s;
             text-shadow: 1px 1px 2px #000;
         }
@@ -240,7 +255,7 @@
 
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             max-width: 800px;
@@ -500,8 +515,8 @@
     </style>
 </head>
 <body>
-    <!-- Twinkling Stars Overlay -->
-    <div class="twinkling"></div>
+    <!-- Stars Overlay -->
+    <div class="stars"></div>
 
     <!-- Navbar -->
     <nav class="navbar">
