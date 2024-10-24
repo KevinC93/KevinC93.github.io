@@ -24,35 +24,61 @@
             font-family: 'Open Sans', sans-serif;
             color: #00BFFF; /* Bright blue text color */
             background-color: #000000; /* Black background */
-            overflow-y: auto; /* Enable vertical scrolling */
+            background-image: url('https://i.postimg.cc/59FsSw22/alexander-andrews-fs-H1-Kjbdj-E8-unsplash.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: scroll; /* Background moves with scroll */
             overflow-x: hidden; /* Prevent horizontal scroll */
-            position: relative;
             min-height: 100vh;
+            position: relative;
         }
 
-        /* Background Stars */
-        body::before {
-            content: '';
+        /* Stars Overlay */
+        .stars {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://i.postimg.cc/59FsSw22/alexander-andrews-fs-H1-Kjbdj-E8-unsplash.jpg') repeat;
-            background-size: cover;
-            z-index: -2;
-        }
-
-        /* Twinkling Stars Overlay */
-        .twinkling {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent url('https://i.postimg.cc/02DHP7TB/bryan-goff-f7-YQo-e-YHd-M-unsplash.jpg') repeat;
-            background-size: cover;
+            background: transparent;
+            pointer-events: none;
             z-index: -1;
+        }
+
+        .stars::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: transparent;
+            box-shadow: 
+                10px 20px #fff,
+                50px 100px #fff,
+                100px 150px #fff,
+                150px 200px #fff,
+                200px 250px #fff,
+                250px 300px #fff,
+                300px 350px #fff,
+                350px 400px #fff,
+                400px 450px #fff,
+                450px 500px #fff,
+                500px 550px #fff,
+                550px 600px #fff,
+                600px 650px #fff,
+                650px 700px #fff,
+                700px 750px #fff,
+                750px 800px #fff,
+                800px 850px #fff,
+                850px 900px #fff,
+                900px 950px #fff,
+                950px 1000px #fff;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
         }
 
         /* Navbar */
@@ -68,18 +94,9 @@
             justify-content: space-between;
         }
 
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
         .logo img {
             width: 120px;
             height: auto;
-        }
-
-        .logo a {
-            display: inline-block;
         }
 
         .nav-links {
@@ -97,7 +114,7 @@
         }
 
         .nav-links li a:hover {
-            color: #1E90FF; /* Lighter blue on hover */
+            color: #1E90FF;
             transform: scale(1.05);
         }
 
@@ -109,7 +126,7 @@
             justify-content: center;
             text-align: center;
             color: #00BFFF;
-            padding-top: 80px; /* To prevent overlap with navbar */
+            padding-top: 80px;
         }
 
         .header-content h1 {
@@ -123,7 +140,7 @@
         .header-content .tagline {
             font-size: 1.5em;
             margin-bottom: 40px;
-            color: #ADD8E6; /* Light blue for tagline */
+            color: #ADD8E6;
             animation: fadeInUp 2s;
             text-shadow: 1px 1px 2px #000;
         }
@@ -146,7 +163,7 @@
 
         /* Sections */
         section {
-            padding: 80px 0;
+            padding: 80px 20px;
             color: #00BFFF;
         }
 
@@ -205,6 +222,7 @@
         .feature-item .icon img {
             width: 80px;
             margin-bottom: 20px;
+            border-radius: 50%;
         }
 
         .feature-item h3 {
@@ -238,7 +256,7 @@
 
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             max-width: 800px;
@@ -498,8 +516,8 @@
     </style>
 </head>
 <body>
-    <!-- Star Background -->
-    <div class="twinkling"></div>
+    <!-- Stars Overlay -->
+    <div class="stars"></div>
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -549,8 +567,17 @@
             <div class="container">
                 <h2>See It In Action</h2>
                 <div class="video-container">
-                    <!-- Embedded YouTube Video -->
-                    <iframe src="https://www.youtube.com/embed/3G6WcDJxqVI" frameborder="0" allowfullscreen></iframe>
+                    <!-- Video Placeholder -->
+                    <!-- Replace 'your-video-url.mp4' with your actual video URL -->
+                    <!-- For YouTube/Vimeo, you can use an iframe -->
+                    <!--
+                    <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
+                    -->
+                    <!-- Placeholder Video -->
+                    <video controls poster="https://via.placeholder.com/800x450.png?text=ShowBiz+AI+Demo">
+                        <source src="your-video-url.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </section>
@@ -562,16 +589,16 @@
                 <div class="features-grid">
                     <div class="feature-item animate__animated animate__zoomIn">
                         <div class="icon">
-                            <!-- Using your logo as placeholder -->
-                            <img src="https://i.postimg.cc/jqQzcMyc/white-logo.png" alt="Feature Image">
+                            <!-- 3D Asset Creation Image -->
+                            <img src="https://i.postimg.cc/mD5sP2vh/Screenshot-2024-10-24-122152.png" alt="3D Asset Creation">
                         </div>
                         <h3>3D Asset Creation</h3>
                         <p>Create stunning 3D assets with ease using our AI-powered tools.</p>
                     </div>
                     <div class="feature-item animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
                         <div class="icon">
-                            <!-- Using your logo as placeholder -->
-                            <img src="https://i.postimg.cc/jqQzcMyc/white-logo.png" alt="Feature Image">
+                            <!-- AI-Driven Animation Image -->
+                            <img src="https://i.postimg.cc/LXXS4Z0r/Screenshot-2024-10-24-122050.png" alt="AI-Driven Animation">
                         </div>
                         <h3>AI-Driven Animation</h3>
                         <p>Our AI is trained on animation principles to bring your creations to life.</p>
