@@ -36,22 +36,21 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 200%;
+            height: 200%;
             background: url('https://i.postimg.cc/59FsSw22/alexander-andrews-fs-H1-Kjbdj-E8-unsplash.jpg') repeat;
             background-size: cover;
             z-index: -2;
-            animation: starsMove 100s linear infinite, brightnessAnim 5s ease-in-out infinite;
+            animation: starsMove 200s linear infinite;
         }
 
         @keyframes starsMove {
-            from { background-position: 0 0; }
-            to { background-position: -1000px -1000px; }
-        }
-
-        @keyframes brightnessAnim {
-            0%, 100% { filter: brightness(1.5); }
-            50% { filter: brightness(2); }
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(-50%, -50%);
+            }
         }
 
         /* Twinkling Stars Overlay */
@@ -59,12 +58,21 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 200%;
+            height: 200%;
             background: transparent url('https://i.postimg.cc/02DHP7TB/bryan-goff-f7-YQo-e-YHd-M-unsplash.jpg') repeat;
             background-size: cover;
             z-index: -1;
-            animation: twinkling 200s linear infinite, brightnessAnim 5s ease-in-out infinite;
+            animation: twinkling 100s linear infinite;
+        }
+
+        @keyframes twinkling {
+            from {
+                transform: translate(0, 0);
+            }
+            to {
+                transform: translate(50%, 50%);
+            }
         }
 
         /* Navbar */
@@ -561,17 +569,8 @@
             <div class="container">
                 <h2>See It In Action</h2>
                 <div class="video-container">
-                    <!-- Video Placeholder -->
-                    <!-- Replace 'your-video-url.mp4' with your actual video URL -->
-                    <!-- For YouTube/Vimeo, you can use an iframe -->
-                    <!--
-                    <iframe src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
-                    -->
-                    <!-- Placeholder Video -->
-                    <video controls poster="https://via.placeholder.com/800x450.png?text=ShowBiz+AI+Demo">
-                        <source src="your-video-url.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    <!-- Embedded Google Drive Video -->
+                    <iframe src="https://drive.google.com/file/d/1rEOX3GFNRBFzo2KpKA990hXWhvyndFBD/preview" width="100%" height="100%" allow="autoplay"></iframe>
                 </div>
             </div>
         </section>
