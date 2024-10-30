@@ -7,261 +7,492 @@
     <meta name="description" content="Sameday Cleaning offers professional residential and commercial cleaning services in Montreal and surrounding areas.">
     <meta name="keywords" content="cleaning, residential cleaning, commercial cleaning, carpet cleaning, window cleaning, couch cleaning, de-cluttering, organizing, junk removal, painting, Montreal cleaning services">
     <style>
-        body {
+        /* CSS Reset */
+        * {
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
         }
+        /* Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        /* Navigation */
         header {
-            background-color: #0d47a1;
-            color: #fff;
+            position: fixed;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
             padding: 20px 0;
-            text-align: center;
-            position: sticky;
-            top: 0;
             z-index: 1000;
         }
-        header img {
-            max-width: 150px;
-        }
-        nav {
-            margin: 0 auto;
+        header nav {
             display: flex;
-            justify-content: center;
-            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            width: 85%;
+            margin: auto;
         }
-        nav a {
+        header nav a.logo {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        header nav ul {
+            list-style: none;
+            display: flex;
+        }
+        header nav ul li {
+            margin-left: 30px;
+        }
+        header nav ul li a {
             color: #fff;
             text-decoration: none;
-            padding: 8px 15px;
+            font-weight: 300;
+            transition: color 0.3s;
         }
-        nav a:hover {
-            background-color: #1565c0;
-            border-radius: 5px;
+        header nav ul li a:hover {
+            color: #00aaff;
         }
-        section {
-            padding: 60px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+        /* Hero Section */
         .hero {
-            background-image: url('https://via.placeholder.com/1200x600');
-            background-size: cover;
-            background-position: center;
+            width: 100%;
+            height: 100vh;
+            background: url('YOUR_HERO_IMAGE_OR_VIDEO_URL') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: #fff;
             text-align: center;
-            padding: 100px 20px;
+            position: relative;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
         }
         .hero h1 {
             font-size: 48px;
             margin-bottom: 20px;
         }
-        .services, .testimonials, .faqs, .contact {
-            background-color: #fff;
-            margin-bottom: 20px;
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        .hero a {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #00aaff;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
             border-radius: 5px;
-            padding: 40px;
+            transition: background 0.3s;
         }
-        .services h2, .testimonials h2, .faqs h2, .contact h2 {
+        .hero a:hover {
+            background: #0088cc;
+        }
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .services h2 {
             text-align: center;
-            margin-bottom: 40px;
-            color: #0d47a1;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #333;
         }
-        .service-item {
+        .services .service-container {
             display: flex;
-            margin-bottom: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            width: 85%;
+            margin: auto;
         }
-        .service-item img {
-            width: 100px;
-            margin-right: 20px;
-        }
-        .testimonial-carousel {
-            position: relative;
+        .services .service-item {
+            background: #f9f9f9;
+            border-radius: 10px;
             overflow: hidden;
-            height: 200px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
-        .testimonial {
-            position: absolute;
-            opacity: 0;
-            transition: opacity 1s;
+        .services .service-item img {
             width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .services .service-item h3 {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #00aaff;
+        }
+        .services .service-item p {
+            padding: 0 20px 20px;
+            font-size: 16px;
+            color: #555;
+        }
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background: #f0f8ff;
+        }
+        .testimonials h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #333;
+        }
+        .testimonials .carousel {
+            width: 80%;
+            margin: auto;
+            position: relative;
+        }
+        .testimonials .carousel .slide {
+            display: none;
             text-align: center;
         }
-        .testimonial.active {
-            opacity: 1;
-            position: relative;
+        .testimonials .carousel .slide.active {
+            display: block;
         }
-        .testimonial img {
+        .testimonials .carousel .slide img {
             border-radius: 50%;
-            width: 80px;
-        }
-        .faq-item {
+            width: 100px;
             margin-bottom: 20px;
         }
-        .faq-item h3 {
+        .testimonials .carousel .slide p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .testimonials .carousel .slide strong {
+            font-size: 16px;
+            color: #00aaff;
+        }
+        /* FAQs Section */
+        .faqs {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .faqs h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #333;
+        }
+        .faqs .faq-container {
+            width: 70%;
+            margin: auto;
+        }
+        .faqs .faq-item {
+            margin-bottom: 20px;
+        }
+        .faqs .faq-item h3 {
+            background: #f0f8ff;
+            padding: 15px;
+            font-size: 20px;
+            color: #00aaff;
             cursor: pointer;
-            background-color: #e3f2fd;
-            padding: 10px;
             border-radius: 5px;
         }
-        .faq-item p {
+        .faqs .faq-item p {
             display: none;
-            padding: 10px;
+            padding: 15px;
+            font-size: 16px;
+            color: #555;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        /* Contact Section */
+        .contact {
+            padding: 80px 0;
+            background: #f0f8ff;
+        }
+        .contact h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+            color: #333;
         }
         .contact form {
-            max-width: 600px;
-            margin: 0 auto;
+            width: 60%;
+            margin: auto;
         }
-        .contact input, .contact select, .contact textarea {
+        .contact form .form-group {
+            margin-bottom: 20px;
+        }
+        .contact form .form-group input,
+        .contact form .form-group select,
+        .contact form .form-group textarea {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
         }
-        footer {
-            background-color: #0d47a1;
+        .contact form button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #00aaff;
             color: #fff;
-            text-align: center;
-            padding: 20px 0;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
         }
+        .contact form button:hover {
+            background: #0088cc;
+        }
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 40px 0;
+            text-align: center;
+        }
+        footer p {
+            margin-bottom: 10px;
+        }
+        /* Responsive */
         @media (max-width: 768px) {
-            .service-item {
+            header nav ul {
+                display: none;
+            }
+            header nav .menu-toggle {
+                display: block;
+                color: #fff;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            .services .service-container {
                 flex-direction: column;
                 align-items: center;
             }
-            .service-item img {
-                margin-bottom: 20px;
+            .contact form {
+                width: 85%;
             }
         }
     </style>
 </head>
 <body>
 
+<!-- Navigation -->
 <header>
-    <img src="https://i.postimg.cc/sgL9cgNp/DALL-E-2024-10-30-17-11-14-A-fresh-and-modern-logo-for-a-cleaning-company-named-Sameday-Cleaning.webp" alt="Sameday Cleaning Logo">
     <nav>
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#testimonials">Testimonials</a>
-        <a href="#faqs">FAQs</a>
-        <a href="#contact">Contact Us</a>
+        <a href="#" class="logo">
+            <img src="YOUR_LOGO_URL" alt="Sameday Cleaning Logo" style="height:50px;">
+        </a>
+        <div class="menu-toggle">&#9776;</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#faqs">FAQs</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
     </nav>
 </header>
 
+<!-- Hero Section -->
 <section class="hero" id="home">
-    <h1>Welcome to Sameday Cleaning</h1>
-    <p>Professional Cleaning Services in Montreal and Surrounding Areas</p>
-    <a href="#contact" style="background-color: #1565c0; color: #fff; padding: 15px 25px; text-decoration: none; border-radius: 5px;">Book Now</a>
+    <div class="hero-content">
+        <h1>Your Trusted Cleaning Partner</h1>
+        <p>Creating spotless spaces in Montreal and surrounding areas.</p>
+        <a href="#contact">Book Now</a>
+    </div>
 </section>
 
+<!-- Services Section -->
 <section class="services" id="services">
     <h2>Our Services</h2>
-    <div class="service-item">
-        <img src="https://via.placeholder.com/100" alt="Residential Cleaning">
-        <div>
+    <div class="service-container">
+        <!-- Service Item 1 -->
+        <div class="service-item">
+            <img src="IMAGE_URL_1" alt="Residential Cleaning">
             <h3>Residential Cleaning</h3>
             <p>Keep your home spotless with our thorough residential cleaning services.</p>
         </div>
-    </div>
-    <div class="service-item">
-        <img src="https://via.placeholder.com/100" alt="Commercial Cleaning">
-        <div>
+        <!-- Service Item 2 -->
+        <div class="service-item">
+            <img src="IMAGE_URL_2" alt="Commercial Cleaning">
             <h3>Commercial Cleaning</h3>
             <p>Professional cleaning solutions for your office or commercial space.</p>
         </div>
+        <!-- Service Item 3 -->
+        <div class="service-item">
+            <img src="IMAGE_URL_3" alt="De-cluttering & Organizing">
+            <h3>De-cluttering & Organizing</h3>
+            <p>Organize your space efficiently with our de-cluttering services.</p>
+        </div>
+        <!-- Service Item 4 -->
+        <div class="service-item">
+            <img src="IMAGE_URL_4" alt="Carpet Cleaning">
+            <h3>Carpet Cleaning</h3>
+            <p>Deep-cleaning solutions to make your carpets look brand new.</p>
+        </div>
+        <!-- Service Item 5 -->
+        <div class="service-item">
+            <img src="IMAGE_URL_5" alt="Window Cleaning">
+            <h3>Window Cleaning</h3>
+            <p>Crystal clear windows with our professional cleaning services.</p>
+        </div>
+        <!-- Service Item 6 -->
+        <div class="service-item">
+            <img src="IMAGE_URL_6" alt="Painting Services">
+            <h3>Painting Services</h3>
+            <p>Refresh your space with our professional painting services.</p>
+        </div>
     </div>
-    <!-- Add more service items as needed -->
 </section>
 
+<!-- Testimonials Section -->
 <section class="testimonials" id="testimonials">
     <h2>What Our Clients Say</h2>
-    <div class="testimonial-carousel">
-        <!-- Testimonial 1 -->
-        <div class="testimonial active">
-            <img src="https://via.placeholder.com/80" alt="Client Photo">
-            <p>"Sameday Cleaning did an amazing job! My house has never looked better."</p>
-            <strong>- Emily R.</strong>
+    <div class="carousel">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <img src="TESTIMONIAL_IMAGE_URL_1" alt="Client Photo">
+            <p>"Sameday Cleaning exceeded my expectations! Highly recommend."</p>
+            <strong>- Sarah M.</strong>
         </div>
-        <!-- Testimonial 2 -->
-        <div class="testimonial">
-            <img src="https://via.placeholder.com/80" alt="Client Photo">
-            <p>"Professional and efficient. Highly recommend their services."</p>
-            <strong>- John D.</strong>
+        <!-- Slide 2 -->
+        <div class="slide">
+            <img src="TESTIMONIAL_IMAGE_URL_2" alt="Client Photo">
+            <p>"Professional and reliable service every time."</p>
+            <strong>- David K.</strong>
         </div>
-        <!-- Add more testimonials as needed -->
+        <!-- Add more slides up to 24 as needed -->
     </div>
 </section>
 
+<!-- FAQs Section -->
 <section class="faqs" id="faqs">
     <h2>Frequently Asked Questions</h2>
-    <div class="faq-item">
-        <h3>What areas do you serve?</h3>
-        <p>We serve Montreal, Quebec, and a radius of 50km around it.</p>
+    <div class="faq-container">
+        <div class="faq-item">
+            <h3>What areas do you serve?</h3>
+            <p>We serve Montreal, Quebec, and a radius of 50km around it.</p>
+        </div>
+        <div class="faq-item">
+            <h3>Do you offer same-day bookings?</h3>
+            <p>Yes, we offer same-day bookings for night-time cleaning services.</p>
+        </div>
+        <div class="faq-item">
+            <h3>What services do you provide?</h3>
+            <p>We offer residential and commercial cleaning, carpet cleaning, window cleaning, couch cleaning, de-cluttering, organizing, junk removal, and painting.</p>
+        </div>
+        <div class="faq-item">
+            <h3>How can I book a service?</h3>
+            <p>You can book a service by filling out the form in our Contact Us section or by calling us at 514-558-6114.</p>
+        </div>
     </div>
-    <div class="faq-item">
-        <h3>Do you offer same-day bookings?</h3>
-        <p>Yes, we offer same-day bookings for night-time cleaning services.</p>
-    </div>
-    <!-- Add more FAQs as needed -->
 </section>
 
+<!-- Contact Section -->
 <section class="contact" id="contact">
     <h2>Contact Us</h2>
     <form action="#">
-        <input type="text" name="name" placeholder="Full Name" required>
-        <input type="tel" name="phone" placeholder="Phone Number" required>
-        <input type="email" name="email" placeholder="Email Address">
-        <select name="service" required>
-            <option value="">Select Service Needed</option>
-            <option value="residential">Residential Cleaning</option>
-            <option value="commercial">Commercial Cleaning</option>
-            <!-- Add more options as needed -->
-        </select>
-        <input type="date" name="date" required>
-        <input type="text" name="location" placeholder="Location" required>
-        <select name="cleaning_type" required>
-            <option value="">Type of Cleaning</option>
-            <option value="regular">Regular Clean</option>
-            <option value="deep">Deep Clean</option>
-        </select>
-        <textarea name="message" rows="5" placeholder="Additional Information"></textarea>
-        <button type="submit" style="background-color: #0d47a1; color: #fff; padding: 10px 20px; border: none; border-radius: 5px;">Submit</button>
+        <div class="form-group">
+            <input type="text" name="name" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+        </div>
+        <div class="form-group">
+            <input type="email" name="email" placeholder="Email Address">
+        </div>
+        <div class="form-group">
+            <select name="service" required>
+                <option value="">Select Service Needed</option>
+                <option value="residential">Residential Cleaning</option>
+                <option value="commercial">Commercial Cleaning</option>
+                <option value="carpet">Carpet Cleaning</option>
+                <option value="window">Window Cleaning</option>
+                <option value="declutter">De-cluttering & Organizing</option>
+                <option value="junk_removal">Junk Removal</option>
+                <option value="painting">Painting Services</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <input type="text" name="location" placeholder="Location" required>
+        </div>
+        <div class="form-group">
+            <select name="cleaning_type" required>
+                <option value="">Type of Cleaning</option>
+                <option value="regular">Regular Clean</option>
+                <option value="deep">Deep Clean</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <textarea name="message" rows="5" placeholder="Additional Information"></textarea>
+        </div>
+        <button type="submit">Submit</button>
     </form>
 </section>
 
+<!-- Footer -->
 <footer>
     <p>&copy; 2024 Sameday Cleaning. All rights reserved.</p>
     <p>Phone: 514-558-6114 | Email: info@samedaycleaning.com</p>
 </footer>
 
+<!-- Scripts -->
 <script>
-    // Testimonial Carousel Script
-    let testimonials = document.querySelectorAll('.testimonial');
-    let index = 0;
+    // Mobile Menu Toggle
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('header nav ul');
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
 
-    function showTestimonial() {
-        testimonials.forEach((testimonial, i) => {
-            testimonial.classList.remove('active');
+    // Testimonials Carousel
+    let slides = document.querySelectorAll('.carousel .slide');
+    let currentSlide = 0;
+    function showSlide(index) {
+        slides.forEach((slide, i) => {
+            slide.classList.remove('active');
             if (i === index) {
-                testimonial.classList.add('active');
+                slide.classList.add('active');
             }
         });
-        index = (index + 1) % testimonials.length;
     }
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }, 5000);
 
-    setInterval(showTestimonial, 5000);
-
-    // FAQ Toggle Script
-    let faqItems = document.querySelectorAll('.faq-item h3');
-    faqItems.forEach(faq => {
-        faq.addEventListener('click', () => {
-            faq.nextElementSibling.style.display = faq.nextElementSibling.style.display === 'block' ? 'none' : 'block';
+    // FAQ Toggle
+    const faqItems = document.querySelectorAll('.faq-item h3');
+    faqItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const content = item.nextElementSibling;
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
         });
     });
 
     // Smooth Scrolling
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function(e){
+    const navLinksSmooth = document.querySelectorAll('header nav ul li a');
+    navLinksSmooth.forEach(link => {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
             document.querySelector(this.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
         });
