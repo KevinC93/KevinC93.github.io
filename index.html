@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Sameday Cleaning offers professional residential and commercial cleaning services in Montreal and surrounding areas.">
     <meta name="keywords" content="cleaning, residential cleaning, commercial cleaning, carpet cleaning, window cleaning, couch cleaning, de-cluttering, organizing, junk removal, painting, Montreal cleaning services">
+    <!-- Fonts and Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for stars -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
-        /* CSS Reset */
+        /* Reset and Fonts */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        /* Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
         body {
             font-family: 'Poppins', sans-serif;
             color: #333;
@@ -24,22 +27,19 @@
         header {
             position: fixed;
             width: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 0;
             z-index: 1000;
         }
         header nav {
+            width: 85%;
+            margin: auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 85%;
-            margin: auto;
         }
-        header nav a.logo {
-            color: #fff;
-            font-size: 24px;
-            font-weight: 600;
-            text-decoration: none;
+        header nav .logo img {
+            height: 50px;
         }
         header nav ul {
             list-style: none;
@@ -61,13 +61,16 @@
         .hero {
             width: 100%;
             height: 100vh;
-            background: url('YOUR_HERO_IMAGE_OR_VIDEO_URL') no-repeat center center/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-align: center;
             position: relative;
+            overflow: hidden;
+        }
+        .hero video, .hero iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -1;
         }
         .hero::before {
             content: '';
@@ -77,11 +80,17 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.5);
+            z-index: 0;
         }
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 700px;
+            color: #fff;
+            text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 80%;
+            margin: auto;
         }
         .hero h1 {
             font-size: 48px;
@@ -130,6 +139,10 @@
             width: 300px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .services .service-item:hover {
+            transform: translateY(-10px);
         }
         .services .service-item img {
             width: 100%;
@@ -169,6 +182,10 @@
         .testimonials .carousel .slide.active {
             display: block;
         }
+        .testimonials .carousel .slide .stars {
+            color: #FFD700;
+            margin-bottom: 10px;
+        }
         .testimonials .carousel .slide img {
             border-radius: 50%;
             width: 100px;
@@ -184,10 +201,32 @@
             font-size: 16px;
             color: #00aaff;
         }
+        /* Map Section */
+        .map-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .map-section h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #333;
+        }
+        .map-section .map-container {
+            width: 80%;
+            margin: auto;
+            text-align: center;
+        }
+        .map-section .map-container img {
+            width: 100%;
+            max-width: 800px;
+            border: 5px solid #00aaff;
+            border-radius: 10px;
+        }
         /* FAQs Section */
         .faqs {
             padding: 80px 0;
-            background: #fff;
+            background: #f0f8ff;
         }
         .faqs h2 {
             text-align: center;
@@ -203,12 +242,13 @@
             margin-bottom: 20px;
         }
         .faqs .faq-item h3 {
-            background: #f0f8ff;
+            background: #fff;
             padding: 15px;
             font-size: 20px;
             color: #00aaff;
             cursor: pointer;
             border-radius: 5px;
+            border: 1px solid #00aaff;
         }
         .faqs .faq-item p {
             display: none;
@@ -221,7 +261,7 @@
         /* Contact Section */
         .contact {
             padding: 80px 0;
-            background: #f0f8ff;
+            background: #fff;
         }
         .contact h2 {
             text-align: center;
@@ -296,7 +336,7 @@
 <header>
     <nav>
         <a href="#" class="logo">
-            <img src="YOUR_LOGO_URL" alt="Sameday Cleaning Logo" style="height:50px;">
+            <img src="https://i.postimg.cc/sgL9cgNp/DALL-E-2024-10-30-17-11-14-A-fresh-and-modern-logo-for-a-cleaning-company-named-Sameday-Cleaning.webp" alt="Sameday Cleaning Logo">
         </a>
         <div class="menu-toggle">&#9776;</div>
         <ul>
@@ -311,6 +351,10 @@
 
 <!-- Hero Section -->
 <section class="hero" id="home">
+    <!-- Vimeo Video Embed -->
+    <div style="position: absolute; top:0; left:0; width:100%; height:100%; overflow:hidden;">
+        <iframe src="https://player.vimeo.com/video/1024914482?background=1&autoplay=1&loop=1&byline=0&title=0" frameborder="0" allow="autoplay; fullscreen" style="width:100%; height:100%; position:absolute; top:0; left:0;"></iframe>
+    </div>
     <div class="hero-content">
         <h1>Your Trusted Cleaning Partner</h1>
         <p>Creating spotless spaces in Montreal and surrounding areas.</p>
@@ -324,37 +368,37 @@
     <div class="service-container">
         <!-- Service Item 1 -->
         <div class="service-item">
-            <img src="IMAGE_URL_1" alt="Residential Cleaning">
+            <img src="https://i.postimg.cc/Gpw0fdBy/woman-cleaning-floor-vacuum-cleaner-in-the-modern-white-living-room-photo.jpg" alt="Residential Cleaning">
             <h3>Residential Cleaning</h3>
             <p>Keep your home spotless with our thorough residential cleaning services.</p>
         </div>
         <!-- Service Item 2 -->
         <div class="service-item">
-            <img src="IMAGE_URL_2" alt="Commercial Cleaning">
+            <img src="https://i.postimg.cc/8cKQXvWp/man-cleaning-window-home-worker-washes-windows-office-cleaner-215070562.webp" alt="Commercial Cleaning">
             <h3>Commercial Cleaning</h3>
             <p>Professional cleaning solutions for your office or commercial space.</p>
         </div>
         <!-- Service Item 3 -->
         <div class="service-item">
-            <img src="IMAGE_URL_3" alt="De-cluttering & Organizing">
+            <img src="https://i.postimg.cc/QtD3Fhh3/garage-clutter.png" alt="De-cluttering & Organizing">
             <h3>De-cluttering & Organizing</h3>
             <p>Organize your space efficiently with our de-cluttering services.</p>
         </div>
         <!-- Service Item 4 -->
         <div class="service-item">
-            <img src="IMAGE_URL_4" alt="Carpet Cleaning">
+            <img src="https://i.postimg.cc/5yNWmgXK/istockphoto-1085778820-612x612-vacuum.jpg" alt="Carpet Cleaning">
             <h3>Carpet Cleaning</h3>
             <p>Deep-cleaning solutions to make your carpets look brand new.</p>
         </div>
         <!-- Service Item 5 -->
         <div class="service-item">
-            <img src="IMAGE_URL_5" alt="Window Cleaning">
+            <img src="https://i.postimg.cc/2SBRTV5Y/skilled-woman-house-cleaner-sanitizing-kitchen-countertop-positive-female-janitor-blue-uniform-holdi.webp" alt="Window Cleaning">
             <h3>Window Cleaning</h3>
             <p>Crystal clear windows with our professional cleaning services.</p>
         </div>
         <!-- Service Item 6 -->
         <div class="service-item">
-            <img src="IMAGE_URL_6" alt="Painting Services">
+            <img src="https://i.postimg.cc/pdzvVpNC/couple-painting-interior-wall-of-house-AJTXRH.jpg" alt="Painting Services">
             <h3>Painting Services</h3>
             <p>Refresh your space with our professional painting services.</p>
         </div>
@@ -365,19 +409,43 @@
 <section class="testimonials" id="testimonials">
     <h2>What Our Clients Say</h2>
     <div class="carousel">
+        <!-- Testimonial Slides -->
         <!-- Slide 1 -->
         <div class="slide active">
-            <img src="TESTIMONIAL_IMAGE_URL_1" alt="Client Photo">
+            <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <img src="https://i.pravatar.cc/100?img=1" alt="Client Photo">
             <p>"Sameday Cleaning exceeded my expectations! Highly recommend."</p>
             <strong>- Sarah M.</strong>
         </div>
         <!-- Slide 2 -->
         <div class="slide">
-            <img src="TESTIMONIAL_IMAGE_URL_2" alt="Client Photo">
+            <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <img src="https://i.pravatar.cc/100?img=2" alt="Client Photo">
             <p>"Professional and reliable service every time."</p>
             <strong>- David K.</strong>
         </div>
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <img src="https://i.pravatar.cc/100?img=3" alt="Client Photo">
+            <p>"Great attention to detail. My office has never been cleaner."</p>
+            <strong>- Michael L.</strong>
+        </div>
         <!-- Add more slides up to 24 as needed -->
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="map-section" id="service-area">
+    <h2>Our Service Area</h2>
+    <div class="map-container">
+        <img src="YOUR_GOOGLE_MAPS_IMAGE_URL" alt="Service Area Map">
     </div>
 </section>
 
