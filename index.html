@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sameday Cleaning - Professional Cleaning Services</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sameday Cleaning offers professional residential and commercial cleaning services in Montreal and surrounding areas.">
+    <meta name="keywords" content="cleaning, residential cleaning, commercial cleaning, carpet cleaning, window cleaning, couch cleaning, de-cluttering, organizing, junk removal, painting, Montreal cleaning services">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #0d47a1;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header img {
+            max-width: 150px;
+        }
+        nav {
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 15px;
+        }
+        nav a:hover {
+            background-color: #1565c0;
+            border-radius: 5px;
+        }
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero {
+            background-image: url('https://via.placeholder.com/1200x600');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .services, .testimonials, .faqs, .contact {
+            background-color: #fff;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            padding: 40px;
+        }
+        .services h2, .testimonials h2, .faqs h2, .contact h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #0d47a1;
+        }
+        .service-item {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .service-item img {
+            width: 100px;
+            margin-right: 20px;
+        }
+        .testimonial-carousel {
+            position: relative;
+            overflow: hidden;
+            height: 200px;
+        }
+        .testimonial {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s;
+            width: 100%;
+            text-align: center;
+        }
+        .testimonial.active {
+            opacity: 1;
+            position: relative;
+        }
+        .testimonial img {
+            border-radius: 50%;
+            width: 80px;
+        }
+        .faq-item {
+            margin-bottom: 20px;
+        }
+        .faq-item h3 {
+            cursor: pointer;
+            background-color: #e3f2fd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .faq-item p {
+            display: none;
+            padding: 10px;
+        }
+        .contact form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .contact input, .contact select, .contact textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        footer {
+            background-color: #0d47a1;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+        @media (max-width: 768px) {
+            .service-item {
+                flex-direction: column;
+                align-items: center;
+            }
+            .service-item img {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://i.postimg.cc/sgL9cgNp/DALL-E-2024-10-30-17-11-14-A-fresh-and-modern-logo-for-a-cleaning-company-named-Sameday-Cleaning.webp" alt="Sameday Cleaning Logo">
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#faqs">FAQs</a>
+        <a href="#contact">Contact Us</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>Welcome to Sameday Cleaning</h1>
+    <p>Professional Cleaning Services in Montreal and Surrounding Areas</p>
+    <a href="#contact" style="background-color: #1565c0; color: #fff; padding: 15px 25px; text-decoration: none; border-radius: 5px;">Book Now</a>
+</section>
+
+<section class="services" id="services">
+    <h2>Our Services</h2>
+    <div class="service-item">
+        <img src="https://via.placeholder.com/100" alt="Residential Cleaning">
+        <div>
+            <h3>Residential Cleaning</h3>
+            <p>Keep your home spotless with our thorough residential cleaning services.</p>
+        </div>
+    </div>
+    <div class="service-item">
+        <img src="https://via.placeholder.com/100" alt="Commercial Cleaning">
+        <div>
+            <h3>Commercial Cleaning</h3>
+            <p>Professional cleaning solutions for your office or commercial space.</p>
+        </div>
+    </div>
+    <!-- Add more service items as needed -->
+</section>
+
+<section class="testimonials" id="testimonials">
+    <h2>What Our Clients Say</h2>
+    <div class="testimonial-carousel">
+        <!-- Testimonial 1 -->
+        <div class="testimonial active">
+            <img src="https://via.placeholder.com/80" alt="Client Photo">
+            <p>"Sameday Cleaning did an amazing job! My house has never looked better."</p>
+            <strong>- Emily R.</strong>
+        </div>
+        <!-- Testimonial 2 -->
+        <div class="testimonial">
+            <img src="https://via.placeholder.com/80" alt="Client Photo">
+            <p>"Professional and efficient. Highly recommend their services."</p>
+            <strong>- John D.</strong>
+        </div>
+        <!-- Add more testimonials as needed -->
+    </div>
+</section>
+
+<section class="faqs" id="faqs">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <h3>What areas do you serve?</h3>
+        <p>We serve Montreal, Quebec, and a radius of 50km around it.</p>
+    </div>
+    <div class="faq-item">
+        <h3>Do you offer same-day bookings?</h3>
+        <p>Yes, we offer same-day bookings for night-time cleaning services.</p>
+    </div>
+    <!-- Add more FAQs as needed -->
+</section>
+
+<section class="contact" id="contact">
+    <h2>Contact Us</h2>
+    <form action="#">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="email" name="email" placeholder="Email Address">
+        <select name="service" required>
+            <option value="">Select Service Needed</option>
+            <option value="residential">Residential Cleaning</option>
+            <option value="commercial">Commercial Cleaning</option>
+            <!-- Add more options as needed -->
+        </select>
+        <input type="date" name="date" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <select name="cleaning_type" required>
+            <option value="">Type of Cleaning</option>
+            <option value="regular">Regular Clean</option>
+            <option value="deep">Deep Clean</option>
+        </select>
+        <textarea name="message" rows="5" placeholder="Additional Information"></textarea>
+        <button type="submit" style="background-color: #0d47a1; color: #fff; padding: 10px 20px; border: none; border-radius: 5px;">Submit</button>
+    </form>
+</section>
+
+<footer>
+    <p>&copy; 2024 Sameday Cleaning. All rights reserved.</p>
+    <p>Phone: 514-558-6114 | Email: info@samedaycleaning.com</p>
+</footer>
+
+<script>
+    // Testimonial Carousel Script
+    let testimonials = document.querySelectorAll('.testimonial');
+    let index = 0;
+
+    function showTestimonial() {
+        testimonials.forEach((testimonial, i) => {
+            testimonial.classList.remove('active');
+            if (i === index) {
+                testimonial.classList.add('active');
+            }
+        });
+        index = (index + 1) % testimonials.length;
+    }
+
+    setInterval(showTestimonial, 5000);
+
+    // FAQ Toggle Script
+    let faqItems = document.querySelectorAll('.faq-item h3');
+    faqItems.forEach(faq => {
+        faq.addEventListener('click', () => {
+            faq.nextElementSibling.style.display = faq.nextElementSibling.style.display === 'block' ? 'none' : 'block';
+        });
+    });
+
+    // Smooth Scrolling
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e){
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({behavior: 'smooth'});
+        });
+    });
+</script>
+
+</body>
+</html>
