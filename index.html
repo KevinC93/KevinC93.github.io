@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Montreal Cleaners &#8211; Professional & Sleek Cleaning Services</title>
+  <title>Montreal Cleaners — Professional & Sleek Cleaning Services</title>
   <meta name="description" content="Montreal Cleaners offers top-tier residential and commercial cleaning with a modern, eco-friendly approach in Montreal and surroundings.">
   <meta name="keywords" content="Montreal cleaning, professional cleaners, eco-friendly cleaning, residential, commercial, Montreal Cleaners">
 
@@ -16,25 +16,35 @@
 
   <style>
     /* Base Reset & Typography */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; color: #333; background: #fafafa; line-height: 1.6; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; color: #333; background: #fafafa; line-height: 1.6; overflow-x: hidden; }
     a { text-decoration: none; color: inherit; }
 
+    /* CSS Variables */
+    :root {
+      --primary: #0066cc;
+      --primary-light: #00aaff;
+      --accent: #f0f8ff;
+      --text: #333;
+      --bg: #fff;
+      --transition: 0.3s;
+    }
+
     /* Header/Nav */
-    header { position: fixed; top: 0; width: 100%; background: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 1000; }
+    header { position: fixed; top: 0; width: 100%; background: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 1000; }
     nav { max-width: 1200px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem; }
-    .logo { font-size: 1.5rem; font-weight: 700; color: #0066cc; }
+    .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
     .nav-links { list-style: none; display: flex; gap: 1.5rem; }
-    .nav-links li a { font-weight: 500; transition: color 0.2s; }
-    .nav-links li a:hover { color: #0066cc; }
-    .contact-btn { background: #0066cc; color: #fff; padding: 0.6rem 1.2rem; border-radius: 4px; transition: background 0.2s; }
+    .nav-links li a { font-weight: 500; transition: color var(--transition); }
+    .nav-links li a:hover { color: var(--primary-light); }
+    .contact-btn { background: var(--primary); color: #fff; padding: 0.6rem 1.2rem; border-radius: 4px; transition: background var(--transition); display: flex; align-items: center; gap: 0.5rem; }
     .contact-btn:hover { background: #005bb5; }
 
     /* Hero Section */
-    .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, #0066cc, #00aaff); color: #fff; position: relative; overflow: hidden; }
-    .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+    .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: #fff; position: relative; overflow: hidden; }
+    .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
     .hero p { font-size: 1.25rem; margin-bottom: 1.5rem; }
-    .btn-primary { background: #fff; color: #0066cc; padding: 0.75rem 2rem; border-radius: 4px; font-weight: 600; transition: background 0.3s, color 0.3s; }
+    .btn-primary { background: #fff; color: var(--primary); padding: 0.75rem 2rem; border-radius: 4px; font-weight: 600; transition: background var(--transition), color var(--transition); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
     .btn-primary:hover { background: #f0f0f0; }
 
     /* Section Spacing */
@@ -43,14 +53,14 @@
 
     /* Services */
     .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-    .service-card { background: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s; }
-    .service-card:hover { transform: translateY(-6px); }
+    .service-card { background: var(--bg); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; transition: transform var(--transition), box-shadow var(--transition); transform-style: preserve-3d; }
+    .service-card:hover { transform: translateY(-10px) rotateX(5deg) rotateY(5deg); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
     .service-card img { width: 100%; height: 180px; object-fit: cover; }
-    .service-card h3 { margin: 1rem; color: #0066cc; }
+    .service-card h3 { margin: 1rem; color: var(--primary); }
     .service-card p { margin: 0 1rem 1rem; color: #555; }
 
     /* Commitment */
-    .commitment { background: #f0f8ff; text-align: center; border-radius: 8px; }
+    .commitment { background: var(--accent); text-align: center; border-radius: 8px; }
     .commitment p { max-width: 800px; margin: auto; font-size: 1.1rem; }
 
     /* Testimonials */
@@ -61,22 +71,30 @@
 
     /* FAQ */
     .faq-item { margin-bottom: 1rem; }
-    .faq-item h3 { cursor: pointer; background: #e6f7ff; padding: 0.75rem; border-radius: 4px; }
-    .faq-item p { display: none; padding: 0.75rem; background: #fff; border: 1px solid #e6f7ff; border-radius: 4px; }
+    .faq-item h3 { cursor: pointer; background: var(--accent); padding: 0.75rem; border-radius: 4px; }
+    .faq-item p { display: none; padding: 0.75rem; background: var(--bg); border: 1px solid var(--accent); border-radius: 4px; }
 
     /* Contact Form */
     .contact form { max-width: 600px; margin: auto; display: grid; gap: 1rem; }
     .contact input, .contact select, .contact textarea { width: 100%; padding: 0.75rem; border: 1px solid #ccc; border-radius: 4px; }
-    .contact button { padding: 0.75rem; border: none; border-radius: 4px; background: #0066cc; color: #fff; font-weight: 600; transition: background 0.2s; }
+    .contact button { padding: 0.75rem; border: none; border-radius: 4px; background: var(--primary); color: #fff; font-weight: 600; transition: background var(--transition); }
     .contact button:hover { background: #005bb5; }
 
     /* Footer */
     footer { background: #003d66; color: #fff; text-align: center; padding: 2rem 1rem; }
-    footer a { color: #00aaff; }
+    footer a { color: var(--primary-light); }
 
     /* Back-to-top */
-    #back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: #0066cc; color: #fff; padding: 0.75rem; border-radius: 50%; display: none; cursor: pointer; }
+    #back-to-top { position: fixed; bottom: 2rem; right: 2rem; background: var(--primary); color: #fff; padding: 0.75rem; border-radius: 50%; display: none; cursor: pointer; transition: background var(--transition); }
     #back-to-top:hover { background: #005bb5; }
+
+    /* Responsive tweaks */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.25rem; }
+      .hero p { font-size: 1rem; }
+      .nav-links { display: none; }
+      .nav-open .nav-links { display: flex; flex-direction: column; background: var(--bg); position: absolute; top: 100%; left: 0; width: 100%; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    }
   </style>
 </head>
 <body>
@@ -94,6 +112,7 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
       <a href="tel:4385297778" class="contact-btn"><i class="fas fa-phone"></i> 438-529-7778</a>
+      <div class="menu-toggle" onclick="this.closest('nav').classList.toggle('nav-open')"><i class="fas fa-bars"></i></div>
     </nav>
   </header>
 
@@ -121,14 +140,14 @@
         <p>Professional solutions for offices & businesses.</p>
       </div>
       <div class="service-card" data-aos="flip-left" data-aos-delay="200">
-        <img src="https://i.postimg.cc/QtD3Fhh3/garage-clutter.png" alt="De-cluttering & Organizing">
-        <h3>De-cluttering & Organizing</h3>
-        <p>Efficient organization for a clutter-free space.</p>
+        <img src="https://i.postimg.cc/44G1SWjQ/junk-removal-service.jpg" alt="Junk Removal">
+        <h3>Junk Removal</h3>
+        <p>Efficient junk removal services to declutter your space.</p>
       </div>
       <div class="service-card" data-aos="flip-left" data-aos-delay="300">
-        <img src="https://i.postimg.cc/5yNWmgXK/istockphoto-1085778820-612x612-vacuum.jpg" alt="Carpet Cleaning">
-        <h3>Carpet Cleaning</h3>
-        <p>Deep-clean your carpets to look brand new.</p>
+        <img src="https://i.postimg.cc/kGdxv3jX/couch-cleaning.jpg" alt="Couch Cleaning">
+        <h3>Couch Cleaning</h3>
+        <p>Professional cleaning to make your furniture look new again.</p>
       </div>
     </div>
   </section>
@@ -149,7 +168,6 @@
         <p>"Montreal Cleaners exceeded my expectations! Highly recommend."</p>
         <strong>- Sarah M.</strong>
       </div>
-      <!-- Additional slides... -->
     </div>
   </section>
 
@@ -164,13 +182,24 @@
       <h3>Do you offer same-day bookings?</h3>
       <p>Yes, same-day bookings are available for certain services.</p>
     </div>
-    <!-- More FAQs -->
+    <div class="faq-item">
+      <h3>What cleaning products do you use?</h3>
+      <p>We use eco-friendly, non-toxic cleaners safe for kids and pets.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How can I prepare for your visit?</h3>
+      <p>Please clear personal items and ensure access to power outlets.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What payment methods are accepted?</h3>
+      <p>We accept cash, credit cards, and e-transfers.</p>
+    </div>
   </section>
 
   <!-- Contact -->
   <section class="contact container" id="contact" data-aos="fade-up">
     <h2>Contact Us</h2>
-    <form>
+    <form action="https://formspree.io/f/mrbqkdzn" method="POST">
       <input type="text" name="name" placeholder="Full Name" required>
       <input type="tel" name="phone" placeholder="Phone Number" required>
       <input type="email" name="email" placeholder="Email Address">
@@ -178,6 +207,12 @@
         <option value="">Select Service</option>
         <option value="residential">Residential Cleaning</option>
         <option value="commercial">Commercial Cleaning</option>
+        <option value="carpet">Carpet Cleaning</option>
+        <option value="window">Window Cleaning</option>
+        <option value="couch">Couch Cleaning</option>
+        <option value="declutter">De-cluttering & Organizing</option>
+        <option value="junk">Junk Removal</option>
+        <option value="painting">Painting Services</option>
       </select>
       <input type="date" name="date" required>
       <input type="text" name="location" placeholder="Location" required>
@@ -204,16 +239,13 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({ duration: 800, once: true });
-    // Back to Top
     const btn = document.getElementById('back-to-top');
     window.addEventListener('scroll', () => { btn.style.display = window.scrollY > 300 ? 'block' : 'none'; });
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-    // FAQ Toggle
     document.querySelectorAll('.faq-item h3').forEach(h => h.addEventListener('click', () => {
       const p = h.nextElementSibling;
       p.style.display = p.style.display === 'block' ? 'none' : 'block';
     }));
-    // Simple Carousel
     let slides = document.querySelectorAll('.carousel .slide'), idx = 0;
     setInterval(() => {
       slides[idx].classList.remove('active');
