@@ -7,6 +7,7 @@
   <meta name="description" content="Experience premium cleaning with Montreal Cleaners. High-end residential and commercial services with 3D parallax, micro-interactions, and eco-luxury standards.">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
   <style>
     /* Reset & Base */
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -36,9 +37,14 @@
     .cta { background:var(--primary); color:#fff; padding:.6rem 1.2rem; border-radius:4px; transition:background var(--transition); }
     .cta:hover { background:#082b6d; }
 
-    /* Hero with Three.js parallax */
+    /* Hero with Three.js parallax and bubble overlays */
     .hero { position:relative; height:100vh; overflow:hidden; }
     #scene { position:absolute; top:0; left:0; width:100%; height:100%; }
+    .bubble { position:absolute; border-radius:50%; background:rgba(255,255,255,0.2); }
+    .bubble:nth-child(1){width:200px;height:200px;top:10%;left:15%;animation:float 12s infinite;}
+    .bubble:nth-child(2){width:300px;height:300px;top:60%;left:70%;animation:float 15s infinite;}
+    .bubble:nth-child(3){width:150px;height:150px;top:40%;left:40%;animation:float 10s infinite;}
+    @keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-50px);}100%{transform:translateY(0);}}
     .hero-content { position:relative; z-index:2; text-align:center; top:50%; transform:translateY(-50%); color:#fff; }
     .hero-content h1 { font-size:3.5rem; text-shadow:2px 2px 10px rgba(0,0,0,0.7); }
     .hero-content p { font-size:1.25rem; margin:1rem 0; }
@@ -47,11 +53,11 @@
     section { padding:6rem 1rem; }
     .container { max-width:1200px; margin:auto; }
 
-    /* Services */
+    /* Services with bubble card effect */
     .services-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:2.5rem; }
-    .service { background:var(--light); border-radius:8px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.05); transition:transform var(--transition),box-shadow var(--transition); }
-    .service:hover { transform:translateY(-10px); box-shadow:0 12px 24px rgba(0,0,0,0.1); }
-    .service img { height:200px; object-fit:cover; }
+    .service { background:var(--light); border-radius:50px; overflow:hidden; box-shadow:inset 0 0 20px rgba(0,0,0,0.02),0 8px 20px rgba(0,0,0,0.05); transition:transform var(--transition),box-shadow var(--transition); }
+    .service:hover { transform:translateY(-10px) scale(1.02); box-shadow:inset 0 0 30px rgba(0,0,0,0.05),0 12px 24px rgba(0,0,0,0.1); }
+    .service img { height:200px; object-fit:cover; border-top-left-radius:50px; border-top-right-radius:50px; }
     .service-body { padding:1.5rem; }
     .service-body h3 { margin-bottom:.5rem; color:var(--primary); }
     .service-body p { color:#555; }
@@ -100,6 +106,7 @@
 
   <section class="hero" id="home">
     <canvas id="scene"></canvas>
+    <div class="bubble"></div><div class="bubble"></div><div class="bubble"></div>
     <div class="hero-content">
       <h1 class="effect-3d">Montreal Cleaners</h1>
       <p>Luxury cleaning for discerning spaces</p>
@@ -155,7 +162,7 @@
       <div class="faq-item"><details><summary>What areas do you serve?</summary><p>Montreal & surrounding 50km radius with custom premium options.</p></details></div>
       <div class="faq-item"><details><summary>Do you offer same-day service?</summary><p>Yes—our luxury express team is available upon request.</p></details></div>
       <div class="faq-item"><details><summary>Which products are used?</summary><p>Organic, hypoallergenic, eco-certified luxury cleaners.</p></details></div>
-      <div class="faq-item"><details><summary>Can I schedule recurring visits?</summary><p>Absolutely—weekly, bi-weekly, or monthly tailored plans.</p></details></div>
+      <div class="faq-item"><details><summary>Can I schedule recurring visits?</summary><p>Absolutely—weekly, bi-weekly, or monthly tailored plans.</p></details></div>
       <div class="faq-item"><details><summary>What payment methods?</summary><p>Credit card, e-transfer, corporate invoicing.</p></details></div>
     </div>
   </section>
@@ -193,6 +200,7 @@
 
   <div id="back-to-top">&#8679;</div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     // Three.js background
     const scene = new THREE.Scene();
@@ -215,7 +223,5 @@
     // AOS
     AOS.init({duration:800,once:true});
   </script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 </body>
 </html>
