@@ -18,56 +18,21 @@
     img { display:block; width:100%; height:100%; object-fit:cover; }
 
     /* Variables */
-    :root {
-      --primary:#0b3d91;
-      --secondary:#f4f4f9;
-      --accent:#e1e8f7;
-      --light:#fff;
-      --dark:#111;
-      --transition:.4s;
-    }
+    :root { --primary:#0b3d91; --secondary:#f4f4f9; --accent:#e1e8f7; --light:#fff; --dark:#111; --transition:.4s; }
 
-    /* Container perspective for 3D */
-    .services-grid { perspective:1000px; }
-
-    /* Service cards with 3D effect */
-    .service {
-      background:var(--light);
-      border-radius:8px;
-      overflow:hidden;
-      box-shadow:0 8px 20px rgba(0,0,0,0.05);
-      transition:transform var(--transition),box-shadow var(--transition);
-      transform-style:preserve-3d;
-    }
-    .service:hover {
-      transform:rotateY(8deg) rotateX(4deg) scale(1.04);
-      box-shadow:0 16px 32px rgba(0,0,0,0.12);
-    }
-
-    /* Responsive image box */
-    .service img { height:200px; }
-    @media (max-width:768px) {
-      .service img { height:150px; }
-    }
-
-    /* Grid layout */
-    .services-grid {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:2rem;
-    }
-
-    /* other existing styles... */
+    /* Header */
     header { position:fixed; top:0; width:100%; z-index:999; backdrop-filter:blur(10px); background:rgba(255,255,255,0.6); }
-    nav { max-width:1200px; margin:auto; display:flex; align-items:center; justify-content:space-between; padding:1rem; }
+    nav { max-width:1200px; margin:auto; display:flex; align-items:center; justify-content:space-between; padding:1rem; overflow:hidden; }
     .logo { font-size:1.75rem; font-weight:700; color:var(--primary); }
-    .nav-links { display:flex; gap:2rem; }
+    .nav-links { display:flex; gap:2rem; transform: translateX(-100%); animation: slideInNav 1s ease-out forwards; }
     .nav-links a { font-weight:500; position:relative; }
     .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width var(--transition); }
     .nav-links a:hover::after { width:100%; }
     .cta { background:var(--primary); color:#fff; padding:.6rem 1.2rem; border-radius:4px; transition:background var(--transition); }
     .cta:hover { background:#082b6d; }
+    @keyframes slideInNav { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 
+    /* Hero with Three.js parallax */
     .hero { position:relative; height:100vh; overflow:hidden; }
     #scene { position:absolute; top:0; left:0; width:100%; height:100%; }
     .bubble { position:absolute; border-radius:50%; background:rgba(255,255,255,0.2); }
@@ -79,11 +44,39 @@
     .hero-content h1 { font-size:3.5rem; text-shadow:2px 2px 10px rgba(0,0,0,0.7); }
     .hero-content p { font-size:1.25rem; margin:1rem 0; }
 
-    section { padding:6rem 1rem; }
-    .container { max-width:1200px; margin:auto; }
+    /* Services 3D effect */
+    .services-grid { perspective:1000px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:2rem; margin-top:6rem; }
+    .service { background:var(--light); border-radius:8px; overflow:hidden; box-shadow:0 8px 20px rgba(0,0,0,0.05); transition:transform var(--transition),box-shadow var(--transition); transform-style:preserve-3d; }
+    .service:hover { transform:rotateY(8deg) rotateX(4deg) scale(1.04); box-shadow:0 16px 32px rgba(0,0,0,0.12); }
+    .service img { height:200px; }
+    @media (max-width:768px) { .service img { height:150px; } }
     .service-body { padding:1.5rem; }
     .service-body h3 { margin-bottom:.5rem; color:var(--primary); }
     .service-body p { color:#555; }
+
+    /* FAQs */
+    #faqs { padding-top:6rem; }
+    .faq { max-width:800px; margin:2rem auto; }
+    .faq-item { margin-bottom:1rem; }
+    .faq-item summary { background:var(--accent); padding:1rem; border-radius:4px; cursor:pointer; font-weight:500; }
+    .faq-item details[open] summary { border-bottom-left-radius:0; border-bottom-right-radius:0; }
+    .faq-item p { padding:1rem; background:var(--light); border:1px solid var(--accent); border-top:none; }
+
+    /* Contact Form */
+    #contact { padding-bottom:6rem; }
+    .contact-form { background:var(--light); padding:2rem; border-radius:8px; box-shadow:0 8px 20px rgba(0,0,0,0.05); max-width:600px; margin:2rem auto; }
+    .contact-form input, .contact-form select, .contact-form textarea { width:100%; padding:.75rem; margin-bottom:1rem; border:1px solid #ccc; border-radius:4px; transition:border var(--transition); }
+    .contact-form input:focus, .contact-form textarea:focus { border-color:var(--primary); outline:none; }
+    .contact-form button { width:100%; padding:.75rem; background:var(--primary); color:#fff; border:none; border-radius:4px; font-size:1rem; transition:background var(--transition); }
+    .contact-form button:hover { background:#082b6d; }
+
+    /* Footer */
+    footer { background:var(--dark); color:#ccc; text-align:center; padding:2rem 1rem; }
+    footer a { color:var(--primary); }
+
+    /* Back-to-top */
+    #back-to-top { position:fixed; bottom:2rem; right:2rem; background:var(--primary); color:#fff; padding:.75rem; border-radius:50%; cursor:pointer; display:none; }
+    @media(max-width:768px) { .hero-content h1 { font-size:2.5rem; } }
   </style>
 </head>
 <body>
@@ -113,34 +106,70 @@
     <div class="container services-grid">
       <div class="service" data-aos="zoom-in">
         <img src="https://i.postimg.cc/Gpw0fdBy/woman-cleaning-floor-vacuum-cleaner-in-the-modern-white-living-room-photo.jpg" alt="Residential Cleaning">
-        <div class="service-body">
-          <h3>Residential Cleaning</h3>
-          <p>Meticulous care for your home’s every corner, with eco-luxe products.</p>
-        </div>
+        <div class="service-body"><h3>Residential Cleaning</h3><p>Meticulous care for your home’s every corner, with eco-luxe products.</p></div>
       </div>
       <div class="service" data-aos="zoom-in" data-aos-delay="100">
         <img src="https://i.postimg.cc/8cKQXvWp/man-cleaning-window-home-worker-washes-windows-office-cleaner-215070562.webp" alt="Commercial Cleaning">
-        <div class="service-body">
-          <h3>Commercial Cleaning</h3>
-          <p>High-end office and retail cleaning with guaranteed sparkle.</p>
-        </div>
+        <div class="service-body"><h3>Commercial Cleaning</h3><p>High-end office and retail cleaning with guaranteed sparkle.</p></div>
       </div>
       <div class="service" data-aos="zoom-in" data-aos-delay="200">
         <img src="https://i.postimg.cc/7LMWMKYm/garage-clutter.png" alt="Junk Removal">
-        <div class="service-body">
-          <h3>Junk Removal</h3>
-          <p>Efficient decluttering & hauling for pristine spaces.</p>
-        </div>
+        <div class="service-body"><h3>Junk Removal</h3><p>Efficient decluttering & hauling for pristine spaces.</p></div>
       </div>
       <div class="service" data-aos="zoom-in" data-aos-delay="300">
         <img src="https://i.postimg.cc/nr77BPnL/thumbs-up-rubbergloves.jpg" alt="Couch Cleaning">
-        <div class="service-body">
-          <h3>Couch Cleaning</h3>
-          <p>Advanced upholstery care restoring luxury and comfort.</p>
-        </div>
+        <div class="service-body"><h3>Couch Cleaning</h3><p>Advanced upholstery care restoring luxury and comfort.</p></div>
       </div>
     </div>
   </section>
+
+  <section id="commitment">
+    <div class="container" data-aos="fade-right"><h2 class="effect-3d">Our Commitment</h2><p>We blend luxury standards with green practices—premium results, zero compromise.</p></div>
+  </section>
+
+  <section id="faqs">
+    <div class="container faq" data-aos="fade-up">
+      <h2 class="effect-3d">FAQs</h2>
+      <div class="faq-item"><details><summary>What areas do you serve?</summary><p>Montreal & surrounding 50km radius with custom premium options.</p></details></div>
+      <div class="faq-item"><details><summary>Do you offer same-day service?</summary><p>Yes—our luxury express team is available upon request.</p></details></div>
+      <div class="faq-item"><details><summary>Which products are used?</summary><p>Organic, hypoallergenic, eco-certified luxury cleaners.</p></details></div>
+      <div class="faq-item"><details><summary>Can I schedule recurring visits?</summary><p>Absolutely—weekly, bi-weekly, or monthly tailored plans.</p></details></div>
+      <div class="faq-item"><details><summary>What payment methods?</summary><p>Credit card, e-transfer, corporate invoicing.</p></details></div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container" data-aos="fade-up">
+      <h2 class="effect-3d">Get in Touch</h2>
+      <form class="contact-form" action="https://formspree.io/f/mrbqkdzn" method="POST">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+        <input type="email" name="email" placeholder="Email Address">
+        <select name="service" required>
+          <option value="">Select Service</option>
+          <option value="residential">Residential Cleaning</option>
+          <option value="commercial">Commercial Cleaning</option>
+          <option value="carpet">Carpet Cleaning</option>
+          <option value="window">Window Cleaning</option>
+          <option value="couch">Couch Cleaning</option>
+          <option value="declutter">De-cluttering & Organizing</option>
+          <option value="junk">Junk Removal</option>
+          <option value="painting">Painting Services</option>
+        </select>
+        <input type="date" name="date" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <textarea name="message" rows="4" placeholder="Additional Info"></textarea>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Montreal Cleaners. All rights reserved.</p>
+    <p><a href="tel:4385297778">438-529-7778</a> | <a href="mailto:info@montrealcleaners.com">info@montrealcleaners.com</a></p>
+  </footer>
+
+  <div id="back-to-top">&#8679;</div>
 
   <script>
     // Three.js background animation
@@ -155,6 +184,11 @@
     scene.add(knot);
     function animate(){ requestAnimationFrame(animate); knot.rotation.x+=0.005; knot.rotation.y+=0.007; renderer.render(scene,camera);} animate();
     window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth, window.innerHeight);});
+
+    // Back to top
+    const btn = document.getElementById('back-to-top');
+    window.addEventListener('scroll',()=>btn.style.display = window.scrollY>300 ? 'block' : 'none');
+    btn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
     // AOS initialization
     AOS.init({duration:800, once:true});
