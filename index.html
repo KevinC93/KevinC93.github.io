@@ -7,8 +7,6 @@
   <meta name="description" content="Kevin's Junk Removal & Cleaning: Fast, eco-friendly junk removal and luxury cleaning in Montreal and surrounding 75-mile radius.">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-  <!-- AOS -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Three.js -->
@@ -48,104 +46,158 @@
       <p>Fast, reliable, eco-friendly service. <a href="tel:438-529-7778" class="underline">438-529-7778</a></p>
     </div>
   </section>
-  <!-- Include other sections here -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+  <!-- Other site sections omitted for brevity -->
+
   <script>
+    // Initialize AOS
     AOS.init({ duration:800, once:true });
-    // Hero Animation (unchanged)
+
+    // Hero animation unchanged
     const sceneH=new THREE.Scene(), camH=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
     camH.position.z=2;
     const rendH=new THREE.WebGLRenderer({canvas:document.getElementById('scene'),alpha:true});
     rendH.setSize(window.innerWidth,window.innerHeight);
     const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(0.7,0.2,100,16),new THREE.MeshBasicMaterial({color:0x1d3557,wireframe:true,opacity:0.4,transparent:true}));
     sceneH.add(knot);
-    const light=new THREE.DirectionalLight(0xffffff,1);light.position.set(5,5,5);sceneH.add(light);
-    (function animateH(){requestAnimationFrame(animateH);knot.rotation.x+=0.005;knot.rotation.y+=0.007;rendH.render(sceneH,camH);})();
+    const light=new THREE.DirectionalLight(0xffffff,1);
+    light.position.set(5,5,5);
+    sceneH.add(light);
+    (function animateH(){
+      requestAnimationFrame(animateH);
+      knot.rotation.x += 0.005;
+      knot.rotation.y += 0.007;
+      rendH.render(sceneH, camH);
+    })();
 
-    // Original Starfield with enhanced radiance
-    const starScene=new THREE.Scene(), starCam=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,1,1000);
-    starCam.position.z=50;
-    const starRend=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true,antialias:true});
-    starRend.setSize(window.innerWidth,window.innerHeight);
+    // --- Original Starfield with improved radiance ---
+    const starScene = new THREE.Scene(),
+          starCam   = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000),
+          starRend  = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true, antialias: true });
+    starCam.position.z = 50;
+    starRend.setSize(window.innerWidth, window.innerHeight);
 
     function createStarTexture(){
-      const s=128, c=document.createElement('canvas'); c.width=s; c.height=s;
-      const ctx=c.getContext('2d');
-      // radial gradient
-      const grad=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
-      grad.addColorStop(0,'rgba(255,255,255,1)');
-      grad.addColorStop(0.2,'rgba(255,255,255,0.8)');
-      grad.addColorStop(0.4,'rgba(255,200,200,0.3)');
-      grad.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=grad;
+      const s = 128, c = document.createElement('canvas');
+      c.width = s; c.height = s;
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(s/2, s/2, 0, s/2, s/2, s/2);
+      grad.addColorStop(0,   'rgba(255,255,255,1)');
+      grad.addColorStop(0.25,'rgba(255,255,200,0.8)');
+      grad.addColorStop(0.5, 'rgba(200,200,255,0.4)');
+      grad.addColorStop(1,   'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
       ctx.fillRect(0,0,s,s);
       return new THREE.CanvasTexture(c);
     }
-    const starTex=createStarTexture();
 
-    const starGeo=new THREE.BufferGeometry();
-    const count=1200;
-    const pos=new Float32Array(count*3), size=new Float32Array(count), speed=new Float32Array(count), phase=new Float32Array(count);
+    const starTex = createStarTexture();
+    const starGeo = new THREE.BufferGeometry();
+    const count   = 1000;
+    const posArr  = new Float32Array(count*3);
+    const sizeArr = new Float32Array(count);
+    const spdArr  = new Float32Array(count);
+    const phArr   = new Float32Array(count);
+
     for(let i=0;i<count;i++){
-      pos[i*3]=(Math.random()-0.5)*600;
-      pos[i*3+1]=(Math.random()-0.5)*600;
-      pos[i*3+2]=(Math.random()-0.5)*600;
-      size[i]=Math.random()*4+2;
-      speed[i]=Math.random()*0.0015+0.0005;
-      phase[i]=Math.random()*Math.PI*2;
+      posArr[3*i  ] = (Math.random()-0.5)*800;
+      posArr[3*i+1] = (Math.random()-0.5)*800;
+      posArr[3*i+2] = (Math.random()-0.5)*800;
+      sizeArr[i]    = Math.random()*3 + 1;
+      spdArr[i]     = Math.random()*0.002 + 0.0005;
+      phArr[i]      = Math.random() * Math.PI * 2;
     }
-    starGeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-    starGeo.setAttribute('size',new THREE.BufferAttribute(size,1));
-    starGeo.setAttribute('speed',new THREE.BufferAttribute(speed,1));
-    starGeo.setAttribute('phase',new THREE.BufferAttribute(phase,1));
 
-    const starMat=new THREE.ShaderMaterial({
-      uniforms:{time:{value:0}},
-      vertexShader:`attribute float size;attribute float speed;attribute float phase;uniform float time;varying float vAlpha;void main(){float tw=0.5+0.5*sin(time*speed*50.+phase);vAlpha=tw;vec4 mv=modelViewMatrix*vec4(position,1.);gl_PointSize=size*(300.0/-mv.z)*tw;gl_Position=projectionMatrix*mv;}`,
-      fragmentShader:`uniform sampler2D pointTexture;varying float vAlpha;void main(){vec4 col=texture2D(pointTexture,gl_PointCoord);gl_FragColor=vec4(col.rgb,col.a*vAlpha);}`,
-      blending:THREE.AdditiveBlending,depthTest:false,transparent:true
+    starGeo.setAttribute('position', new THREE.BufferAttribute(posArr,3));
+    starGeo.setAttribute('size',     new THREE.BufferAttribute(sizeArr,1));
+    starGeo.setAttribute('speed',    new THREE.BufferAttribute(spdArr ,1));
+    starGeo.setAttribute('phase',    new THREE.BufferAttribute(phArr  ,1));
+
+    const starMat = new THREE.ShaderMaterial({
+      uniforms: { time: { value: 0 }},
+      vertexShader: `attribute float size; attribute float speed; attribute float phase; uniform float time; varying float vA;
+        void main(){
+          float t = 0.7 + 0.3*sin(time * speed * 100. + phase);
+          vA = t;
+          vec4 mv = modelViewMatrix * vec4(position,1.);
+          gl_PointSize = size * (300.0 / -mv.z) * t;
+          gl_Position  = projectionMatrix * mv;
+        }`,
+      fragmentShader: `uniform sampler2D pointTexture; varying float vA;
+        void main(){
+          vec4 c = texture2D(pointTexture, gl_PointCoord);
+          gl_FragColor = vec4(c.rgb, c.a * vA);
+        }`,
+      transparent: true,
+      blending: THREE.AdditiveBlending,
+      depthTest: false
     });
-    const stars=new THREE.Points(starGeo,starMat);
+
+    const stars = new THREE.Points(starGeo, starMat);
     starScene.add(stars);
 
-    // Smaller, fiery shooting stars
-    class FireStar{
-      constructor(){
-        this.life=0; this.max=20;
-        this.geo=new THREE.BufferGeometry(); this.pts=new Float32Array(this.max*3);
-        this.geo.setAttribute('position',new THREE.BufferAttribute(this.pts,3));
-        this.mat=new THREE.LineBasicMaterial({color:0xffaa33,transparent:true});
-        this.line=new THREE.Line(this.geo,this.mat);
-        this.reset(); starScene.add(this.line);
+    // --- Shooting Stars (smaller, fiery heads, trailing fade) ---
+    class ShootingStar {
+      constructor() {
+        this.reset();
+        this.trailMax = 30;
+        this.trailGeo = new THREE.BufferGeometry();
+        this.trailPos = new Float32Array(this.trailMax*3);
+        this.trailGeo.setAttribute('position', new THREE.BufferAttribute(this.trailPos,3));
+        this.trailMat = new THREE.LineBasicMaterial({ color: 0xff5500, transparent: true });
+        this.trail    = new THREE.Line(this.trailGeo, this.trailMat);
+        starScene.add(this.trail);
       }
-      reset(){this.t=0; this.dur=THREE.MathUtils.randFloat(0.3,0.8);
-        this.head=new THREE.Vector3((Math.random()-0.5)*500,Math.random()*200+100,(Math.random()-0.5)*500);
-        this.vel=new THREE.Vector3(Math.random()-0.5,-Math.random(),Math.random()-0.5).normalize().multiplyScalar(THREE.MathUtils.randFloat(300,500));
-        this.trail=[this.head.clone()];
+      reset() {
+        this.age = 0;
+        this.life = THREE.MathUtils.randFloat(0.8, 1.5);
+        this.pos = new THREE.Vector3(
+          (Math.random()-0.5)*600,
+          Math.random()*300 + 100,
+          (Math.random()-0.5)*600
+        );
+        this.dir = new THREE.Vector3(
+          Math.random()-0.5,
+          -Math.random(),
+          Math.random()-0.5
+        ).normalize().multiplyScalar(THREE.MathUtils.randFloat(400,600));
+        this.points = [ this.pos.clone() ];
       }
-      update(dt){
-        this.t+=dt;
-        if(this.t>this.dur){this.trail=[];this.reset();}
-        this.head.addScaledVector(this.vel,dt);
-        this.trail.unshift(this.head.clone()); if(this.trail.length>this.max)this.trail.pop();
-        for(let i=0;i<this.trail.length;i++){this.pts[i*3]=this.trail[i].x;this.pts[i*3+1]=this.trail[i].y;this.pts[i*3+2]=this.trail[i].z;}
-        this.geo.attributes.position.needsUpdate=true;
-        this.mat.opacity=1-this.t/this.dur;
+      update(dt) {
+        this.age += dt;
+        if(this.age > this.life) return this.reset();
+        this.pos.addScaledVector(this.dir, dt);
+        this.points.unshift(this.pos.clone());
+        if(this.points.length > this.trailMax) this.points.pop();
+        for(let i=0; i<this.points.length; i++){
+          this.trailPos[3*i  ] = this.points[i].x;
+          this.trailPos[3*i+1] = this.points[i].y;
+          this.trailPos[3*i+2] = this.points[i].z;
+        }
+        this.trailGeo.attributes.position.needsUpdate = true;
+        this.trailMat.opacity = 1 - (this.age/this.life);
       }
     }
-    const fires=[]; for(let i=0;i<4;i++)fires.push(new FireStar());
 
-    let prev=performance.now();
-    (function animate(){
-      requestAnimationFrame(animate);
-      let now=performance.now(),dt=(now-prev)/1000;prev=now;
-      starMat.uniforms.time.value+=dt;
-      stars.rotation.y+=0.0001;
-      fires.forEach(f=>f.update(dt));
-      starRend.render(starScene,starCam);
+    const shootingStars = [];
+    for(let i=0;i<3;i++) shootingStars.push(new ShootingStar());
+
+    let prevTime = performance.now();
+    (function animateAll(){
+      requestAnimationFrame(animateAll);
+      let now = performance.now(), dt = (now - prevTime)/1000; prevTime = now;
+      starMat.uniforms.time.value += dt;
+      stars.rotation.y += 0.0001;
+      shootingStars.forEach(s => s.update(dt));
+      starRend.render(starScene, starCam);
     })();
 
-    window.addEventListener('resize',()=>{starCam.aspect=window.innerWidth/window.innerHeight;starCam.updateProjectionMatrix();rendH.setSize(window.innerWidth,window.innerHeight);starRend.setSize(window.innerWidth,window.innerHeight);} );
+    window.addEventListener('resize', ()=>{
+      starCam.aspect = window.innerWidth/window.innerHeight;
+      starCam.updateProjectionMatrix();
+      rendH.setSize(window.innerWidth,window.innerHeight);
+      starRend.setSize(window.innerWidth,window.innerHeight);
+    });
   </script>
 </body>
 </html>
