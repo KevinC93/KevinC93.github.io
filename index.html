@@ -51,7 +51,6 @@
   </style>
 </head>
 <body>
-  <!-- Realistic diamond-starfield background -->
   <canvas id="bg"></canvas>
   <header>
     <nav class="container">
@@ -65,8 +64,6 @@
       </div>
     </nav>
   </header>
-
-  <!-- Hero Section -->
   <section class="hero" id="home">
     <canvas id="scene"></canvas>
     <div class="overlay"></div>
@@ -75,8 +72,6 @@
       <p>Fast, reliable, eco-friendly service. <a href="tel:438-529-7778" class="underline">438-529-7778</a></p>
     </div>
   </section>
-
-  <!-- Services -->
   <section id="services" class="container" data-aos="fade-up">
     <h2 class="text-center text-3xl mb-8">Our Services</h2>
     <div class="services">
@@ -91,75 +86,4 @@
       </div>
       <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
         <div class="service-body"><h3>Organizing & Hauling</h3><p>Declutter, organize, & haul away unwanted items.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Areas -->
-  <section id="areas" class="container" data-aos="fade-up">
-    <h2 class="text-3xl mb-4">Service Areas</h2>
-    <button id="toggle-areas" class="mb-4 px-4 py-2 bg-var(--primary) rounded">View All 108+ Areas</button>
-    <ul id="areas-list" class="columns-2 space-y-2 text-sm">
-      <li>Montreal</li><li>Laval</li><!-- etc -->
-    </ul>
-  </section>
-
-  <!-- FAQs -->
-  <section id="faqs" class="container" data-aos="fade-up">
-    <h2 class="text-3xl mb-6">FAQs</h2>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="100"><h4 class="font-semibold">Do you offer same-day pickups?</h4><p>Yes—ASAP service. Recurring plans available.</p></div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="200"><h4 class="font-semibold">Which items do you accept?</h4><p>Furniture, electronics, debris, scrap vehicles, lawn debris, expired products, dirt, old sheds, pools. No hazardous materials/food waste.</p></div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="container" data-aos="fade-up">
-    <h2 class="text-3xl mb-6">Contact Us</h2>
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" value="Kevin" required>
-      <input type="tel" placeholder="Phone Number" value="438-529-7778" required>
-      <input type="email" placeholder="Email Address">
-      <select required><option value="">Select Service</option><option value="junk">Junk Removal</option><option value="cleaning">Luxury Cleaning</option></select>
-      <textarea rows="4" placeholder="Message..."></textarea>
-      <button type="submit" class="mt-4">Submit</button>
-    </form>
-  </section>
-
-  <footer data-aos="fade-up"><p>&copy; 2025 Kevin's Junk Removal & Cleaning</p></footer>
-  <div id="back-to-top">&#8679;</div>
-
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script>
-    AOS.init({ duration:800, once:true });
-    const btn = document.getElementById('toggle-areas'), list = document.getElementById('areas-list'); list.style.display='none'; btn.addEventListener('click',()=>{const v=list.style.display==='block'; list.style.display=v?'none':'block'; btn.textContent=v?'View All 108+ Areas':'Hide Areas';});
-    // Hero animation
-    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000); camera.position.z=2; const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('scene'),alpha:true}); renderer.setSize(window.innerWidth,window.innerHeight); const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(0.7,0.2,100,16),new THREE.MeshBasicMaterial({color:0x1d3557,wireframe:true,opacity:0.4,transparent:true})); scene.add(knot); const lightA=new THREE.DirectionalLight(0xffffff,1); lightA.position.set(5,5,5); scene.add(lightA); function animateHero(){requestAnimationFrame(animateHero); knot.rotation.x+=0.005; knot.rotation.y+=0.007; renderer.render(scene,camera);} animateHero();
-    // Diamond-shaped starfield
-    const bgScene=new THREE.Scene(), bgCam=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,1,1000); bgCam.position.z=50; const bgRenderer=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true}); bgRenderer.setSize(window.innerWidth,window.innerHeight);
-    function createStarTexture() {
-      const s=64, c=document.createElement('canvas'); c.width=s; c.height=s; const ctx=c.getContext('2d');
-      // Draw diamond gradient
-      ctx.fillStyle='rgba(0,0,0,0)'; ctx.fillRect(0,0,s,s);
-      ctx.translate(s/2,s/2);
-      const grad=ctx.createRadialGradient(0,0,0,0,0,s/2);
-      grad.addColorStop(0,'rgba(255,255,255,1)');
-      grad.addColorStop(0.3,'rgba(255,255,255,1)');
-      grad.addColorStop(0.5,'rgba(200,200,200,0.5)');
-      grad.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.rotate(Math.PI/4);
-      ctx.fillStyle=grad;
-      ctx.fillRect(-s/2,-s/2,s,s);
-      return new THREE.CanvasTexture(c);
-    }
-    const starTex=createStarTexture();
-    const starCount=1500; const starGeo=new THREE.BufferGeometry(); const pos=new Float32Array(starCount*3), sz=new Float32Array(starCount), sp=new Float32Array(starCount), ph=new Float32Array(starCount);
-    for(let i=0;i<starCount;i++){pos[i*3]=(Math.random()-0.5)*500; pos[i*3+1]=(Math.random()-0.5)*500; pos[i*3+2]=(Math.random()-0.5)*500; sz[i]=(Math.random()*1.5+0.5)*4; sp[i]=Math.random()*0.002+0.001; ph[i]=Math.random()*Math.PI*2;}
-    starGeo.setAttribute('position',new THREE.BufferAttribute(pos,3)); starGeo.setAttribute('size',new THREE.BufferAttribute(sz,1)); starGeo.setAttribute('speed',new THREE.BufferAttribute(sp,1)); starGeo.setAttribute('phase',new THREE.BufferAttribute(ph,1));
-    const starMat=new THREE.ShaderMaterial({uniforms:{pointTexture:{value:starTex},time:{value:0}},vertexShader:`attribute float size; attribute float speed; attribute float phase; uniform float time; void main(){float twinkle=1.0+sin(time*speed*100.0+phase)*0.6; vec4 mv=modelViewMatrix*vec4(position,1.0); gl_PointSize=size*(300.0/-mv.z)*twinkle; gl_Position=projectionMatrix*mv;}`,fragmentShader:`uniform sampler2D pointTexture; void main(){vec2 uv=gl_PointCoord; float d=abs(uv.x-0.5)+abs(uv.y-0.5); if(d>0.5) discard; gl_FragColor=texture2D(pointTexture,uv);}`,blending:THREE.AdditiveBlending,depthTest:false,transparent:true});
-    const stars=new THREE.Points(starGeo,starMat); bgScene.add(stars);
-    function animateStars(){requestAnimationFrame(animateStars); starMat.uniforms.time.value+=0.01; stars.rotation.y+=0.0001; stars.rotation.x+=0.0001; bgRenderer.render(bgScene,bgCam);} animateStars();
-    window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight);bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();bgRenderer.setSize(window.innerWidth,window.innerHeight);});
-    const topBtn=document.getElementById('back-to-top'); window.addEventListener('scroll',()=>topBtn.style.display=window.scrollY>300?'block':'none'); topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-  </script>
-</body>
-</html>
+      </div>";}]}
