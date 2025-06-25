@@ -29,119 +29,119 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({ duration:800, once:true });
-    // Three.js setup for bg canvas
     const canvas = document.getElementById('bg');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true });
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
     camera.position.z = 50;
-    renderer.setSize(window.innerWidth, window.innerHeight);
-
-    // Galaxy patches (radiating blobs)
+    
+    // Galaxy patches unchanged
     const uniforms = {
       time: { value: 0.0 },
       resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
     };
     const galaxyShader = {
-      vertexShader: `void main() { gl_Position = vec4(position, 1.0); }`,
+      vertexShader: `void main(){ gl_Position = vec4(position,1.0); }`,
       fragmentShader: `
-        uniform float time;
-        uniform vec2 resolution;
-        float blob(vec2 p, vec2 center, float radius) {
-          return smoothstep(radius, radius*0.0, length(p - center));
-        }
-        void main() {
-          vec2 uv = gl_FragCoord.xy / resolution;
-          vec3 color = vec3(0.0);
-          // two moving blob centers
-          vec2 c1 = vec2(0.3 + sin(time*0.15)*0.05, 0.7 + cos(time*0.12)*0.05);
-          vec2 c2 = vec2(0.7 + cos(time*0.11)*0.05, 0.4 + sin(time*0.14)*0.05);
-          color += vec3(0.2,0.4,0.8) * blob(uv, c1, 0.25);
-          color += vec3(0.6,0.2,0.8) * blob(uv, c2, 0.25);
-          gl_FragColor = vec4(color, 0.4);
-        }
-      `,
+        uniform float time; uniform vec2 resolution;
+        float blob(vec2 p, vec2 c, float r){ return smoothstep(r, 0.0, length(p-c)); }
+        void main(){ vec2 uv = gl_FragCoord.xy/resolution;
+          vec3 col = vec3(0);
+          vec2 c1 = vec2(0.3+sin(time*0.15)*0.05,0.7+cos(time*0.12)*0.05);
+          vec2 c2 = vec2(0.7+cos(time*0.11)*0.05,0.4+sin(time*0.14)*0.05);
+          col += vec3(0.2,0.4,0.8)*blob(uv,c1,0.25);
+          col += vec3(0.6,0.2,0.8)*blob(uv,c2,0.25);
+          gl_FragColor = vec4(col,0.4);
+        }`,
       uniforms
     };
-    const galaxyMesh = new THREE.Mesh(
-      new THREE.PlaneBufferGeometry(2,2),
-      new THREE.ShaderMaterial({
-        vertexShader: galaxyShader.vertexShader,
-        fragmentShader: galaxyShader.fragmentShader,
-        uniforms: galaxyShader.uniforms,
-        transparent: true,
-        depthWrite: false
-      })
-    );
+    const galaxyMat = new THREE.ShaderMaterial({
+      vertexShader: galaxyShader.vertexShader,
+      fragmentShader: galaxyShader.fragmentShader,
+      uniforms: galaxyShader.uniforms,
+      transparent: true,
+      depthWrite: false
+    });
+    const galaxyMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(2,2), galaxyMat);
     galaxyMesh.frustumCulled = false;
     scene.add(galaxyMesh);
 
-    // Starfield
+    // Starfield with Hubble-style diffraction
     function createStarTexture() {
-      const size = 64;
-      const canvas = document.createElement('canvas'); canvas.width = size; canvas.height = size;
-      const ctx = canvas.getContext('2d');
-      const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
-      grad.addColorStop(0, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.15, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.3, 'rgba(255,255,255,0.8)');
-      grad.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = grad; ctx.fillRect(0,0,size,size);
-      ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 2;
+      const s = 128;
+      const c = document.createElement('canvas'); c.width = s; c.height = s;
+      const ctx = c.getContext('2d');
+      // Core glow
+      const core = ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/4);
+      core.addColorStop(0, 'rgba(255, 255, 255,1)');
+      core.addColorStop(0.3, 'rgba(255, 255, 200,0.8)');
+      core.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = core; ctx.fillRect(0,0,s,s);
+      // Diffraction spikes: 4 long lines
+      ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.moveTo(size/2, size*0.05);
-      ctx.lineTo(size/2, size*0.95);
-      ctx.moveTo(size*0.05, size/2);
-      ctx.lineTo(size*0.95, size/2);
+      // vertical
+      ctx.moveTo(s/2,0); ctx.lineTo(s/2,s);
+      // horizontal
+      ctx.moveTo(0,s/2); ctx.lineTo(s,s/2);
+      // diag
+      ctx.moveTo(s*0.1,s*0.1); ctx.lineTo(s*0.9,s*0.9);
+      ctx.moveTo(s*0.9,s*0.1); ctx.lineTo(s*0.1,s*0.9);
       ctx.stroke();
-      return new THREE.CanvasTexture(canvas);
+      return new THREE.CanvasTexture(c);
     }
-    const starTexture = createStarTexture();
-    const starCount = 3000;
-    const geometry = new THREE.BufferGeometry();
+    const starTex = createStarTexture();
+    const starCount = 1200;
+    const geo = new THREE.BufferGeometry();
     const positions = new Float32Array(starCount*3);
     const sizes = new Float32Array(starCount);
-    for (let i=0; i<starCount; i++) {
-      positions[i*3] = (Math.random()-0.5)*300;
-      positions[i*3+1] = (Math.random()-0.5)*300;
-      positions[i*3+2] = (Math.random()-0.5)*300;
-      const r = Math.random(); sizes[i] = r*r*4 + 0.5;
+    const colors = new Float32Array(starCount*3);
+    for(let i=0; i<starCount; i++){
+      positions[i*3]   = (Math.random()-0.5)*400;
+      positions[i*3+1] = (Math.random()-0.5)*400;
+      positions[i*3+2] = (Math.random()-0.5)*400;
+      sizes[i]         = (Math.random()*1.5+0.5)*8;
+      // random slight color tint around white
+      const hue = Math.random()*0.1 - 0.05; // +/- small
+      colors[i*3]   = 1.0;
+      colors[i*3+1] = 1.0 - hue;
+      colors[i*3+2] = 1.0 + hue;
     }
-    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-    const material = new THREE.ShaderMaterial({
-      uniforms: { pointTexture: { value: starTexture } },
-      vertexShader: `attribute float size;
-        void main() {
-          vec4 mv = modelViewMatrix * vec4(position, 1.0);
-          gl_PointSize = size * (200.0 / -mv.z);
+    geo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+    geo.setAttribute('size', new THREE.BufferAttribute(sizes,1));
+    geo.setAttribute('color', new THREE.BufferAttribute(colors,3));
+
+    const mat = new THREE.ShaderMaterial({
+      uniforms:{ pointTexture:{ value: starTex } },
+      vertexShader: `attribute float size; attribute vec3 color; varying vec3 vColor;
+        void main(){ vColor = color;
+          vec4 mv = modelViewMatrix * vec4(position,1.0);
+          gl_PointSize = size * (300.0 / -mv.z);
           gl_Position = projectionMatrix * mv;
         }`,
-      fragmentShader: `
-        uniform sampler2D pointTexture;
-        void main() {
-          gl_FragColor = texture2D(pointTexture, gl_PointCoord) * 3.0;
-        }
-      `,
-      transparent: true
+      fragmentShader: `uniform sampler2D pointTexture; varying vec3 vColor;
+        void main(){ vec4 t = texture2D(pointTexture, gl_PointCoord);
+          gl_FragColor = vec4(t.rgb * vColor, t.a * 1.5);
+        }`,
+      transparent:true,
+      vertexColors:true
     });
-    const stars = new THREE.Points(geometry, material);
+    const stars = new THREE.Points(geo, mat);
     scene.add(stars);
 
-    function onWindowResize() {
-      camera.aspect = window.innerWidth / window.innerHeight;
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth/window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
       uniforms.resolution.set(window.innerWidth, window.innerHeight);
-    }
-    window.addEventListener('resize', onWindowResize);
-
-    function animate() {
+    });
+    function animate(){
       requestAnimationFrame(animate);
-      uniforms.time.value += 0.02;
-      stars.rotation.y += 0.0002;
-      stars.rotation.x += 0.0001;
-      renderer.render(scene, camera);
+      uniforms.time.value += 0.01;
+      stars.rotation.y += 0.0003;
+      stars.rotation.x += 0.00015;
+      renderer.render(scene,camera);
     }
     animate();
   </script>
