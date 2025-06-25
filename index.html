@@ -15,106 +15,104 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow:hidden; }
-    body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; }
-    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
-    /* rest of layout styles omitted for brevity */
+    html, body { width:100%; height:100%; overflow-x:hidden; }
+    body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; position:relative; }
+    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
+    /* Layout & other styles omitted for brevity */
   </style>
 </head>
 <body>
+  <!-- Background Canvas -->
   <canvas id="bg"></canvas>
-  <!-- Header, sections, etc. as before -->
+  <!-- Header, Hero, Content, Footer as before -->
 
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({ duration:800, once:true });
-    // Three.js setup for bg canvas
+
+    // Three.js Setup
     const canvas = document.getElementById('bg');
     const renderer = new THREE.WebGLRenderer({ canvas, alpha:true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
     camera.position.z = 50;
-    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    // Galaxy patches unchanged
-    const uniforms = {
-      time: { value: 0.0 },
-      resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
-    };
-    const galaxyMesh = /* existing galaxy mesh code */ null; // assume remains
-    // scene.add(galaxyMesh);
-
-    // Starfield: revert to white radiant points with sparkle
-    const starUniforms = { time: { value: 0 } };
-    function createStarTexture() {
-      const size = 64;
-      const c = document.createElement('canvas'); c.width = size; c.height = size;
-      const ctx = c.getContext('2d');
-      const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
-      grad.addColorStop(0, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.2, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.4, 'rgba(200,200,200,0.4)');
-      grad.addColorStop(1, 'rgba(0,0,0,0)');
-      ctx.fillStyle = grad; ctx.fillRect(0,0,size,size);
-      // small 4-point star
-      ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1;
+    // Starfield from original loved version
+    function createStarTexture(){
+      const s=64;
+      const c=document.createElement('canvas'); c.width=s; c.height=s;
+      const ctx=c.getContext('2d');
+      // radial glow
+      const grad=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+      grad.addColorStop(0,'rgba(255,255,255,1)');
+      grad.addColorStop(0.2,'rgba(255,255,255,1)');
+      grad.addColorStop(0.4,'rgba(200,200,200,0.4)');
+      grad.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=grad; ctx.fillRect(0,0,s,s);
+      // diamond star
+      ctx.strokeStyle='rgba(255,255,255,0.8)'; ctx.lineWidth=1;
       ctx.beginPath();
-      ctx.moveTo(size/2, size*0.1);
-      ctx.lineTo(size/2, size*0.9);
-      ctx.moveTo(size*0.1, size/2);
-      ctx.lineTo(size*0.9, size/2);
+      ctx.moveTo(s/2, s*0.1);
+      ctx.lineTo(s/2, s*0.9);
+      ctx.moveTo(s*0.1, s/2);
+      ctx.lineTo(s*0.9, s/2);
       ctx.stroke();
       return new THREE.CanvasTexture(c);
     }
+
     const starTex = createStarTexture();
-    const starCount = 3000;
+    const starCount = 1500;
     const starGeo = new THREE.BufferGeometry();
-    const posArr = new Float32Array(starCount*3);
-    const sizeArr = new Float32Array(starCount);
-    for (let i = 0; i < starCount; i++) {
-      posArr[i*3] = (Math.random() - 0.5) * 300;
-      posArr[i*3+1] = (Math.random() - 0.5) * 300;
-      posArr[i*3+2] = (Math.random() - 0.5) * 300;
-      sizeArr[i] = (Math.random() * 2 + 0.5) * 3;
+    const positions = new Float32Array(starCount*3);
+    const sizes = new Float32Array(starCount);
+    for(let i=0; i<starCount; i++){
+      positions[i*3]   = (Math.random()-0.5)*500;
+      positions[i*3+1] = (Math.random()-0.5)*500;
+      positions[i*3+2] = (Math.random()-0.5)*500;
+      sizes[i]         = (Math.random()*2+0.5)*3;
     }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(posArr, 3));
-    starGeo.setAttribute('size', new THREE.BufferAttribute(sizeArr, 1));
+    starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    starGeo.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+
     const starMat = new THREE.ShaderMaterial({
-      uniforms: Object.assign({ pointTexture: { value: starTex } }, starUniforms),
-      vertexShader: `attribute float size;
-        void main() {
-          vec4 mv = modelViewMatrix * vec4(position, 1.0);
-          gl_PointSize = size * (200.0 / -mv.z);
-          gl_Position = projectionMatrix * mv;
+      uniforms:{ pointTexture:{ value: starTex } },
+      vertexShader:`attribute float size; void main(){
+          vec4 mv= modelViewMatrix*vec4(position,1.0);
+          gl_PointSize= size*(300.0/-mv.z);
+          gl_Position= projectionMatrix*mv;
         }`,
-      fragmentShader: `uniform sampler2D pointTexture;
-        uniform float time;
-        void main() {
-          vec4 color = texture2D(pointTexture, gl_PointCoord);
-          float flick = 0.5 + 0.5 * sin(time * 15.0 + gl_FragCoord.x * 0.1);
-          gl_FragColor = vec4(color.rgb * flick, color.a);
-        }`,
-      transparent: true
+      fragmentShader:`uniform sampler2D pointTexture;
+        void main(){ gl_FragColor= texture2D(pointTexture, gl_PointCoord)*2.5; }`,
+      transparent:true
     });
+
     const stars = new THREE.Points(starGeo, starMat);
     scene.add(stars);
 
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      uniforms.resolution.set(window.innerWidth, window.innerHeight);
-    });
-    function animate() {
-      requestAnimationFrame(animate);
-      uniforms.time.value += 0.02;
-      starUniforms.time.value += 0.02;
-      stars.rotation.y += 0.0003;
-      stars.rotation.x += 0.00015;
+    // Optional cool animation: gentle twinkle
+    const twinkleSpeed = 0.002;
+    starMat.uniforms= starMat.uniforms || {};
+    const clock = new THREE.Clock();
+
+    function animateStars(){
+      requestAnimationFrame(animateStars);
+      const t = clock.getElapsedTime();
+      stars.rotation.y += 0.0002;
+      stars.rotation.x += 0.0001;
+      // subtle scale pulsing
+      starGeo.attributes.size.array.forEach((v,i)=>{ starGeo.attributes.size.array[i] = sizes[i] * (1+0.1*Math.sin(t*5 + i)); });
+      starGeo.attributes.size.needsUpdate = true;
       renderer.render(scene, camera);
     }
-    animate();
+    animateStars();
+
+    window.addEventListener('resize',()=>{
+      camera.aspect= window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
   </script>
 </body>
 </html>
