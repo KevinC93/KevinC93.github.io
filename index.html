@@ -18,7 +18,7 @@
     html, body { width:100%; height:100%; overflow:hidden; }
     body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; }
     #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; pointer-events:none; }
-    /* rest of layout styles omitted for brevity */
+    /* layout styles omitted */
   </style>
 </head>
 <body>
@@ -27,7 +27,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({ duration:800, once:true });
-
     // Three.js setup
     const canvas = document.getElementById('bg');
     const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
@@ -64,28 +63,28 @@
       positions[3*i]   = (Math.random()-0.5)*500;
       positions[3*i+1] = (Math.random()-0.5)*500;
       positions[3*i+2] = (Math.random()-0.5)*500;
-      baseSizes[i]     = (Math.random()*2 + 0.5) * 3;
+      baseSizes[i]     = (Math.random()*2 + 0.5) * 3; // base size in units
     }
     geometry.setAttribute('position', new THREE.BufferAttribute(positions,3));
     geometry.setAttribute('size', new THREE.BufferAttribute(baseSizes.slice(),1));
 
-    // Shader material with glimmer effect on small stars
+    // Shader material: glimmer only smallest stars (~1-2px)
     const material = new THREE.ShaderMaterial({
       uniforms: { pointTexture: { value: starTex }, time: { value: 0 } },
       vertexShader: `attribute float size; varying float vSize;
-        void main(){ vSize = size;
+        void main(){ vSize = size * (300.0 / -modelViewMatrix * vec4(position,1.0)).z;
           vec4 mv = modelViewMatrix * vec4(position,1.0);
           gl_PointSize = size * (300.0 / -mv.z);
           gl_Position = projectionMatrix * mv;
         }`,
       fragmentShader: `uniform sampler2D pointTexture; uniform float time; varying float vSize;
         void main(){ vec4 tex = texture2D(pointTexture, gl_PointCoord);
-          if(vSize < 4.0) {
+          if(vSize <= 2.0) {
             float m = 0.5 + 0.5 * sin(time * 10.0 + gl_FragCoord.x * 0.1);
-            vec3 col = mix(vec3(0.3,0.3,1.0), vec3(1.0,0.5,0.5), m);
-            gl_FragColor = vec4(tex.rgb * col * 2.0, tex.a);
+            vec3 col = mix(vec3(0,0,1), vec3(1,0,0), m);
+            gl_FragColor = vec4(tex.rgb * col * 1.5, tex.a);
           } else {
-            gl_FragColor = tex * 2.0;
+            gl_FragColor = tex;
           }
         }`,
       transparent: true
