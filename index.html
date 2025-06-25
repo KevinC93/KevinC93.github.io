@@ -17,141 +17,101 @@
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html, body { width:100%; height:100%; overflow:hidden; }
     body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; }
-    #bg { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; display:block; }
-    /* other layout styles omitted for brevity */
+    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; pointer-events:none; }
+    /* rest of layout styles omitted for brevity */
   </style>
 </head>
 <body>
   <canvas id="bg"></canvas>
   <!-- Header, Hero, Content, Footer as before -->
 
-  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({ duration:800, once:true });
-    
-    // Basic Three.js setup
+    // Three.js setup
     const canvas = document.getElementById('bg');
-    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true, antialias:true });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
-    camera.position.z = 200;
+    camera.position.z = 50;
 
-    // Galaxy background (optional)
-    const uniforms = {
-      time: { value: 0.0 },
-      resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
-    };
-    const galaxyMat = new THREE.ShaderMaterial({
-      uniforms,
-      vertexShader: `void main(){ gl_Position = vec4(position,1.0); }`,
-      fragmentShader: `
-        uniform float time; uniform vec2 resolution;
-        float blob(vec2 p, vec2 c, float r){ return smoothstep(r, 0.0, length(p-c)); }
-        void main(){
-          vec2 uv=gl_FragCoord.xy/resolution;
-          vec3 col=vec3(0);
-          vec2 c1=vec2(0.3+sin(time*0.1)*0.05,0.7+cos(time*0.1)*0.05);
-          vec2 c2=vec2(0.7+cos(time*0.12)*0.05,0.4+sin(time*0.12)*0.05);
-          col+=vec3(0.2,0.4,0.8)*blob(uv,c1,0.3);
-          col+=vec3(0.6,0.2,0.8)*blob(uv,c2,0.3);
-          gl_FragColor=vec4(col,0.3);
-        }`,
-      transparent:true, depthWrite:false
-    });
-    const galaxyMesh = new THREE.Mesh(new THREE.PlaneBufferGeometry(2,2), galaxyMat);
-    galaxyMesh.frustumCulled = false;
-    scene.add(galaxyMesh);
-
-    // Create realistic Hubble-like star texture
+    // Star texture
     function createStarTexture(){
-      const s=128;
-      const c=document.createElement('canvas'); c.width=s; c.height=s;
-      const ctx=c.getContext('2d');
-      // core glow
-      const grad=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/4);
-      grad.addColorStop(0,'rgba(255,255,255,1)');
-      grad.addColorStop(0.2,'rgba(255,255,200,0.8)');
-      grad.addColorStop(1,'rgba(0,0,0,0)');
-      ctx.fillStyle=grad; ctx.fillRect(0,0,s,s);
-      // diffraction spikes
-      ctx.strokeStyle='rgba(255,255,255,0.9)'; ctx.lineWidth=1.2;
+      const s = 64;
+      const c = document.createElement('canvas'); c.width = s; c.height = s;
+      const ctx = c.getContext('2d');
+      const grad = ctx.createRadialGradient(s/2, s/2, 0, s/2, s/2, s/2);
+      grad.addColorStop(0, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.2, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.4, 'rgba(200,200,200,0.4)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad; ctx.fillRect(0,0,s,s);
+      ctx.strokeStyle = 'rgba(255,255,255,0.8)'; ctx.lineWidth = 1;
+      // diamond star
       ctx.beginPath();
-      // vertical
-      ctx.moveTo(s/2,0); ctx.lineTo(s/2,s);
-      // horizontal
-      ctx.moveTo(0,s/2); ctx.lineTo(s,s/2);
-      // diagonals
-      ctx.moveTo(s*0.15,s*0.15); ctx.lineTo(s*0.85,s*0.85);
-      ctx.moveTo(s*0.85,s*0.15); ctx.lineTo(s*0.15,s*0.85);
+      ctx.moveTo(s/2, s*0.1);
+      ctx.lineTo(s/2, s*0.9);
+      ctx.moveTo(s*0.1, s/2);
+      ctx.lineTo(s*0.9, s/2);
       ctx.stroke();
       return new THREE.CanvasTexture(c);
     }
     const starTex = createStarTexture();
 
-    // Setup star geometry
-    const starCount = 800;
+    // Star field
+    const starCount = 1500;
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(starCount*3);
-    const sizes = new Float32Array(starCount);
-    const colors = new Float32Array(starCount*3);
-
-    for(let i=0;i<starCount;i++){
-      positions[3*i  ] = (Math.random()-0.5)*800;
-      positions[3*i+1] = (Math.random()-0.5)*800;
-      positions[3*i+2] = (Math.random()-0.5)*800;
-      sizes[i] = Math.random()*12 + 4;
-      // slight color tint
-      const tint = 0.9 + Math.random()*0.2;
-      colors[3*i] = tint; colors[3*i+1] = tint; colors[3*i+2] = tint;
+    const baseSizes = new Float32Array(starCount);
+    for(let i=0; i<starCount; i++){
+      positions[3*i]   = (Math.random()-0.5)*500;
+      positions[3*i+1] = (Math.random()-0.5)*500;
+      positions[3*i+2] = (Math.random()-0.5)*500;
+      baseSizes[i]     = (Math.random()*2 + 0.5) * 3;
     }
     geometry.setAttribute('position', new THREE.BufferAttribute(positions,3));
-    geometry.setAttribute('size', new THREE.BufferAttribute(sizes,1));
-    geometry.setAttribute('color', new THREE.BufferAttribute(colors,3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(baseSizes.slice(),1));
 
-    // Star material
-    const starMat = new THREE.ShaderMaterial({
-      uniforms: { pointTexture:{ value: starTex }, time:{ value:0 } },
-      vertexShader: `attribute float size; attribute vec3 color; varying vec3 vColor;
-        void main(){ vColor=color;
-          vec4 mv=modelViewMatrix*vec4(position,1.0);
-          gl_PointSize= size*(300.0/ -mv.z);
-          gl_Position=projectionMatrix*mv;
-        }`,
-      fragmentShader: `uniform sampler2D pointTexture; uniform float time; varying vec3 vColor;
+    const material = new THREE.ShaderMaterial({
+      uniforms: { pointTexture: { value: starTex } },
+      vertexShader: `attribute float size;
         void main(){
-          vec4 t=texture2D(pointTexture,gl_PointCoord);
-          // subtle sparkle on small stars
-          float sparkle = 1.0 + 0.2*sin(time*10.0 + gl_FragCoord.x*0.1);
-          gl_FragColor=vec4(t.rgb * vColor * sparkle, t.a);
+          vec4 mv = modelViewMatrix * vec4(position,1.0);
+          gl_PointSize = size * (300.0 / -mv.z);
+          gl_Position = projectionMatrix * mv;
         }`,
-      transparent:true, vertexColors:true
+      fragmentShader: `uniform sampler2D pointTexture;
+        void main(){ gl_FragColor = texture2D(pointTexture, gl_PointCoord) * 2.0; }`,
+      transparent: true
     });
-    const stars = new THREE.Points(geometry, starMat);
+
+    const stars = new THREE.Points(geometry, material);
     scene.add(stars);
 
-    // Handle resize
-    window.addEventListener('resize', ()=>{
-      camera.aspect = window.innerWidth/window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      uniforms.resolution.set(window.innerWidth, window.innerHeight);
-    });
-
-    // Animation loop
+    // Animate: twinkle small stars
     const clock = new THREE.Clock();
     function animate(){
       requestAnimationFrame(animate);
       const t = clock.getElapsedTime();
-      uniforms.time.value = t;
-      starMat.uniforms.time.value = t;
-      stars.rotation.y += 0.0003;
-      stars.rotation.x += 0.00015;
+      stars.rotation.y += 0.0002;
+      stars.rotation.x += 0.0001;
+      const sizesAttr = geometry.attributes.size.array;
+      for(let i=0; i<starCount; i++){
+        const base = baseSizes[i];
+        if(base < 4) sizesAttr[i] = base * (1 + 0.03 * Math.sin(t*5 + i));
+        else sizesAttr[i] = base;
+      }
+      geometry.attributes.size.needsUpdate = true;
       renderer.render(scene, camera);
     }
     animate();
+
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
   </script>
 </body>
 </html>
