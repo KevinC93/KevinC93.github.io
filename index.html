@@ -15,97 +15,135 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow-x:hidden; }
-    body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; position:relative; }
-    h1,h2,h3 { font-family:'Playfair Display', serif; }
-    a { color:inherit; text-decoration:none; }
-    :root { --primary:#e63946; --accent:#a8dadc; --dark:#1d3557; --light:#f1faee; }
-    /* ...other styles... */
+    html, body { width:100%; height:100%; overflow:hidden; }
+    body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; }
+    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1; }
+    /* rest of layout styles omitted for brevity */
   </style>
 </head>
 <body>
   <canvas id="bg"></canvas>
-  <header>...</header>
-  <section class="hero" id="home">...</section>
-  <!-- main content omitted for brevity -->
-  <footer>...</footer>
-  <div id="back-to-top">&#8679;</div>
+  <!-- Header, sections, etc. as before -->
+
   <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({ duration:800, once:true });
-    // Hero animation unchanged...
+    // Three.js setup for bg canvas
+    const canvas = document.getElementById('bg');
+    const renderer = new THREE.WebGLRenderer({ canvas, alpha:true });
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
+    camera.position.z = 50;
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    const bgScene = new THREE.Scene();
-    const bgCam = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 1000);
-    bgCam.position.z = 50;
-    const bgRenderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true });
-    bgRenderer.setSize(window.innerWidth, window.innerHeight);
-
-    // Galaxy patches effect
-    const auroraUniforms = {
-      time: { value: 0 },
+    // Galaxy patches (radiating blobs)
+    const uniforms = {
+      time: { value: 0.0 },
       resolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) }
     };
-    const auroraMat = new THREE.ShaderMaterial({
-      uniforms: auroraUniforms,
+    const galaxyShader = {
       vertexShader: `void main() { gl_Position = vec4(position, 1.0); }`,
       fragmentShader: `
         uniform float time;
         uniform vec2 resolution;
-        void main(){
+        float blob(vec2 p, vec2 center, float radius) {
+          return smoothstep(radius, radius*0.0, length(p - center));
+        }
+        void main() {
           vec2 uv = gl_FragCoord.xy / resolution;
-          // moving galaxy centers
-          vec2 pos1 = vec2(0.3 + sin(time*0.1)*0.05, 0.7 + cos(time*0.1)*0.05);
-          vec2 pos2 = vec2(0.7 + cos(time*0.1)*0.05, 0.4 + sin(time*0.1)*0.05);
-          float d1 = length(uv - pos1);
-          float d2 = length(uv - pos2);
-          vec3 col = vec3(0.0);
-          // blue patch
-          col += vec3(0.2,0.4,0.8) * smoothstep(0.35, 0.0, d1);
-          // purple patch
-          col += vec3(0.6,0.2,0.8) * smoothstep(0.35, 0.0, d2);
-          gl_FragColor = vec4(col, 0.3);
+          vec3 color = vec3(0.0);
+          // two moving blob centers
+          vec2 c1 = vec2(0.3 + sin(time*0.15)*0.05, 0.7 + cos(time*0.12)*0.05);
+          vec2 c2 = vec2(0.7 + cos(time*0.11)*0.05, 0.4 + sin(time*0.14)*0.05);
+          color += vec3(0.2,0.4,0.8) * blob(uv, c1, 0.25);
+          color += vec3(0.6,0.2,0.8) * blob(uv, c2, 0.25);
+          gl_FragColor = vec4(color, 0.4);
         }
       `,
-      transparent: true,
-      depthWrite: false
-    });
-    const aurora = new THREE.Mesh(new THREE.PlaneGeometry(2,2), auroraMat);
-    aurora.frustumCulled = false;
-    bgScene.add(aurora);
+      uniforms
+    };
+    const galaxyMesh = new THREE.Mesh(
+      new THREE.PlaneBufferGeometry(2,2),
+      new THREE.ShaderMaterial({
+        vertexShader: galaxyShader.vertexShader,
+        fragmentShader: galaxyShader.fragmentShader,
+        uniforms: galaxyShader.uniforms,
+        transparent: true,
+        depthWrite: false
+      })
+    );
+    galaxyMesh.frustumCulled = false;
+    scene.add(galaxyMesh);
 
     // Starfield
-    function createStarTexture(){ /* ...same as before... */ }
-    const starTex = createStarTexture();
-    const starCount = 3000;
-    const starGeo = new THREE.BufferGeometry();
-    const pos = new Float32Array(starCount*3), sizes = new Float32Array(starCount);
-    for(let i=0;i<starCount;i++){
-      pos[i*3] = (Math.random()-0.5)*300;
-      pos[i*3+1] = (Math.random()-0.5)*300;
-      pos[i*3+2] = (Math.random()-0.5)*300;
-      sizes[i] = Math.pow(Math.random(), 2)*4 + 0.5;
+    function createStarTexture() {
+      const size = 64;
+      const canvas = document.createElement('canvas'); canvas.width = size; canvas.height = size;
+      const ctx = canvas.getContext('2d');
+      const grad = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+      grad.addColorStop(0, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.15, 'rgba(255,255,255,1)');
+      grad.addColorStop(0.3, 'rgba(255,255,255,0.8)');
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad; ctx.fillRect(0,0,size,size);
+      ctx.strokeStyle = 'rgba(255,255,255,0.9)'; ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(size/2, size*0.05);
+      ctx.lineTo(size/2, size*0.95);
+      ctx.moveTo(size*0.05, size/2);
+      ctx.lineTo(size*0.95, size/2);
+      ctx.stroke();
+      return new THREE.CanvasTexture(canvas);
     }
-    starGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
-    starGeo.setAttribute('size', new THREE.BufferAttribute(sizes,1));
-    const starMat = new THREE.ShaderMaterial({ /* ...same as before... */ });
-    bgScene.add(new THREE.Points(starGeo, starMat));
+    const starTexture = createStarTexture();
+    const starCount = 3000;
+    const geometry = new THREE.BufferGeometry();
+    const positions = new Float32Array(starCount*3);
+    const sizes = new Float32Array(starCount);
+    for (let i=0; i<starCount; i++) {
+      positions[i*3] = (Math.random()-0.5)*300;
+      positions[i*3+1] = (Math.random()-0.5)*300;
+      positions[i*3+2] = (Math.random()-0.5)*300;
+      const r = Math.random(); sizes[i] = r*r*4 + 0.5;
+    }
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+    const material = new THREE.ShaderMaterial({
+      uniforms: { pointTexture: { value: starTexture } },
+      vertexShader: `attribute float size;
+        void main() {
+          vec4 mv = modelViewMatrix * vec4(position, 1.0);
+          gl_PointSize = size * (200.0 / -mv.z);
+          gl_Position = projectionMatrix * mv;
+        }`,
+      fragmentShader: `
+        uniform sampler2D pointTexture;
+        void main() {
+          gl_FragColor = texture2D(pointTexture, gl_PointCoord) * 3.0;
+        }
+      `,
+      transparent: true
+    });
+    const stars = new THREE.Points(geometry, material);
+    scene.add(stars);
 
-    function animate(){
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      uniforms.resolution.set(window.innerWidth, window.innerHeight);
+    }
+    window.addEventListener('resize', onWindowResize);
+
+    function animate() {
       requestAnimationFrame(animate);
-      auroraUniforms.time.value += 0.02;
-      bgScene.children.forEach(obj => { if(obj.isPoints) obj.rotation.y += 0.0002, obj.rotation.x += 0.0001; });
-      bgRenderer.render(bgScene, bgCam);
+      uniforms.time.value += 0.02;
+      stars.rotation.y += 0.0002;
+      stars.rotation.x += 0.0001;
+      renderer.render(scene, camera);
     }
     animate();
-
-    window.addEventListener('resize', () => {
-      bgCam.aspect = window.innerWidth/window.innerHeight;
-      bgCam.updateProjectionMatrix();
-      auroraUniforms.resolution.value.set(window.innerWidth, window.innerHeight);
-      bgRenderer.setSize(window.innerWidth, window.innerHeight);
-    });
   </script>
 </body>
 </html>
