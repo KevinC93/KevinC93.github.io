@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>Kevin's Junk Removal & Cleaning — Montreal's Premier Service</title>
-  <meta name="description" content="Kevin's Junk Removal & Cleaning: Fast, eco-friendly junk removal and luxury cleaning in Montreal and surrounding 75-mile radius.">
+  <meta name="description" content="Kevin's Junk Removal & Cleaning: Fast, reliable junk removal and luxury cleaning across Greater Montreal and a 100 km radius.">
+  <!-- SEO: service areas for GitHub (hidden/in meta) -->
+  <meta name="keywords" content="FULL_SERVICE_AREA_LIST">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <!-- AOS -->
@@ -17,7 +19,7 @@
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
     html, body { width:100%; height:100%; overflow-x:hidden; }
     body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; position:relative; }
-    h1,h2,h3 { font-family:'Playfair Display', serif; }
+    h1,h2,h3,h4 { font-family:'Playfair Display', serif; }
     a { color:inherit; text-decoration:none; }
     :root { --primary:#e63946; --accent:#a8dadc; --dark:#1d3557; --light:#f1faee; }
     header { position:fixed; top:0; width:100%; z-index:100; backdrop-filter:blur(10px); background:rgba(0,0,0,0.5); }
@@ -26,10 +28,9 @@
     .nav-links a { margin-left:1rem; font-weight:500; position:relative; }
     .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width .3s; }
     .nav-links a:hover::after { width:100%; }
-    /* Background canvases */
-    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
+    #bg, #scene { position:fixed; top:0; left:0; width:100%; height:100%; }
+    #bg { z-index:-2; }
     .hero { position:relative; height:100vh; overflow:hidden; }
-    #scene { position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1; }
     .hero-content { position:relative; z-index:10; text-align:center; top:50%; transform:translateY(-50%); padding:0 1rem; }
     .hero-content h1 { font-size:3rem; color:var(--accent); text-shadow:0 0 20px rgba(168,218,220,0.7); }
     .hero-content p { margin-top:1rem; font-size:1.2rem; }
@@ -39,10 +40,10 @@
     .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
     .service-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; backdrop-filter:blur(10px); overflow:hidden; transition:transform .3s; }
     .service-card:hover { transform:scale(1.03); }
+    .service-thumb img { width:100%; height:180px; object-cover:cover; }
     .service-body { padding:1.5rem; }
-    .service-body h3 { color:var(--accent); }
-    .service-areas ul { display:none; columns:2; gap:1rem; margin-top:1rem; }
-    .faq-item + .faq-item { margin-top:1.5rem; }
+    .service-body h3 { color:var(--accent); margin-bottom:0.5rem; }
+    .testimonial p { line-height:1.4; }
     .contact-form input, .contact-form select, .contact-form textarea { width:100%; padding:.75rem; margin-bottom:1rem; border:none; border-radius:4px; background:rgba(255,255,255,0.1); color:#fff; }
     .contact-form button { width:100%; padding:.75rem; background:var(--primary); color:#fff; border:none; border-radius:4px; transition:background .3s; }
     .contact-form button:hover { background:var(--accent); color:var(--dark); }
@@ -58,6 +59,7 @@
       <div class="logo">Kevin's Junk Removal</div>
       <div class="nav-links">
         <a href="#home">Home</a>
+        <a href="#about">About</a>
         <a href="#services">Services</a>
         <a href="#areas">Areas</a>
         <a href="#faqs">FAQs</a>
@@ -76,20 +78,39 @@
     </div>
   </section>
 
+  <!-- About Us -->
+  <section id="about" class="container" data-aos="fade-up">
+    <h2 class="text-3xl mb-6">About Us</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="text-2xl font-semibold">Junk Removal</h3>
+        <p>Founded in Montreal by Kevin and a team of passionate professionals, Kevin’s Junk Removal treats every job like it’s our own. We’re driven by integrity, punctuality, and a promise to never disappoint—customer satisfaction guaranteed.</p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-semibold">Cleaning Services</h3>
+        <p>Our Luxury Cleaning division delivers meticulous, white-glove service for homes and offices across Greater Montreal. We value precision, respect your space, and ensure your environment shines like new.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Services -->
   <section id="services" class="container" data-aos="fade-up">
     <h2 class="text-center text-3xl mb-8">Our Services</h2>
     <div class="services">
       <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="service-thumb"><img src="path/to/junk-removal-thumb.jpg" alt="Junk Removal"></div>
         <div class="service-body"><h3>Junk Removal</h3><p>Residential & commercial debris pickup and hauling.</p></div>
       </div>
       <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="service-thumb"><img src="path/to/estate-cleanout-thumb.jpg" alt="Estate Cleanouts"></div>
         <div class="service-body"><h3>Estate Cleanouts</h3><p>Furniture, electronics, & more handled respectfully.</p></div>
       </div>
       <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="service-thumb"><img src="path/to/luxury-cleaning-thumb.jpg" alt="Luxury Cleaning"></div>
         <div class="service-body"><h3>Luxury Cleaning</h3><p>Deep-cleaning for high-end homes & offices.</p></div>
       </div>
       <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+        <div class="service-thumb"><img src="path/to/organizing-hauling-thumb.jpg" alt="Organizing & Hauling"></div>
         <div class="service-body"><h3>Organizing & Hauling</h3><p>Declutter, organize, & haul away unwanted items.</p></div>
       </div>
     </div>
@@ -98,9 +119,11 @@
   <!-- Areas -->
   <section id="areas" class="container" data-aos="fade-up">
     <h2 class="text-3xl mb-4">Service Areas</h2>
-    <button id="toggle-areas" class="mb-4 px-4 py-2 bg-var(--primary) rounded">View All 108+ Areas</button>
+    <button id="toggle-areas" class="mb-4 px-4 py-2 bg-primary rounded">View All 108+ Areas</button>
     <ul id="areas-list" class="columns-2 space-y-2 text-sm">
-      <li>Montreal</li><li>Laval</li><!-- etc -->
+      <!-- List is hidden by default; full list for SEO is in meta keywords -->
+      <li>Montreal</li><li>Laval</li><li>Longueuil</li><li>Brossard</li><li>Repentigny</li>
+      <!-- etc. -->
     </ul>
   </section>
 
@@ -117,7 +140,8 @@
     <form class="contact-form">
       <input type="text" placeholder="Your Name" value="Kevin" required>
       <input type="tel" placeholder="Phone Number" value="438-529-7778" required>
-      <input type="email" placeholder="Email Address">\n      <select required><option value="">Select Service</option><option value="junk">Junk Removal</option><option value="cleaning">Luxury Cleaning</option></select>
+      <input type="email" placeholder="Email Address" value="mtl.ecojunkremoval@gmail.com" required>
+      <select required><option value="">Select Service</option><option value="junk">Junk Removal</option><option value="cleaning">Luxury Cleaning</option></select>
       <textarea rows="4" placeholder="Message..."></textarea>
       <button type="submit" class="mt-4">Submit</button>
     </form>
@@ -130,7 +154,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
     AOS.init({ duration:800, once:true });
-    const btn = document.getElementById('toggle-areas'), list = document.getElementById('areas-list'); list.style.display='none'; btn.addEventListener('click',()=>{const v=list.style.display==='block'; list.style.display=v?'none':'block'; btn.textContent=v?'View All 108+ Areas':'Hide Areas';});
+    const btn=document.getElementById('toggle-areas'), list=document.getElementById('areas-list'); list.style.display='none'; btn.addEventListener('click',()=>{const v=list.style.display==='block'; list.style.display=v?'none':'block'; btn.textContent=v?'View All 108+ Areas':'Hide Areas';});
     // Hero animation
     const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000); camera.position.z=2; const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('scene'),alpha:true}); renderer.setSize(window.innerWidth,window.innerHeight); const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(0.7,0.2,100,16),new THREE.MeshBasicMaterial({color:0x1d3557,wireframe:true,opacity:0.4,transparent:true})); scene.add(knot); const lightA=new THREE.DirectionalLight(0xffffff,1); lightA.position.set(5,5,5); scene.add(lightA); function animateHero(){requestAnimationFrame(animateHero); knot.rotation.x+=0.005; knot.rotation.y+=0.007; renderer.render(scene,camera);} animateHero();
     // Starfield
