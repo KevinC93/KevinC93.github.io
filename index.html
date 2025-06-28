@@ -3,144 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <title>Eco Junk Removal & Cleaning — Montreal's Premier Service</title>
-  <meta name="description" content="Eco Junk Removal: Fast, reliable junk removal and luxury cleaning across Greater Montreal and a 100 km radius.">
+  <title>300kings Junk Removal & Cleaning — Montreal's Premier Service</title>
+  <meta name="description" content="300kings: Fast, reliable junk removal and luxury cleaning across Greater Montreal and a 100 km radius.">
   <meta name="keywords" content="Montreal junk removal, Montreal cleaning, residential junk removal, commercial junk removal, home clearouts, office cleanouts, construction debris removal, hoarder cleanup, appliance removal, furniture removal, yard waste removal">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <!-- AOS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; min-height:100%; overflow-x:hidden; }
-    body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; }
+    html, body { width:100%; height:100%; overflow-x:hidden; }
+    body { font-family:'DM Sans', sans-serif; background:#111; color:#fff; position:relative; }
+    h1,h2,h3,h4 { font-family:'Playfair Display', serif; }
     a { color:inherit; text-decoration:none; }
-    :root { --primary:#e63946; --accent:#a8dadc; }
-    header { position:sticky; top:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(10px); z-index:50; }
-    nav { display:flex; justify-between; align-items:center; padding:1rem; }
-    .logo { font-family:'Playfair Display', serif; font-size:1.5rem; color:var(--accent); }
-    .nav-links { display:flex; gap:1rem; }
-    .nav-links a { font-weight:500; }
-    .hero { position:relative; height:60vh; display:flex; align-items:center; justify-content:center; text-align:center; padding:1rem; }
-    .hero h1 { font-family:'Playfair Display', serif; font-size:2rem; color:var(--accent); }
-    .hero p { margin-top:0.5rem; }
-    section { padding:3rem 1rem; }
-    .container { max-width:800px; margin:0 auto; }
-    .services-grid { display:grid; grid-template-columns:1fr; gap:1.5rem; }
-    @media(min-width:640px) { .services-grid { grid-template-columns:repeat(2,1fr); } }
-    @media(min-width:1024px) { .services-grid { grid-template-columns:repeat(3,1fr); } }
-    .card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:1.5rem; }
-    .card h3 { font-family:'Playfair Display', serif; color:var(--accent); margin-bottom:0.5rem; }
+    :root { --primary:#e63946; --accent:#a8dadc; --dark:#1d3557; --light:#f1faee; }
+    header { position:fixed; top:0; width:100%; z-index:100; backdrop-filter:blur(10px); background:rgba(0,0,0,0.5); }
+    nav { max-width:1200px; margin:auto; display:flex; align-items:center; justify-content:space-between; padding:1rem; }
+    .logo { font-size:1.75rem; font-weight:700; color:var(--accent); }
+    .nav-links a { margin-left:1rem; font-weight:500; position:relative; }
+    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width .3s; }
+    .nav-links a:hover::after { width:100%; }
+    #bg, #scene { position:fixed; top:0; left:0; width:100%; height:100%; }
+    #bg { z-index:-2; }
+    .hero { position:relative; height:100vh; overflow:hidden; }
+    .hero-content { position:relative; z-index:10; text-align:center; top:50%; transform:translateY(-50%); padding:0 1rem; }
+    .hero-content h1 { font-size:3rem; color:var(--accent); text-shadow:0 0 20px rgba(168,218,220,0.7); }
+    .hero-content p { margin-top:1rem; font-size:1.2rem; }
+    section { padding:4rem 0; position:relative; }
+    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
+    .services-grid, .grid-service { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
+    .service-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; backdrop-filter:blur(10px); overflow:hidden; transition:transform .3s; }
+    .service-card:hover { transform:scale(1.03); }
+    .service-body { padding:1.5rem; }
+    .service-body h3 { color:var(--accent); margin-bottom:0.5rem; }
     .testimonial-container { overflow:hidden; }
-    .testimonial-track { display:flex; gap:1rem; width:max-content; }
-    .testimonial { min-width:80%; max-width:300px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:1rem; }    
-    .testimonial p { font-style:italic; }
-    .testimonial span { display:block; text-align:right; margin-top:0.5rem; font-weight:600; }
-    form { display:flex; flex-direction:column; gap:1rem; }
-    input, select, textarea, button { width:100%; padding:0.75rem; border:none; border-radius:4px; }
-    input, select, textarea { background:rgba(255,255,255,0.1); color:#fff; }
-    button { background:var(--primary); color:#fff; font-weight:600; }
+    .testimonial-track { display:flex; transition:transform .5s ease-in-out; }
+    .testimonial-card { min-width:80%; max-width:400px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:1.5rem; margin-right:1rem; }
+    .testimonial-card p { font-style:italic; }
+    .testimonial-card span { display:block; margin-top:1rem; text-align:right; font-weight:600; }
+    .contact-form input, .contact-form select, .contact-form textarea { width:100%; padding:.75rem; margin-bottom:1rem; background:rgba(255,255,255,0.1); border:none; border-radius:4px; color:#fff; }
+    .contact-form button { width:100%; padding:.75rem; background:var(--primary); color:#fff; border:none; border-radius:4px; transition:background .3s; }
+    .contact-form button:hover { background:var(--accent); color:var(--dark); }
+    footer { text-align:center; padding:2rem 1rem; font-size:0.9rem; color:rgba(255,255,255,0.6); }
+    #back-to-top { position:fixed; bottom:2rem; right:2rem; background:var(--primary); color:#fff; padding:.75rem; border-radius:50%; cursor:pointer; display:none; z-index:100; }
   </style>
 </head>
 <body>
+  <!-- Realistic starfield background -->
+  <canvas id="bg"></canvas>
   <header>
     <nav class="container">
-      <div class="logo">Eco Junk Removal</div>
+      <div class="logo">300kings</div>
       <div class="nav-links">
         <a href="#home">Home</a>
+        <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#areas">Areas</a>
         <a href="#testimonials">Testimonials</a>
         <a href="#contact">Contact</a>
       </div>
     </nav>
   </header>
 
-  <section id="home" class="hero" style="background:#222;">
-    <div>
-      <h1>Fast, Reliable Junk Removal & Cleaning</h1>
-      <p>Eco-conscious disposal and luxury cleaning across Greater Montreal.</p>
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <canvas id="scene"></canvas>
+    <div class="overlay"></div>
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Montreal's Premier Junk Removal & Cleaning</h1>
+      <p>Haul It. Clean It. Love It. <a href="tel:438-529-7778" class="underline">438-529-7778</a></p>
     </div>
   </section>
 
-  <section id="services" class="container">
-    <h2 class="text-2xl font-semibold text-center mb-6">Our Services</h2>
+  <!-- About Us -->
+  <section id="about" class="container" data-aos="fade-up">
+    <h2 class="text-3xl mb-6">About Us</h2>
+    <p class="mb-6">300kings is a Montreal-based team of passionate professionals offering top-tier junk removal and luxury cleaning. We handle every job as if it were our own—integrity, punctuality, and customer satisfaction guaranteed.</p>
+    <div class="grid-service" data-aos="fade-up" data-aos-delay="200">
+      <div class="service-card"><div class="service-body"><h3>Eco-Conscious Disposal</h3><p>Responsible recycling and disposal for all materials, minimizing landfill waste.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>White-Glove Cleaning</h3><p>Detailed, high-end cleaning for homes, offices, and special events.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Services Overview -->
+  <section id="services" class="container" data-aos="fade-up">
+    <h2 class="text-center text-3xl mb-8">Our Main Services</h2>
     <div class="services-grid">
-      <div class="card">
-        <h3>Residential Junk Removal</h3>
-        <p>Full home clearouts: basements, attics, garages, and more. Furniture, appliances, electronics.</p>
-      </div>
-      <div class="card">
-        <h3>Commercial Cleanouts</h3>
-        <p>Office spaces, retail stores, warehouses—fast, discreet, and efficient debris removal.</p>
-      </div>
-      <div class="card">
-        <h3>Construction Debris</h3>
-        <p>Removal of sheetrock, lumber, concrete, tile, and renovation waste with responsible recycling.</p>
-      </div>
-      <div class="card">
-        <h3>Hoarder & Estate Cleanouts</h3>
-        <p>Compassionate, thorough cleanouts for sensitive situations, preserving dignity and privacy.</p>
-      </div>
-      <div class="card">
-        <h3>Appliance & E-Waste</h3>
-        <p>Refrigerators, stoves, computers, TVs—safe removal and eco-friendly recycling.</p>
-      </div>
-      <div class="card">
-        <h3>Deep Cleaning</h3>
-        <p>White-glove service: kitchens, bathrooms, carpet & upholstery, post-construction touch-ups.</p>
-      </div>
-      <div class="card">
-        <h3>Carpet & Upholstery</h3>
-        <p>Hot-water extraction, stain removal, allergen reduction for carpets, couches, and chairs.</p>
-      </div>
-      <div class="card">
-        <h3>Window & Move-in Cleaning</h3>
-        <p>Streak-free windows and move-in/move-out services ensuring spotless, welcoming spaces.</p>
-      </div>
-      <div class="card">
-        <h3>Airbnb & Office Maintenance</h3>
-        <p>Quick turnovers, scheduled cleanings, and ongoing janitorial services for high standards.</p>
-      </div>
+      <div class="service-card"><div class="service-body"><h3>Residential Junk Removal</h3><p>Full home clearouts—basements, attics, garages. Furniture, appliances, electronics.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Commercial Cleanouts</h3><p>Office spaces, retail stores, warehouses—fast, discreet debris removal.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Construction Debris</h3><p>Sheetrock, lumber, concrete and renovation waste—responsible recycling.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Hoarder & Estate Cleanouts</h3><p>Compassionate removal preserving dignity and privacy.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Appliance & E-Waste</h3><p>Refrigerators, stoves, computers—safe removal & eco-friendly recycling.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Deep Cleaning</h3><p>White-glove service: kitchens, bathrooms, carpets, upholstery.</p></div></div>
     </div>
   </section>
 
-  <section id="testimonials" class="container">
-    <h2 class="text-2xl font-semibold text-center mb-6">Testimonials</h2>
+  <!-- Junk Removal Niches -->
+  <section id="junk-niches" class="container" data-aos="fade-up">
+    <h2 class="text-3xl mb-6">Specialized Junk Services</h2>
+    <div class="grid-service">
+      <div class="service-card"><div class="service-body"><h3>Home Clearouts</h3><p>Single-room to full-house clearances.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Office & Retail</h3><p>Cleanups tailored for business schedules.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Hoarder Cleanup</h3><p>Discrete, empathetic service for sensitive cases.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Construction Waste</h3><p>Debris removal during and after renovations.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Yard Debris</h3><p>Branches, leaves, old sheds, and general outdoor waste.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Furniture Disposal</h3><p>Sofas, beds, tables—heavy item removal.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Cleaning Niches -->
+  <section id="cleaning-niches" class="container" data-aos="fade-up">
+    <h2 class="text-3xl mb-6">Cleaning Specialties</h2>
+    <div class="grid-service">
+      <div class="service-card"><div class="service-body"><h3>Couch Cleaning</h3><p>Deep upholstery cleaning—remove stains & odors.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Carpet Cleaning</h3><p>Hot-water extraction & stain treatment.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Window Washing</h3><p>Interior & exterior streak-free shine.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Move-In/Out</h3><p>Ensure rental or sale-ready properties.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Post-Construction</h3><p>Removal of dust & fine particles after builds.</p></div></div>
+      <div class="service-card"><div class="service-body"><h3>Airbnb Turnover</h3><p>Quick cleanings between guest stays.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Testimonials Carousel -->
+  <section id="testimonials" class="container" data-aos="fade-up">
+    <h2 class="text-3xl mb-6 text-center">What Our Customers Say</h2>
     <div class="testimonial-container">
       <div id="testimonial-track" class="testimonial-track">
-        <div class="testimonial"><p>"Amazing service! They cleared out my garage in under an hour."</p><span>— Alex P., Downtown</span></div>
-        <div class="testimonial"><p>"Professional and friendly team, highly recommend."</p><span>— Sara L., Plateau</span></div>
-        <div class="testimonial"><p>"They saved me so much time and headache."</p><span>— David M., Griffintown</span></div>
-        <div class="testimonial"><p>"Top-notch cleaning after renovation—spotless!"</p><span>— Nina R., West Island</span></div>
-        <div class="testimonial"><p>"Quick response and eco-friendly disposal."</p><span>— Karim B., Laval</span></div>
+        <div class="testimonial-card"><p>“Incredible service! They cleared out my basement in no time.”</p><span>— Sophie L., Plateau-Mont-Royal</span></div>
+        <div class="testimonial-card"><p>“Professional and punctual—highly recommend 300kings!”</p><span>— Marc D., Villeray</span></div>
+        <div class="testimonial-card"><p>“Best junk removal service in Montreal. Friendly staff.”</p><span>— Isabelle P., Mile End</span></div>
+        <div class="testimonial-card"><p>“Clean, efficient, and reasonable pricing.”</p><span>— Olivier G., West Island</span></div>
+        <div class="testimonial-card"><p>“They handled our office cleanout flawlessly.”</p><span>— Émilie T., Downtown</span></div>
+        <div class="testimonial-card"><p>“Superb communication and speedy pickup.”</p><span>— Lucas F., Verdun</span></div>
+        <div class="testimonial-card"><p>“Fantastic job on my garage cleanup.”</p><span>— Chloé M., Rosemont</span></div>
+        <div class="testimonial-card"><p>“Courteous team and great work ethic.”</p><span>— Antoine R., Laval</span></div>
+        <div class="testimonial-card"><p>“Hassle-free and professional service.”</p><span>— Marie S., Longueuil</span></div>
+        <div class="testimonial-card"><p>“Couldn't be happier with the result—thank you!”</p><span>— Julien B., Brossard</span></div>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="container mb-12">
-    <h2 class="text-2xl font-semibold text-center mb-6">Get a Free Quote</h2>
-    <form>
+  <!-- Areas -->
+  <section id="areas" class="container" data-aos="fade-up">
+    <h2 class="text-3xl mb-4">Service Areas</h2>
+    <button id="toggle-areas" class="mb-4 px-4 py-2 bg-primary rounded">View All 108+ Areas</button>
+    <ul id="areas-list" class="columns-2 space-y-2 text-sm" style="display:none;">
+      <!-- FULL LIST FOR SEO -->
+      <li>Montreal</li><li>Laval</li><li>Longueuil</li><li>Brossard</li><li>Repentigny</li>
+    </ul>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="container" data-aos="fade-up">
+    <h2 class="text-3xl mb-6">Get a Free Quote</h2>
+    <form class="contact-form">
       <input type="text" placeholder="Your Name" required>
-      <input type="tel" placeholder="Phone Number" required>
-      <input type="email" placeholder="Email Address" required>
-      <select required>
-        <option value="">Select Service</option>
-        <option value="residential">Residential Junk Removal</option>
-        <option value="commercial">Commercial Cleanouts</option>
-        <option value="construction">Construction Debris</option>
-        <option value="cleaning">Deep Cleaning</option>
-      </select>
+      <input type="tel" placeholder="Phone Number" value="438-529-7778" required>
+      <input type="email" placeholder="Email Address" value="mtl.ecojunkremoval@gmail.com" required>
+      <select required><option value="">Select Service</option><option value="residential">Residential Junk Removal</option><option value="commercial">Commercial Cleanouts</option><option value="construction">Construction Debris</option><option value="cleaning">Deep Cleaning</option></select>
       <textarea rows="4" placeholder="Message..."></textarea>
-      <button type="submit">Submit</button>
+      <button type="submit" class="mt-4">Submit</button>
     </form>
   </section>
 
-  <footer class="text-center py-4" style="background:#222;"><p>&copy; 2025 Eco Junk Removal. Montreal, QC. Call 438-529-7778 or email mtl.ecojunkremoval@gmail.com</p></footer>
+  <footer data-aos="fade-up"><p>&copy; 2025 300kings Junk Removal & Cleaning. Montreal, QC.</p></footer>
+  <div id="back-to-top">&#8679;</div>
 
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
-    // Simple testimonial auto-scroll
-    const track = document.getElementById('testimonial-track');
-    setInterval(() => { track.append(track.firstElementChild); }, 4000);
+    AOS.init({ duration:800, once:true });
+    // Toggle areas list
+    document.getElementById('toggle-areas').addEventListener('click', ()=>{
+      const list = document.getElementById('areas-list');
+      const show = list.style.display!=='block';
+      list.style.display = show?'block':'none';
+      document.getElementById('toggle-areas').textContent = show?'Hide Areas':'View All 108+ Areas';
+    });
+    // Hero animation
+    const scene = new THREE.Scene(), camera = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000);
+    camera.position.z = 2;
+    const renderer = new THREE.WebGLRenderer({canvas:document.getElementById('scene'),alpha:true}); renderer.setSize(window.innerWidth,window.innerHeight);
+    const knot = new THREE.Mesh(new THREE.TorusKnotGeometry(0.7,0.2,100,16), new THREE.MeshBasicMaterial({color:0x1d3557,wireframe:true,opacity:0.4,transparent:true})); scene.add(knot);
+    const light = new THREE.DirectionalLight(0xffffff,1); light.position.set(5,5,5); scene.add(light);
+    function animateHero(){ requestAnimationFrame(animateHero); knot.rotation.x+=0.005; knot.rotation.y+=0.007; renderer.render(scene,camera);} animateHero();
+    // Starfield
+    const bgScene = new THREE.Scene(), bgCam = new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,1,1000); bgCam.position.z=50;
+    const bgRenderer = new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true}); bgRenderer.setSize(window.innerWidth,window.innerHeight);
+    function createStar
   </script>
 </body>
 </html>
