@@ -2,84 +2,68 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kevin's Junk Removal & Cleaning — Montreal's Premier Service</title>
   <meta name="description" content="Kevin's Junk Removal & Cleaning: Fast, eco-friendly junk removal and luxury cleaning in Montreal and surrounding 75-mile radius.">
 
-  <!-- Google Fonts -->
+  <!-- Fonts & libs -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-
-  <!-- AOS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-
-  <!-- Tailwind (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
   <style>
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html, body { width:100%; height:100%; overflow-x:hidden; }
-    body { font-family:'DM Sans', sans-serif; background:#0b0e13; color:#fff; position:relative; }
-    h1, h2, h3 { font-family:'Playfair Display', serif; }
-    a { color:inherit; text-decoration:none; }
-    :root { --primary:#e63946; --accent:#a8dadc; --dark:#1d3557; --light:#f1faee; }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    html,body{height:100%;width:100%;overflow-x:hidden}
+    body{font-family:'DM Sans',sans-serif;background:#0b0e13;color:#fff;position:relative}
+    h1,h2,h3{font-family:'Playfair Display',serif}
+    a{color:inherit;text-decoration:none}
+    :root{--primary:#e63946;--accent:#a8dadc;--dark:#1d3557;--light:#f1faee}
 
-    header { position:fixed; top:0; width:100%; z-index:100; backdrop-filter:blur(10px); background:rgba(0,0,0,0.45); border-bottom:1px solid rgba(255,255,255,0.06); }
-    nav { max-width:1200px; margin:auto; display:flex; align-items:center; justify-content:space-between; padding:0.9rem 1rem; }
-    .logo { font-size:1.5rem; font-weight:700; color:var(--accent); letter-spacing:.3px; text-shadow:0 0 10px rgba(168,218,220,.25); }
-    .nav-links a { margin-left:1rem; font-weight:500; position:relative; opacity:.9; }
-    .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width .3s; }
-    .nav-links a:hover::after { width:100%; }
+    /* Mobile-first sizes */
+    .hero-title{font-size:2.2rem;line-height:1.1}
+    .hero-sub{font-size:1rem;opacity:.95}
+    @media(min-width:640px){.hero-title{font-size:3rem}.hero-sub{font-size:1.1rem}}
+    @media(min-width:1024px){.hero-title{font-size:3.6rem}.hero-sub{font-size:1.2rem}}
 
-    /* Canvas stacking: stars behind knot, above body bg */
-    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-    .hero { position:relative; height:100vh; overflow:hidden; }
-    #scene { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; }
-    .overlay { position:absolute; inset:0; z-index:2;
-      background:radial-gradient(ellipse at 50% 80%, rgba(10,14,24,.0) 0%, rgba(10,14,24,.3) 55%, rgba(10,14,24,.65) 100%);
-      pointer-events:none;
+    header{position:fixed;top:0;width:100%;z-index:100;background:rgba(0,0,0,.45);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.06)}
+    nav{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:.8rem 1rem}
+    .logo{font-weight:700;color:var(--accent);letter-spacing:.3px;text-shadow:0 0 10px rgba(168,218,220,.25)}
+    .nav-links a{margin-left:.8rem;font-weight:500;position:relative;opacity:.9}
+    .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--primary);transition:width .3s}
+    .nav-links a:hover::after{width:100%}
+
+    /* One canvas behind everything */
+    #universe{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+    .hero{position:relative;min-height:100vh;display:grid;place-items:center;overflow:hidden}
+    .overlay{position:absolute;inset:0;z-index:1;
+      background:radial-gradient(ellipse at 50% 80%,rgba(11,14,19,0) 0%,rgba(11,14,19,.35) 55%,rgba(11,14,19,.7) 100%)}
+    .hero-content{position:relative;z-index:2;text-align:center;padding:0 1rem;margin-top:3.5rem}
+
+    section{padding:3rem 0}
+    .container{max-width:1200px;margin:0 auto;padding:0 1rem}
+
+    .services{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.25rem}
+    .service-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;backdrop-filter:blur(10px);transition:transform .25s,box-shadow .25s}
+    .service-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .service-body{padding:1.2rem}
+    .service-body h3{color:var(--accent);margin-bottom:.2rem}
+
+    .contact-form input,.contact-form select,.contact-form textarea{
+      width:100%;padding:.85rem;margin-bottom:.9rem;border:none;border-radius:8px;background:rgba(255,255,255,.08);color:#fff;outline:1px solid rgba(255,255,255,.08)
     }
-    .hero-content { position:relative; z-index:10; text-align:center; top:50%; transform:translateY(-50%); padding:0 1rem; }
-    .hero-content h1 { font-size:3rem; color:var(--accent); text-shadow:0 0 20px rgba(168,218,220,0.5); }
-    .hero-content p { margin-top:1rem; font-size:1.2rem; opacity:.95; }
+    .contact-form button{width:100%;padding:.9rem;background:var(--primary);color:#fff;border:none;border-radius:10px;box-shadow:0 6px 18px rgba(230,57,70,.25);transition:filter .25s}
+    .contact-form button:hover{filter:brightness(1.1)}
+    footer{text-align:center;padding:2rem 1rem;font-size:.9rem;color:rgba(255,255,255,.65)}
 
-    section { padding:4rem 0; position:relative; }
-    .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
-
-    .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
-    .service-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; backdrop-filter:blur(10px); overflow:hidden; transition:transform .3s, box-shadow .3s; }
-    .service-card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,.25); }
-    .service-body { padding:1.5rem; }
-    .service-body h3 { color:var(--accent); margin-bottom:.25rem; }
-
-    .faq-item + .faq-item { margin-top:1.25rem; }
-
-    .contact-form input,
-    .contact-form select,
-    .contact-form textarea {
-      width:100%; padding:.85rem; margin-bottom:1rem;
-      border:none; border-radius:8px;
-      background:rgba(255,255,255,0.08); color:#fff;
-      outline:1px solid rgba(255,255,255,0.08);
-    }
-    .contact-form button {
-      width:100%; padding:.9rem; background:var(--primary); color:#fff; border:none; border-radius:10px; transition:filter .3s;
-      box-shadow:0 6px 18px rgba(230,57,70,.25);
-    }
-    .contact-form button:hover { filter:brightness(1.1); }
-
-    footer { text-align:center; padding:2rem 1rem; font-size:0.9rem; color:rgba(255,255,255,0.65); }
-
-    #back-to-top { position:fixed; bottom:1.25rem; right:1.25rem; background:var(--primary); color:#fff; width:44px; height:44px; display:grid; place-items:center; border-radius:999px; cursor:pointer; display:none; z-index:100; box-shadow:0 8px 20px rgba(230,57,70,.35); }
-
-    .btn { display:inline-block; padding:.6rem 1rem; border-radius:8px; background:var(--primary); color:#fff; font-weight:600; }
+    #back-to-top{position:fixed;bottom:1rem;right:1rem;background:var(--primary);color:#fff;width:44px;height:44px;display:none;place-items:center;border-radius:999px;z-index:200;box-shadow:0 8px 20px rgba(230,57,70,.35);cursor:pointer}
+    .btn{display:inline-block;padding:.6rem 1rem;border-radius:8px;background:var(--primary);color:#fff;font-weight:600}
   </style>
 </head>
 <body>
-  <!-- Starfield background -->
-  <canvas id="bg"></canvas>
+  <!-- Single WebGL canvas (stars + knot) -->
+  <canvas id="universe"></canvas>
 
   <header>
     <nav class="container">
@@ -94,19 +78,16 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <canvas id="scene"></canvas>
+  <main id="home" class="hero">
     <div class="overlay"></div>
     <div class="hero-content" data-aos="fade-up">
-      <h1>Montreal's Premier Junk Removal & Cleaning</h1>
-      <p>Fast, reliable, eco-friendly service. <a href="tel:438-529-7778" class="underline">438-529-7778</a></p>
+      <h1 class="hero-title text-[color:var(--accent)] drop-shadow">Montreal's Premier Junk Removal & Cleaning</h1>
+      <p class="hero-sub mt-3">Fast, reliable, eco-friendly service. <a href="tel:438-529-7778" class="underline">438-529-7778</a></p>
     </div>
-  </section>
+  </main>
 
-  <!-- Services -->
   <section id="services" class="container" data-aos="fade-up">
-    <h2 class="text-center text-3xl mb-8">Our Services</h2>
+    <h2 class="text-center text-3xl mb-6">Our Services</h2>
     <div class="services">
       <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
         <div class="service-body"><h3>Junk Removal</h3><p>Residential & commercial debris pickup and hauling.</p></div>
@@ -123,23 +104,20 @@
     </div>
   </section>
 
-  <!-- Areas -->
   <section id="areas" class="container" data-aos="fade-up">
     <h2 class="text-3xl mb-4">Service Areas</h2>
-    <button id="toggle-areas" class="btn mb-4">View All 108+ Areas</button>
+    <button id="toggle-areas" class="btn mb-3">View All 108+ Areas</button>
     <ul id="areas-list" class="columns-2 space-y-2 text-sm" style="display:none">
-      <li>Montreal</li><li>Laval</li><!-- Add the rest here -->
+      <li>Montreal</li><li>Laval</li><!-- Add the rest -->
     </ul>
   </section>
 
-  <!-- FAQs -->
   <section id="faqs" class="container" data-aos="fade-up">
     <h2 class="text-3xl mb-6">FAQs</h2>
     <div class="faq-item" data-aos="fade-up" data-aos-delay="100"><h4 class="font-semibold">Do you offer same-day pickups?</h4><p>Yes—ASAP service. Recurring plans available.</p></div>
     <div class="faq-item" data-aos="fade-up" data-aos-delay="200"><h4 class="font-semibold">Which items do you accept?</h4><p>Furniture, electronics, debris, scrap vehicles, lawn debris, expired products, dirt, old sheds, pools. No hazardous materials/food waste.</p></div>
   </section>
 
-  <!-- Contact -->
   <section id="contact" class="container" data-aos="fade-up">
     <h2 class="text-3xl mb-6">Contact Us</h2>
     <form class="contact-form" onsubmit="event.preventDefault(); alert('Thanks! We will reach out shortly.');">
@@ -159,12 +137,11 @@
   <footer data-aos="fade-up"><p>&copy; 2025 Kevin's Junk Removal & Cleaning</p></footer>
   <div id="back-to-top" title="Back to top">&#8679;</div>
 
-  <!-- Scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
   <script>
-    AOS.init({ duration:800, once:true });
+    AOS.init({ duration: 700, once: true });
 
-    // Toggle Areas
+    // UI helpers
     const btn = document.getElementById('toggle-areas');
     const list = document.getElementById('areas-list');
     btn.addEventListener('click', () => {
@@ -172,292 +149,276 @@
       list.style.display = open ? 'none' : 'block';
       btn.textContent = open ? 'View All 108+ Areas' : 'Hide Areas';
     });
-
-    // Back to top
     const topBtn = document.getElementById('back-to-top');
     window.addEventListener('scroll', () => topBtn.style.display = window.scrollY > 300 ? 'grid' : 'none');
-    topBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+    topBtn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-    /* ===========================
-       HERO: rotating knot (transparent canvas)
-       =========================== */
+    /* =============================
+       ONE RENDERER, ONE CANVAS
+       Stars + Nebulas + Meteors + Knot
+       ============================= */
+    const canvas = document.getElementById('universe');
+    const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas, alpha: true, antialias: true, powerPreference: 'high-performance'
+    });
+    const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+    renderer.setPixelRatio(DPR);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.setClearColor(0x000000, 0);
+
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, .1, 1000);
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, .1, 2000);
     camera.position.z = 2.2;
 
-    const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('scene'), alpha:true, antialias:true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.outputEncoding = THREE.sRGBEncoding;
-    renderer.setClearColor(0x000000, 0); // <-- key: make hero canvas transparent
-
+    // ======= Knot (kept as you like) =======
     const knot = new THREE.Mesh(
       new THREE.TorusKnotGeometry(0.7, 0.2, 120, 18),
-      new THREE.MeshBasicMaterial({ color:0x1d3557, wireframe:true, opacity:0.4, transparent:true })
+      new THREE.MeshBasicMaterial({ color: 0x1d3557, wireframe: true, opacity: 0.4, transparent: true })
     );
     scene.add(knot);
 
-    function animateHero(){
-      requestAnimationFrame(animateHero);
-      knot.rotation.x += 0.005;
-      knot.rotation.y += 0.007;
-      renderer.render(scene, camera);
-    }
-    animateHero();
-
-    /* =====================================
-       BACKGROUND: layered starfield
-       ===================================== */
-    const bgScene = new THREE.Scene();
-    const bgCam   = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 2000);
-    bgCam.position.z = 400;
-
-    const bgRenderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha:true, antialias:true });
-    bgRenderer.setSize(window.innerWidth, window.innerHeight);
-    bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    bgRenderer.outputEncoding = THREE.sRGBEncoding;
-    bgRenderer.setClearColor(0x000000, 0);
-
-    // soft radial sprite
-    function createStarTexture(){
-      const s = 64, c = document.createElement('canvas'); c.width = s; c.height = s;
-      const ctx = c.getContext('2d');
-      const g = ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
-      g.addColorStop(0.0,'rgba(255,255,255,1)');
-      g.addColorStop(0.25,'rgba(255,255,255,0.85)');
-      g.addColorStop(0.5,'rgba(255,255,255,0.35)');
-      g.addColorStop(1.0,'rgba(255,255,255,0)');
-      ctx.fillStyle = g; ctx.fillRect(0,0,s,s);
-      const tex = new THREE.CanvasTexture(c); tex.anisotropy = 8; return tex;
-    }
-
-    // meteor trail sprite
-    function createMeteorTexture(){
-      const w=256,h=32,c=document.createElement('canvas'); c.width=w;c.height=h;
+    // ======= Starfield (behind everything) =======
+    function starSprite(){
+      const s=64,c=document.createElement('canvas'); c.width=s;c.height=s;
       const ctx=c.getContext('2d');
-      const g=ctx.createLinearGradient(0,h/2,w,h/2);
+      const g=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+      g.addColorStop(0,'rgba(255,255,255,1)');
+      g.addColorStop(.25,'rgba(255,255,255,.85)');
+      g.addColorStop(.55,'rgba(255,255,255,.35)');
+      g.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,s,s);
+      const t=new THREE.CanvasTexture(c); t.anisotropy=8; return t;
+    }
+    function meteorSprite(){
+      const w=256,h=32,c=document.createElement('canvas'); c.width=w;c.height=h;
+      const ctx=c.getContext('2d'); const g=ctx.createLinearGradient(0,h/2,w,h/2);
       g.addColorStop(0,'rgba(255,255,255,0)');
-      g.addColorStop(0.15,'rgba(255,255,255,0.6)');
-      g.addColorStop(0.6,'rgba(255,255,255,0.15)');
+      g.addColorStop(.15,'rgba(255,255,255,.6)');
+      g.addColorStop(.6,'rgba(255,255,255,.15)');
       g.addColorStop(1,'rgba(255,255,255,0)');
       ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
-      const tex=new THREE.CanvasTexture(c); tex.anisotropy=4; return tex;
+      const t=new THREE.CanvasTexture(c); t.anisotropy=4; return t;
     }
+    const starTex = starSprite();
+    const meteorTex = meteorSprite();
 
-    const starTex   = createStarTexture();
-    const meteorTex = createMeteorTexture();
-
-    const starUniforms = { pointTexture: { value: starTex }, uTime: { value: 0 } };
-
+    const starUniforms = { pointTexture: { value: starTex }, uTime: { value: 0 }, uTwMul: { value: prefersReduced ? 0.1 : 1.0 } };
     const starVertex = `
       attribute float size;
-      attribute vec3  color;
+      attribute vec3 color;
       attribute float twinkle;
       attribute float speed;
       attribute float phase;
       varying vec3 vColor;
       varying float vTw;
       uniform float uTime;
-      void main() {
+      uniform float uTwMul;
+      void main(){
         vColor = color;
-        vTw    = 1.0 + twinkle * sin(uTime * speed + phase);
-        vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-        gl_PointSize = size * (450.0 / -mvPosition.z); // slightly larger for visibility
-        gl_Position = projectionMatrix * mvPosition;
-      }
-    `;
+        vTw = 1.0 + (twinkle * uTwMul) * sin(uTime * speed + phase);
+        vec4 mv = modelViewMatrix * vec4(position, 1.0);
+        gl_PointSize = size * (360.0 / -mv.z);
+        gl_Position = projectionMatrix * mv;
+      }`;
     const starFragment = `
       uniform sampler2D pointTexture;
       varying vec3  vColor;
       varying float vTw;
-      void main() {
-        vec4 s  = texture2D(pointTexture, gl_PointCoord.xy);
-        float alpha = s.a;
-        vec3  col = vColor * (0.85 + 0.15 * s.r);
-        gl_FragColor = vec4(col * vTw, alpha * vTw);
-        if (gl_FragColor.a < 0.02) discard;
-      }
-    `;
+      void main(){
+        vec4 s = texture2D(pointTexture, gl_PointCoord);
+        vec3 col = vColor * (0.85 + 0.15 * s.r);
+        float a = s.a;
+        gl_FragColor = vec4(col * vTw, a * vTw);
+        if(gl_FragColor.a < 0.02) discard;
+      }`;
 
-    function makeStars({count, radius, sizeMin, sizeMax, twinkleMean, layerRotationSpeed=0.0001}) {
+    function makeStars({count, radius, sizeMin, sizeMax, twinkleMean}){
       const geo = new THREE.BufferGeometry();
-      const positions = new Float32Array(count * 3);
-      const sizes     = new Float32Array(count);
-      const colors    = new Float32Array(count * 3);
-      const twinkles  = new Float32Array(count);
-      const speeds    = new Float32Array(count);
-      const phases    = new Float32Array(count);
+      const pos = new Float32Array(count*3);
+      const size= new Float32Array(count);
+      const col = new Float32Array(count*3);
+      const tw  = new Float32Array(count);
+      const spd = new Float32Array(count);
+      const ph  = new Float32Array(count);
 
-      const bandDir = new THREE.Vector3(0.2, 0.9, 0.1).normalize();
+      const bandDir = new THREE.Vector3(0.2,0.9,0.1).normalize();
 
-      for (let i = 0; i < count; i++) {
-        const r = radius * (0.35 + 0.65 * Math.pow(Math.random(), 0.6));
-        const theta = Math.acos(THREE.MathUtils.randFloatSpread(2));
-        const phi   = THREE.MathUtils.randFloat(0, Math.PI*2);
-        let x = r * Math.sin(theta) * Math.cos(phi);
-        let y = r * Math.sin(theta) * Math.sin(phi);
-        let z = r * Math.cos(theta);
+      for(let i=0;i<count;i++){
+        const r = radius * (0.35 + 0.65*Math.pow(Math.random(),0.6));
+        const th = Math.acos(THREE.MathUtils.randFloatSpread(2));
+        const phh= THREE.MathUtils.randFloat(0, Math.PI*2);
+        let x = r*Math.sin(th)*Math.cos(phh);
+        let y = r*Math.sin(th)*Math.sin(phh);
+        let z = -Math.abs(r*Math.cos(th)) - 40; // force behind camera
 
         const p = new THREE.Vector3(x,y,z).normalize();
-        const bandWeight = Math.pow(Math.max(0.0, p.dot(bandDir)), 4.0);
-        const jitter = THREE.MathUtils.randFloatSpread(1.0);
-        x += bandWeight * 8 * jitter;
-        y += bandWeight * 8 * jitter;
+        const bandW = Math.pow(Math.max(0.0, p.dot(bandDir)), 4.0);
+        const jit = THREE.MathUtils.randFloatSpread(1.0);
+        x += bandW * 8 * jit;
+        y += bandW * 8 * jit;
 
-        positions[i*3]   = x;
-        positions[i*3+1] = y;
-        positions[i*3+2] = z;
+        pos[i*3]=x; pos[i*3+1]=y; pos[i*3+2]=z;
 
-        const s = THREE.MathUtils.lerp(sizeMin, sizeMax, Math.pow(Math.random(), 2.5));
-        sizes[i] = s;
+        size[i] = THREE.MathUtils.lerp(sizeMin,sizeMax,Math.pow(Math.random(),2.5));
 
         const t = Math.random();
-        const warm = new THREE.Color(1.0, 0.85, 0.7);
-        const cool = new THREE.Color(0.75, 0.85, 1.0);
-        const c = warm.clone().lerp(cool, t).offsetHSL((Math.random()-0.5)*0.015, 0, 0);
-        colors[i*3]   = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
+        const warm = new THREE.Color(1.0,0.85,0.7);
+        const cool = new THREE.Color(0.75,0.85,1.0);
+        const c = warm.clone().lerp(cool,t).offsetHSL((Math.random()-0.5)*0.015,0,0);
+        col[i*3]=c.r; col[i*3+1]=c.g; col[i*3+2]=c.b;
 
-        twinkles[i] = Math.max(0, THREE.MathUtils.randNormal(twinkleMean, 0.15));
-        speeds[i]   = THREE.MathUtils.randFloat(0.6, 2.2);
-        phases[i]   = THREE.MathUtils.randFloat(0, Math.PI*2);
+        tw[i]  = Math.max(0, THREE.MathUtils.randNormal(twinkleMean,0.15));
+        spd[i] = THREE.MathUtils.randFloat(0.6,2.2);
+        ph[i]  = THREE.MathUtils.randFloat(0, Math.PI*2);
       }
 
-      geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      geo.setAttribute('size',     new THREE.BufferAttribute(sizes, 1));
-      geo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
-      geo.setAttribute('twinkle',  new THREE.BufferAttribute(twinkles, 1));
-      geo.setAttribute('speed',    new THREE.BufferAttribute(speeds, 1));
-      geo.setAttribute('phase',    new THREE.BufferAttribute(phases, 1));
+      geo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+      geo.setAttribute('size',     new THREE.BufferAttribute(size,1));
+      geo.setAttribute('color',    new THREE.BufferAttribute(col,3));
+      geo.setAttribute('twinkle',  new THREE.BufferAttribute(tw,1));
+      geo.setAttribute('speed',    new THREE.BufferAttribute(spd,1));
+      geo.setAttribute('phase',    new THREE.BufferAttribute(ph,1));
 
       const mat = new THREE.ShaderMaterial({
         uniforms: THREE.UniformsUtils.clone(starUniforms),
         vertexShader: starVertex,
         fragmentShader: starFragment,
         transparent:true,
+        blending: THREE.AdditiveBlending,
         depthWrite:false,
-        blending:THREE.AdditiveBlending
+        depthTest:false   // draw as true background (we render first)
       });
 
-      const points = new THREE.Points(geo, mat);
-      points.userData.rotSpeed = layerRotationSpeed;
-      return points;
+      const pts = new THREE.Points(geo, mat);
+      pts.renderOrder = -1; // render first
+      return pts;
     }
 
-    const farStars  = makeStars({ count: 1800, radius: 900, sizeMin: 0.6, sizeMax: 2.0, twinkleMean: 0.08, layerRotationSpeed: 0.00006 });
-    const midStars  = makeStars({ count: 1200, radius: 700, sizeMin: 0.9, sizeMax: 2.8, twinkleMean: 0.18, layerRotationSpeed: 0.00012 });
-    const nearStars = makeStars({ count:  480, radius: 500, sizeMin: 1.4, sizeMax: 4.0, twinkleMean: 0.28, layerRotationSpeed: 0.00022 });
+    // mobile-friendly particle budget
+    const budget = isMobile ? {far:1200, mid:800, near:300} : {far:1800, mid:1200, near:480};
+    const far   = makeStars({count:budget.far,  radius:900, sizeMin:0.6, sizeMax:1.8, twinkleMean:0.08});
+    const mid   = makeStars({count:budget.mid,  radius:700, sizeMin:0.8, sizeMax:2.6, twinkleMean:0.18});
+    const near  = makeStars({count:budget.near, radius:520, sizeMin:1.2, sizeMax:3.6, twinkleMean:0.28});
+    scene.add(far, mid, near);
 
-    bgScene.add(farStars, midStars, nearStars);
-
-    // Nebulas
-    function addNebulaClouds(n=7){
-      const group = new THREE.Group();
-      for (let i=0;i<n;i++){
-        const spriteMat = new THREE.SpriteMaterial({
-          map: starTex,
-          color: new THREE.Color().setHSL(THREE.MathUtils.randFloat(0.55,0.68), 0.35, 0.45),
-          transparent:true,
-          opacity: THREE.MathUtils.randFloat(0.05, 0.12),
-          blending: THREE.AdditiveBlending,
-          depthWrite:false
+    // Nebulas (big soft sprites, behind)
+    function addNebulas(n= isMobile ? 4 : 7){
+      const group = new THREE.Group(); group.renderOrder = -1;
+      for(let i=0;i<n;i++){
+        const m = new THREE.SpriteMaterial({
+          map: starTex, color: new THREE.Color().setHSL(THREE.MathUtils.randFloat(0.55,0.68),0.35,0.45),
+          transparent:true, opacity: THREE.MathUtils.randFloat(0.05,0.12),
+          blending: THREE.AdditiveBlending, depthWrite:false, depthTest:false
         });
-        const sp = new THREE.Sprite(spriteMat);
+        const sp = new THREE.Sprite(m);
         sp.position.set(
           THREE.MathUtils.randFloatSpread(800),
-          THREE.MathUtils.randFloatSpread(500) + THREE.MathUtils.randFloat(-80,120),
-          THREE.MathUtils.randFloat(-150, 150)
+          THREE.MathUtils.randFloatSpread(500)+THREE.MathUtils.randFloat(-80,120),
+          THREE.MathUtils.randFloat(-300,-80)
         );
-        const scale = THREE.MathUtils.randFloat(250, 520);
-        sp.scale.set(scale, scale, 1);
+        const s = THREE.MathUtils.randFloat(250,520);
+        sp.scale.set(s,s,1);
         group.add(sp);
       }
       return group;
     }
-    const nebulas = addNebulaClouds();
-    bgScene.add(nebulas);
+    const nebulas = addNebulas();
+    scene.add(nebulas);
 
-    // Meteors
-    const meteorGroup = new THREE.Group();
-    bgScene.add(meteorGroup);
-
+    // Meteors (shooting stars, behind)
+    const meteorGroup = new THREE.Group(); meteorGroup.renderOrder = -1;
+    scene.add(meteorGroup);
     function launchMeteor(){
+      if(prefersReduced) return;
       const geo = new THREE.PlaneGeometry(1, 0.12);
-      const mat = new THREE.MeshBasicMaterial({
-        map: meteorTex,
-        transparent:true,
-        blending: THREE.AdditiveBlending,
-        depthWrite:false
-      });
+      const mat = new THREE.MeshBasicMaterial({map: meteorTex, transparent:true, blending:THREE.AdditiveBlending, depthWrite:false, depthTest:false});
       const m = new THREE.Mesh(geo, mat);
-
-      const startZ = THREE.MathUtils.randFloat(-50, 120);
-      const startX = THREE.MathUtils.randFloat(250, 420);
-      const startY = THREE.MathUtils.randFloat(120, 240);
-      m.position.set(startX, startY, startZ);
-      const scale = THREE.MathUtils.randFloat(120, 210);
-      m.scale.set(scale, scale * 0.12, 1);
-      m.rotation.z = THREE.MathUtils.degToRad(THREE.MathUtils.randFloat(-18, -30));
-
+      const startZ = THREE.MathUtils.randFloat(-180,-80);
+      const startX = THREE.MathUtils.randFloat(200,420);
+      const startY = THREE.MathUtils.randFloat(120,260);
+      m.position.set(startX,startY,startZ);
+      const scale = THREE.MathUtils.randFloat(120,210);
+      m.scale.set(scale, scale*0.12, 1);
+      m.rotation.z = THREE.MathUtils.degToRad(THREE.MathUtils.randFloat(-18,-30));
       meteorGroup.add(m);
 
-      const speed = THREE.MathUtils.randFloat(3.5, 5.5);
-      const ttl   = 2200;
-      const start = performance.now();
-
-      function fly(now){
-        const k = (now - start) / ttl;
-        if (k >= 1) { meteorGroup.remove(m); m.geometry.dispose(); m.material.dispose(); return; }
+      const speed = THREE.MathUtils.randFloat(3.5,5.5);
+      const ttl = 2200; const t0 = performance.now();
+      function fly(t){
+        const k = (t - t0) / ttl;
+        if(k>=1){ meteorGroup.remove(m); m.geometry.dispose(); m.material.dispose(); return; }
         m.position.x = startX - k * 900 * speed/4;
         m.position.y = startY - k * 600 * speed/4;
-        m.material.opacity = 1.0 - Math.pow(k, 1.2);
+        m.material.opacity = 1.0 - Math.pow(k,1.2);
         requestAnimationFrame(fly);
       }
       requestAnimationFrame(fly);
     }
-
-    (function meteorScheduler(){
-      const next = THREE.MathUtils.randInt(4000, 11000);
-      setTimeout(() => { launchMeteor(); meteorScheduler(); }, next);
+    (function scheduleMeteor(){
+      setTimeout(()=>{ launchMeteor(); scheduleMeteor(); }, THREE.MathUtils.randInt(4500,11000));
     })();
 
-    // Pointer parallax
-    const parallax = { x:0, y:0 };
-    window.addEventListener('pointermove', (e) => {
+    // Parallax (pointer + slight device tilt)
+    const parallax = {x:0,y:0};
+    window.addEventListener('pointermove', e=>{
       const nx = (e.clientX / window.innerWidth) * 2 - 1;
       const ny = (e.clientY / window.innerHeight) * 2 - 1;
       parallax.x = nx; parallax.y = ny;
-    });
+    }, {passive:true});
 
-    // Animate stars
-    const clock = new THREE.Clock();
-    function animateStars(){
-      requestAnimationFrame(animateStars);
-      const t = clock.getElapsedTime();
-      [farStars, midStars, nearStars].forEach(p => { p.material.uniforms.uTime.value = t; });
-      farStars.rotation.y  += farStars.userData.rotSpeed;
-      midStars.rotation.y  += midStars.userData.rotSpeed;
-      nearStars.rotation.y += nearStars.userData.rotSpeed;
-
-      const parallaxAmt = 6;
-      bgScene.rotation.y = parallax.x * 0.02;
-      bgScene.rotation.x = parallax.y * -0.01;
-      nebulas.position.x = parallax.x * parallaxAmt;
-      nebulas.position.y = parallax.y * -parallaxAmt;
-
-      bgRenderer.render(bgScene, bgCam);
+    if (window.DeviceOrientationEvent && isMobile){
+      window.addEventListener('deviceorientation', e=>{
+        const nx = (e.gamma || 0)/45; // -45..45
+        const ny = (e.beta  || 0)/45; // -45..45
+        parallax.x = THREE.MathUtils.clamp(nx,-1,1);
+        parallax.y = THREE.MathUtils.clamp(ny,-1,1);
+      }, {passive:true});
     }
-    animateStars();
+
+    // Animate
+    const clock = new THREE.Clock();
+    let running = true;
+    document.addEventListener('visibilitychange', ()=>{ running = !document.hidden; });
+
+    function tick(){
+      if(running){
+        const t = clock.getElapsedTime();
+        // Twinkle time
+        [far, mid, near].forEach(p => { p.material.uniforms.uTime.value = t; });
+
+        // Layer drift
+        far.rotation.y += 0.00006;
+        mid.rotation.y += 0.00012;
+        near.rotation.y += 0.00022;
+
+        // Parallax & nebula drift
+        nebulas.position.x = parallax.x * 6;
+        nebulas.position.y = parallax.y * -6;
+
+        // Knot rotation (unchanged)
+        if(!prefersReduced){
+          knot.rotation.x += 0.005;
+          knot.rotation.y += 0.007;
+        }
+        renderer.render(scene, camera);
+      }
+      requestAnimationFrame(tick);
+    }
+    tick();
 
     // Resize
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth/window.innerHeight;
-      camera.updateProjectionMatrix();
+    function onResize(){
+      const DPR = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+      renderer.setPixelRatio(DPR);
       renderer.setSize(window.innerWidth, window.innerHeight);
-
-      bgCam.aspect = window.innerWidth/window.innerHeight;
-      bgCam.updateProjectionMatrix();
-      bgRenderer.setSize(window.innerWidth, window.innerHeight);
-    });
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+    }
+    window.addEventListener('resize', onResize);
   </script>
 </body>
 </html>
