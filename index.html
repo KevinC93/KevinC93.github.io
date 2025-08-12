@@ -33,11 +33,11 @@
     .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width .3s; }
     .nav-links a:hover::after { width:100%; }
 
-    /* Background/star + hero canvases (stacking fixed) */
+    /* Canvas stacking: stars behind knot, above body bg */
     #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
     .hero { position:relative; height:100vh; overflow:hidden; }
-    #scene { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; }       /* above stars */
-    .overlay { position:absolute; inset:0; z-index:2;                                     /* above knot */
+    #scene { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; }
+    .overlay { position:absolute; inset:0; z-index:2;
       background:radial-gradient(ellipse at 50% 80%, rgba(10,14,24,.0) 0%, rgba(10,14,24,.3) 55%, rgba(10,14,24,.65) 100%);
       pointer-events:none;
     }
@@ -78,7 +78,7 @@
   </style>
 </head>
 <body>
-  <!-- Realistic starfield background -->
+  <!-- Starfield background -->
   <canvas id="bg"></canvas>
 
   <header>
@@ -179,7 +179,7 @@
     topBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
     /* ===========================
-       HERO: your same rotating knot
+       HERO: rotating knot (transparent canvas)
        =========================== */
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, .1, 1000);
@@ -189,6 +189,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputEncoding = THREE.sRGBEncoding;
+    renderer.setClearColor(0x000000, 0); // <-- key: make hero canvas transparent
 
     const knot = new THREE.Mesh(
       new THREE.TorusKnotGeometry(0.7, 0.2, 120, 18),
@@ -205,7 +206,7 @@
     animateHero();
 
     /* =====================================
-       BACKGROUND: Realistic layered starfield
+       BACKGROUND: layered starfield
        ===================================== */
     const bgScene = new THREE.Scene();
     const bgCam   = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 1, 2000);
@@ -215,41 +216,32 @@
     bgRenderer.setSize(window.innerWidth, window.innerHeight);
     bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     bgRenderer.outputEncoding = THREE.sRGBEncoding;
-    bgRenderer.setClearColor(0x000000, 0); // transparent clear, so stars sit over body background
+    bgRenderer.setClearColor(0x000000, 0);
 
-    // Star sprite
+    // soft radial sprite
     function createStarTexture(){
-      const s = 64;
-      const c = document.createElement('canvas');
-      c.width = s; c.height = s;
+      const s = 64, c = document.createElement('canvas'); c.width = s; c.height = s;
       const ctx = c.getContext('2d');
-      const grad = ctx.createRadialGradient(s/2, s/2, 0, s/2, s/2, s/2);
-      grad.addColorStop(0.0, 'rgba(255,255,255,1)');
-      grad.addColorStop(0.25,'rgba(255,255,255,0.85)');
-      grad.addColorStop(0.5, 'rgba(255,255,255,0.35)');
-      grad.addColorStop(1.0, 'rgba(255,255,255,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0,0,s,s);
-      const tex = new THREE.CanvasTexture(c);
-      tex.anisotropy = 8;
-      return tex;
+      const g = ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
+      g.addColorStop(0.0,'rgba(255,255,255,1)');
+      g.addColorStop(0.25,'rgba(255,255,255,0.85)');
+      g.addColorStop(0.5,'rgba(255,255,255,0.35)');
+      g.addColorStop(1.0,'rgba(255,255,255,0)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,s,s);
+      const tex = new THREE.CanvasTexture(c); tex.anisotropy = 8; return tex;
     }
 
+    // meteor trail sprite
     function createMeteorTexture(){
-      const w = 256, h = 32;
-      const c = document.createElement('canvas');
-      c.width = w; c.height = h;
-      const ctx = c.getContext('2d');
-      const grad = ctx.createLinearGradient(0, h/2, w, h/2);
-      grad.addColorStop(0.0, 'rgba(255,255,255,0)');
-      grad.addColorStop(0.15,'rgba(255,255,255,0.6)');
-      grad.addColorStop(0.6, 'rgba(255,255,255,0.15)');
-      grad.addColorStop(1.0, 'rgba(255,255,255,0)');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0,0,w,h);
-      const tex = new THREE.CanvasTexture(c);
-      tex.anisotropy = 4;
-      return tex;
+      const w=256,h=32,c=document.createElement('canvas'); c.width=w;c.height=h;
+      const ctx=c.getContext('2d');
+      const g=ctx.createLinearGradient(0,h/2,w,h/2);
+      g.addColorStop(0,'rgba(255,255,255,0)');
+      g.addColorStop(0.15,'rgba(255,255,255,0.6)');
+      g.addColorStop(0.6,'rgba(255,255,255,0.15)');
+      g.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+      const tex=new THREE.CanvasTexture(c); tex.anisotropy=4; return tex;
     }
 
     const starTex   = createStarTexture();
@@ -270,7 +262,7 @@
         vColor = color;
         vTw    = 1.0 + twinkle * sin(uTime * speed + phase);
         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-        gl_PointSize = size * (300.0 / -mvPosition.z);
+        gl_PointSize = size * (450.0 / -mvPosition.z); // slightly larger for visibility
         gl_Position = projectionMatrix * mvPosition;
       }
     `;
@@ -323,9 +315,7 @@
         const warm = new THREE.Color(1.0, 0.85, 0.7);
         const cool = new THREE.Color(0.75, 0.85, 1.0);
         const c = warm.clone().lerp(cool, t).offsetHSL((Math.random()-0.5)*0.015, 0, 0);
-        colors[i*3]   = c.r;
-        colors[i*3+1] = c.g;
-        colors[i*3+2] = c.b;
+        colors[i*3]   = c.r; colors[i*3+1] = c.g; colors[i*3+2] = c.b;
 
         twinkles[i] = Math.max(0, THREE.MathUtils.randNormal(twinkleMean, 0.15));
         speeds[i]   = THREE.MathUtils.randFloat(0.6, 2.2);
@@ -353,14 +343,14 @@
       return points;
     }
 
-    const farStars  = makeStars({ count: 1800, radius: 900, sizeMin: 0.5, sizeMax: 1.8, twinkleMean: 0.08, layerRotationSpeed: 0.00006 });
-    const midStars  = makeStars({ count: 1200, radius: 700, sizeMin: 0.8, sizeMax: 2.6, twinkleMean: 0.18, layerRotationSpeed: 0.00012 });
-    const nearStars = makeStars({ count:  480, radius: 500, sizeMin: 1.2, sizeMax: 3.8, twinkleMean: 0.28, layerRotationSpeed: 0.00022 });
+    const farStars  = makeStars({ count: 1800, radius: 900, sizeMin: 0.6, sizeMax: 2.0, twinkleMean: 0.08, layerRotationSpeed: 0.00006 });
+    const midStars  = makeStars({ count: 1200, radius: 700, sizeMin: 0.9, sizeMax: 2.8, twinkleMean: 0.18, layerRotationSpeed: 0.00012 });
+    const nearStars = makeStars({ count:  480, radius: 500, sizeMin: 1.4, sizeMax: 4.0, twinkleMean: 0.28, layerRotationSpeed: 0.00022 });
 
     bgScene.add(farStars, midStars, nearStars);
 
     // Nebulas
-    function addNebulaClouds(n=6){
+    function addNebulaClouds(n=7){
       const group = new THREE.Group();
       for (let i=0;i<n;i++){
         const spriteMat = new THREE.SpriteMaterial({
@@ -383,14 +373,12 @@
       }
       return group;
     }
-    const nebulas = addNebulaClouds(7);
+    const nebulas = addNebulaClouds();
     bgScene.add(nebulas);
 
     // Meteors
     const meteorGroup = new THREE.Group();
     bgScene.add(meteorGroup);
-
-    function createMeteorTexture(){ /* already defined above */ return meteorTex; }
 
     function launchMeteor(){
       const geo = new THREE.PlaneGeometry(1, 0.12);
@@ -427,13 +415,12 @@
       requestAnimationFrame(fly);
     }
 
-    function meteorScheduler(){
+    (function meteorScheduler(){
       const next = THREE.MathUtils.randInt(4000, 11000);
       setTimeout(() => { launchMeteor(); meteorScheduler(); }, next);
-    }
-    meteorScheduler();
+    })();
 
-    // Parallax
+    // Pointer parallax
     const parallax = { x:0, y:0 };
     window.addEventListener('pointermove', (e) => {
       const nx = (e.clientX / window.innerWidth) * 2 - 1;
