@@ -33,17 +33,20 @@
     .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width .3s; }
     .nav-links a:hover::after { width:100%; }
 
-    /* Background canvases */
-    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
+    /* Background/star + hero canvases (stacking fixed) */
+    #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
     .hero { position:relative; height:100vh; overflow:hidden; }
-    #scene { position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1; }
+    #scene { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; }       /* above stars */
+    .overlay { position:absolute; inset:0; z-index:2;                                     /* above knot */
+      background:radial-gradient(ellipse at 50% 80%, rgba(10,14,24,.0) 0%, rgba(10,14,24,.3) 55%, rgba(10,14,24,.65) 100%);
+      pointer-events:none;
+    }
     .hero-content { position:relative; z-index:10; text-align:center; top:50%; transform:translateY(-50%); padding:0 1rem; }
     .hero-content h1 { font-size:3rem; color:var(--accent); text-shadow:0 0 20px rgba(168,218,220,0.5); }
     .hero-content p { margin-top:1rem; font-size:1.2rem; opacity:.95; }
 
     section { padding:4rem 0; position:relative; }
     .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
-    .overlay { position:absolute; inset:0; background:radial-gradient(ellipse at 50% 80%, rgba(10,14,24,.0) 0%, rgba(10,14,24,.3) 55%, rgba(10,14,24,.65) 100%); pointer-events:none; }
 
     .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
     .service-card { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:12px; backdrop-filter:blur(10px); overflow:hidden; transition:transform .3s, box-shadow .3s; }
@@ -71,7 +74,6 @@
 
     #back-to-top { position:fixed; bottom:1.25rem; right:1.25rem; background:var(--primary); color:#fff; width:44px; height:44px; display:grid; place-items:center; border-radius:999px; cursor:pointer; display:none; z-index:100; box-shadow:0 8px 20px rgba(230,57,70,.35); }
 
-    /* Small helper for the Areas button */
     .btn { display:inline-block; padding:.6rem 1rem; border-radius:8px; background:var(--primary); color:#fff; font-weight:600; }
   </style>
 </head>
@@ -177,7 +179,7 @@
     topBtn.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
 
     /* ===========================
-       HERO: simple wireframe knot
+       HERO: your same rotating knot
        =========================== */
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, .1, 1000);
@@ -213,8 +215,9 @@
     bgRenderer.setSize(window.innerWidth, window.innerHeight);
     bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     bgRenderer.outputEncoding = THREE.sRGBEncoding;
+    bgRenderer.setClearColor(0x000000, 0); // transparent clear, so stars sit over body background
 
-    // Utility: radial soft sprite for stars
+    // Star sprite
     function createStarTexture(){
       const s = 64;
       const c = document.createElement('canvas');
@@ -232,7 +235,6 @@
       return tex;
     }
 
-    // Utility: soft elongated gradient for meteors
     function createMeteorTexture(){
       const w = 256, h = 32;
       const c = document.createElement('canvas');
@@ -246,8 +248,6 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0,0,w,h);
       const tex = new THREE.CanvasTexture(c);
-      tex.wrapS = THREE.ClampToEdgeWrapping;
-      tex.wrapT = THREE.ClampToEdgeWrapping;
       tex.anisotropy = 4;
       return tex;
     }
@@ -255,18 +255,14 @@
     const starTex   = createStarTexture();
     const meteorTex = createMeteorTexture();
 
-    // Star shader with twinkle & color
-    const starUniforms = {
-      pointTexture: { value: starTex },
-      uTime:        { value: 0 }
-    };
+    const starUniforms = { pointTexture: { value: starTex }, uTime: { value: 0 } };
 
     const starVertex = `
       attribute float size;
       attribute vec3  color;
-      attribute float twinkle;   // 0..1 intensity
-      attribute float speed;     // twinkle speed
-      attribute float phase;     // twinkle phase
+      attribute float twinkle;
+      attribute float speed;
+      attribute float phase;
       varying vec3 vColor;
       varying float vTw;
       uniform float uTime;
@@ -278,15 +274,12 @@
         gl_Position = projectionMatrix * mvPosition;
       }
     `;
-
     const starFragment = `
       uniform sampler2D pointTexture;
       varying vec3  vColor;
       varying float vTw;
       void main() {
-        vec2 uv = gl_PointCoord.xy;
-        vec4 s  = texture2D(pointTexture, uv);
-        // soften edges a little more
+        vec4 s  = texture2D(pointTexture, gl_PointCoord.xy);
         float alpha = s.a;
         vec3  col = vColor * (0.85 + 0.15 * s.r);
         gl_FragColor = vec4(col * vTw, alpha * vTw);
@@ -303,21 +296,18 @@
       const speeds    = new Float32Array(count);
       const phases    = new Float32Array(count);
 
-      // Non-uniform distribution: a light "band" bias for milky-way feel
       const bandDir = new THREE.Vector3(0.2, 0.9, 0.1).normalize();
 
       for (let i = 0; i < count; i++) {
-        // Random point in sphere shell
         const r = radius * (0.35 + 0.65 * Math.pow(Math.random(), 0.6));
-        const theta = Math.acos(THREE.MathUtils.randFloatSpread(2)); // 0..pi
+        const theta = Math.acos(THREE.MathUtils.randFloatSpread(2));
         const phi   = THREE.MathUtils.randFloat(0, Math.PI*2);
         let x = r * Math.sin(theta) * Math.cos(phi);
         let y = r * Math.sin(theta) * Math.sin(phi);
         let z = r * Math.cos(theta);
 
-        // Bias towards bandDir (increase density near a plane)
         const p = new THREE.Vector3(x,y,z).normalize();
-        const bandWeight = Math.pow(Math.max(0.0, p.dot(bandDir)), 4.0); // sharper band
+        const bandWeight = Math.pow(Math.max(0.0, p.dot(bandDir)), 4.0);
         const jitter = THREE.MathUtils.randFloatSpread(1.0);
         x += bandWeight * 8 * jitter;
         y += bandWeight * 8 * jitter;
@@ -326,11 +316,9 @@
         positions[i*3+1] = y;
         positions[i*3+2] = z;
 
-        // Star size: a few bright, many small (log-like spread)
         const s = THREE.MathUtils.lerp(sizeMin, sizeMax, Math.pow(Math.random(), 2.5));
         sizes[i] = s;
 
-        // Color temperature variation (cool-blue to warm-amber)
         const t = Math.random();
         const warm = new THREE.Color(1.0, 0.85, 0.7);
         const cool = new THREE.Color(0.75, 0.85, 1.0);
@@ -339,7 +327,7 @@
         colors[i*3+1] = c.g;
         colors[i*3+2] = c.b;
 
-        twinkles[i] = Math.max(0, THREE.MathUtils.randNormal(twinkleMean, 0.15)); // 0..~1
+        twinkles[i] = Math.max(0, THREE.MathUtils.randNormal(twinkleMean, 0.15));
         speeds[i]   = THREE.MathUtils.randFloat(0.6, 2.2);
         phases[i]   = THREE.MathUtils.randFloat(0, Math.PI*2);
       }
@@ -365,14 +353,13 @@
       return points;
     }
 
-    // Layers: far (dense & tiny), mid (twinkle), near (sparser & brighter)
     const farStars  = makeStars({ count: 1800, radius: 900, sizeMin: 0.5, sizeMax: 1.8, twinkleMean: 0.08, layerRotationSpeed: 0.00006 });
     const midStars  = makeStars({ count: 1200, radius: 700, sizeMin: 0.8, sizeMax: 2.6, twinkleMean: 0.18, layerRotationSpeed: 0.00012 });
     const nearStars = makeStars({ count:  480, radius: 500, sizeMin: 1.2, sizeMax: 3.8, twinkleMean: 0.28, layerRotationSpeed: 0.00022 });
 
     bgScene.add(farStars, midStars, nearStars);
 
-    // Faint nebulas (big soft sprites)
+    // Nebulas
     function addNebulaClouds(n=6){
       const group = new THREE.Group();
       for (let i=0;i<n;i++){
@@ -399,9 +386,11 @@
     const nebulas = addNebulaClouds(7);
     bgScene.add(nebulas);
 
-    // Shooting stars (meteors)
+    // Meteors
     const meteorGroup = new THREE.Group();
     bgScene.add(meteorGroup);
+
+    function createMeteorTexture(){ /* already defined above */ return meteorTex; }
 
     function launchMeteor(){
       const geo = new THREE.PlaneGeometry(1, 0.12);
@@ -413,7 +402,6 @@
       });
       const m = new THREE.Mesh(geo, mat);
 
-      // start high-right, move to low-left
       const startZ = THREE.MathUtils.randFloat(-50, 120);
       const startX = THREE.MathUtils.randFloat(250, 420);
       const startY = THREE.MathUtils.randFloat(120, 240);
@@ -425,12 +413,11 @@
       meteorGroup.add(m);
 
       const speed = THREE.MathUtils.randFloat(3.5, 5.5);
-      const ttl   = 2200; // ms
+      const ttl   = 2200;
       const start = performance.now();
 
       function fly(now){
-        const t = now - start;
-        const k = t / ttl;
+        const k = (now - start) / ttl;
         if (k >= 1) { meteorGroup.remove(m); m.geometry.dispose(); m.material.dispose(); return; }
         m.position.x = startX - k * 900 * speed/4;
         m.position.y = startY - k * 600 * speed/4;
@@ -440,14 +427,13 @@
       requestAnimationFrame(fly);
     }
 
-    // Occasionally spawn a meteor
     function meteorScheduler(){
       const next = THREE.MathUtils.randInt(4000, 11000);
       setTimeout(() => { launchMeteor(); meteorScheduler(); }, next);
     }
     meteorScheduler();
 
-    // Parallax on pointer move
+    // Parallax
     const parallax = { x:0, y:0 };
     window.addEventListener('pointermove', (e) => {
       const nx = (e.clientX / window.innerWidth) * 2 - 1;
@@ -455,18 +441,12 @@
       parallax.x = nx; parallax.y = ny;
     });
 
-    // Animation loop for stars
+    // Animate stars
     const clock = new THREE.Clock();
     function animateStars(){
       requestAnimationFrame(animateStars);
       const t = clock.getElapsedTime();
-
-      // update time uniforms
-      [farStars, midStars, nearStars].forEach(p => {
-        p.material.uniforms.uTime.value = t;
-      });
-
-      // subtle layer rotation & parallax
+      [farStars, midStars, nearStars].forEach(p => { p.material.uniforms.uTime.value = t; });
       farStars.rotation.y  += farStars.userData.rotSpeed;
       midStars.rotation.y  += midStars.userData.rotSpeed;
       nearStars.rotation.y += nearStars.userData.rotSpeed;
@@ -474,7 +454,6 @@
       const parallaxAmt = 6;
       bgScene.rotation.y = parallax.x * 0.02;
       bgScene.rotation.x = parallax.y * -0.01;
-
       nebulas.position.x = parallax.x * parallaxAmt;
       nebulas.position.y = parallax.y * -parallaxAmt;
 
@@ -484,12 +463,10 @@
 
     // Resize
     window.addEventListener('resize', () => {
-      // Hero
       camera.aspect = window.innerWidth/window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
 
-      // Stars
       bgCam.aspect = window.innerWidth/window.innerHeight;
       bgCam.updateProjectionMatrix();
       bgRenderer.setSize(window.innerWidth, window.innerHeight);
