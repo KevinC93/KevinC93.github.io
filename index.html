@@ -1,162 +1,185 @@
-</head>
-<body>
-  <!-- Realistic starfield background -->
-  <canvas id="bg"></canvas>
-  <header>
-    <nav class="container">
-      <div class="logo">Kevin's Junk Removal</div>
-      <div class="nav-links">
-        <a href="#home">Home</a>
-        <a href="#services">Services</a>
-        <a href="#areas">Areas</a>
-        <a href="#faqs">FAQs</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <section class="hero" id="home">
-    <canvas id="scene"></canvas>
-    <div class="overlay"></div>
-    <div class="hero-content" data-aos="fade-up">
-      <h1>Montreal's Premier Junk Removal & Cleaning</h1>
-      <p>Fast, reliable, eco-friendly service. <a href="tel:438-529-7778" class="underline">438-529-7778</a></p>
-      <p>Fast, reliable, eco-friendly service.</p>
-      <p class="mt-4">📞 <a href="tel:438-529-7778" class="underline">438-529-7778</a> | 📍 Located in Montreal</p>
-      <p class="mt-2">Response Time: Avg. 15 minutes</p>
-      <button onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" class="mt-6 px-6 py-2 bg-[var(--primary)] rounded">Get Quote Now</button>
-    </div>
-  </section>
-
-  <!-- Info Section -->
-  <section class="container text-center" data-aos="fade-up">
-    <h2 class="text-2xl mb-2">We Take Almost Everything</h2>
-    <p class="italic mb-4">If it’s in your way, it’s gone today!</p>
-    <h3 class="text-xl mt-4 mb-2">What We Don’t Take (unless urgent):</h3>
-    <ul class="mb-4 space-y-1">
-      <li>Food waste</li>
-      <li>Hazardous materials</li>
-    </ul>
-    <h3 class="text-xl mt-4 mb-2">Extra Services:</h3>
-    <ul class="space-y-1">
-      <li>Deep cleaning after junk removal</li>
-      <li>Storage & organizing at affordable rates</li>
-    </ul>
-  </section>
-
-  <!-- Services -->
-  <section id="services" class="container" data-aos="fade-up">
-    <h2 class="text-center text-3xl mb-8">Our Services</h2>
-    <div class="services">
-      <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
-        <div class="service-body"><h3>Junk Removal</h3><p>Residential & commercial debris pickup and hauling.</p></div>
-        <div class="service-body">
-          <h3>Junk Removal</h3>
-          <p class="mt-2 italic">For: Homeowners, landlords, tenants, businesses</p>
-          <ul class="list-disc list-inside mt-2 text-sm space-y-1">
-            <li>Heavy lifting & loading from anywhere on property (construction debris must be easily accessible)</li>
-            <li>Donation drop-offs for usable items</li>
-            <li>Safe hauling</li>
-          </ul>
-          <p class="mt-2 text-sm">Pricing: Mainly based on volume and weight.</p>
-        </div>
-      </div>
-      <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
-        <div class="service-body"><h3>Estate Cleanouts</h3><p>Furniture, electronics, & more handled respectfully.</p></div>
-        <div class="service-body">
-          <h3>Estate Cleanouts</h3>
-          <p class="mt-2 italic">For: Property managers, real estate agents, landlords, homeowners</p>
-          <ul class="list-disc list-inside mt-2 text-sm space-y-1">
-            <li>Room-by-room item removal</li>
-            <li>Sorting for donation, recycling, disposal</li>
-            <li>Heavy lifting & hauling from any floor or location</li>
-          </ul>
-          <p class="mt-2 text-sm">Pricing:</p>
-          <ul class="list-disc list-inside text-sm space-y-1">
-            <li>Small condo cleanout: $500 – $800</li>
-            <li>Full home cleanout: $600 – $1,800</li>
-            <li>Storage unit cleanout: $300 – $500</li>
-          </ul>
-        </div>
-      </div>
-      <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
-        <div class="service-body"><h3>Luxury Cleaning</h3><p>Deep-cleaning for high-end homes & offices.</p></div>
-      </div>
-      <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
-        <div class="service-body"><h3>Organizing & Hauling</h3><p>Declutter, organize, & haul away unwanted items.</p></div>
-        <div class="service-body">
-          <h3>Luxury Cleaning</h3>
-          <p class="mt-2 italic">For: Homeowners, businesses, property managers</p>
-          <ul class="list-disc list-inside mt-2 text-sm space-y-1">
-            <li>Floor-to-ceiling dusting & wipe-down</li>
-            <li>Detailed kitchen & bathroom cleaning</li>
-            <li>High-end surface care (granite, marble)</li>
-            <li>Interior & exterior window cleaning</li>
-            <li>Baseboards, vents, light fixtures</li>
-            <li>Eco-friendly & specialty products available</li>
-          </ul>
-          <p class="mt-2 text-sm">Pricing:</p>
-          <ul class="list-disc list-inside text-sm space-y-1">
-            <li>Regular cleaning: Starting from $150 + $35/h (1 worker) or $60/h (2 workers)</li>
-            <li>Deep cleaning: Starting from $150 + $80/h (2 workers)</li>
-            <li>Extras: Move-in/move-out, fridge & oven cleaning, organizing, etc.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Areas -->
-  <section id="areas" class="container" data-aos="fade-up">
-    <h2 class="text-3xl mb-4">Service Areas</h2>
-    <button id="toggle-areas" class="mb-4 px-4 py-2 bg-var(--primary) rounded">View All 108+ Areas</button>
-    <button id="toggle-areas" class="mb-4 px-4 py-2 rounded" style="background:var(--primary)">View All 108+ Areas</button>
-    <ul id="areas-list" class="columns-2 space-y-2 text-sm">
-      <li>Montreal</li><li>Laval</li><!-- etc -->
-    </ul>
-  </section>
-
-  <!-- FAQs -->
-  <section id="faqs" class="container" data-aos="fade-up">
-    <h2 class="text-3xl mb-6">FAQs</h2>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="100"><h4 class="font-semibold">Do you offer same-day pickups?</h4><p>Yes—ASAP service. Recurring plans available.</p></div>
-    <div class="faq-item" data-aos="fade-up" data-aos-delay="200"><h4 class="font-semibold">Which items do you accept?</h4><p>Furniture, electronics, debris, scrap vehicles, lawn debris, expired products, dirt, old sheds, pools. No hazardous materials/food waste.</p></div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="container" data-aos="fade-up">
-    <h2 class="text-3xl mb-6">Contact Us</h2>
-    <form class="contact-form">
-      <input type="text" placeholder="Your Name" value="Kevin" required>
-      <input type="tel" placeholder="Phone Number" value="438-529-7778" required>
-      <input type="email" placeholder="Email Address">\n      <select required><option value="">Select Service</option><option value="junk">Junk Removal</option><option value="cleaning">Luxury Cleaning</option></select>
-      <input type="email" placeholder="Email Address">
-      <select required><option value="">Select Service</option><option value="junk">Junk Removal</option><option value="cleaning">Luxury Cleaning</option></select>
-      <textarea rows="4" placeholder="Message..."></textarea>
-      <button type="submit" class="mt-4">Submit</button>
-    </form>
-  </section>
-
-  <footer data-aos="fade-up"><p>&copy; 2025 Kevin's Junk Removal & Cleaning</p></footer>
-  <div id="back-to-top">&#8679;</div>
-
-  <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script>
-    AOS.init({ duration:800, once:true });
-    const btn = document.getElementById('toggle-areas'), list = document.getElementById('areas-list'); list.style.display='none'; btn.addEventListener('click',()=>{const v=list.style.display==='block'; list.style.display=v?'none':'block'; btn.textContent=v?'View All 108+ Areas':'Hide Areas';});
-    // Hero animation
-    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000); camera.position.z=2; const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('scene'),alpha:true}); renderer.setSize(window.innerWidth,window.innerHeight); const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(0.7,0.2,100,16),new THREE.MeshBasicMaterial({color:0x1d3557,wireframe:true,opacity:0.4,transparent:true})); scene.add(knot); const lightA=new THREE.DirectionalLight(0xffffff,1); lightA.position.set(5,5,5); scene.add(lightA); function animateHero(){requestAnimationFrame(animateHero); knot.rotation.x+=0.005; knot.rotation.y+=0.007; renderer.render(scene,camera);} animateHero();
-    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000); camera.position.z=2; const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('scene'),alpha:true,antialias:true}); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); renderer.setSize(window.innerWidth,window.innerHeight); const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(0.7,0.2,100,16),new THREE.MeshPhongMaterial({color:0xa8dadc,wireframe:true,emissive:0x457b9d,shininess:80,opacity:0.5,transparent:true})); scene.add(knot); const ambient=new THREE.AmbientLight(0xffffff,0.5); scene.add(ambient); const lightA=new THREE.DirectionalLight(0xffffff,1); lightA.position.set(5,5,5); scene.add(lightA); function animateHero(){requestAnimationFrame(animateHero); knot.rotation.x+=0.005; knot.rotation.y+=0.007; renderer.render(scene,camera);} animateHero();
-    // Starfield
-    const bgScene=new THREE.Scene(), bgCam=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,1,1000); bgCam.position.z=50; const bgRenderer=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true}); bgRenderer.setSize(window.innerWidth,window.innerHeight);
-    function createStarTexture(){const s=64, c=document.createElement('canvas'); c.width=s; c.height=s; const ctx=c.getContext('2d'); const grad=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2); grad.addColorStop(0,'rgba(255,255,255,1)'); grad.addColorStop(0.2,'rgba(255,255,255,1)'); grad.addColorStop(0.4,'rgba(200,200,200,0.4)'); grad.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=grad; ctx.fillRect(0,0,s,s); return new THREE.CanvasTexture(c);} const starTex=createStarTexture(); const starCount=1000; const starGeo=new THREE.BufferGeometry(); const starPositions=new Float32Array(starCount*3); const starSizes=new Float32Array(starCount); for(let i=0;i<starCount;i++){starPositions[i*3]=(Math.random()-0.5)*500; starPositions[i*3+1]=(Math.random()-0.5)*500; starPositions[i*3+2]=(Math.random()-0.5)*500; starSizes[i]=(Math.random()*2+0.5)*3;} starGeo.setAttribute('position',new THREE.BufferAttribute(starPositions,3)); starGeo.setAttribute('size',new THREE.BufferAttribute(starSizes,1)); const starMat=new THREE.ShaderMaterial({ uniforms:{pointTexture:{value:starTex}}, vertexShader:`attribute float size; void main(){vec4 mvPosition=modelViewMatrix*vec4(position,1.0); gl_PointSize=size*(300.0/-mvPosition.z); gl_Position=projectionMatrix*mvPosition;}`, fragmentShader:`uniform sampler2D pointTexture; void main(){gl_FragColor=texture2D(pointTexture,gl_PointCoord)*2.0;}`, transparent:true}); const stars=new THREE.Points(starGeo,starMat); bgScene.add(stars); function animateStars(){requestAnimationFrame(animateStars); stars.rotation.y+=0.0002; stars.rotation.x+=0.0001; bgRenderer.render(bgScene,bgCam);} animateStars(); window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight); bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();bgRenderer.setSize(window.innerWidth,window.innerHeight);}); const topBtn=document.getElementById('back-to-top'); window.addEventListener('scroll',()=>topBtn.style.display=window.scrollY>300?'block':'none'); topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-    const bgScene=new THREE.Scene(), bgCam=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,1,1000); bgCam.position.z=50; const bgRenderer=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true,antialias:true}); bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); bgRenderer.setSize(window.innerWidth,window.innerHeight);
-    function createStarTexture(){const s=64, c=document.createElement('canvas'); c.width=s; c.height=s; const ctx=c.getContext('2d'); const grad=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2); grad.addColorStop(0,'rgba(255,255,255,1)'); grad.addColorStop(0.2,'rgba(255,255,255,1)'); grad.addColorStop(0.4,'rgba(200,200,200,0.4)'); grad.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=grad; ctx.fillRect(0,0,s,s); return new THREE.CanvasTexture(c);} const starTex=createStarTexture(); const isMobile=window.innerWidth<768; const starCount=isMobile?500:1000; const starGeo=new THREE.BufferGeometry(); const starPositions=new Float32Array(starCount*3); const starSizes=new Float32Array(starCount); for(let i=0;i<starCount;i++){starPositions[i*3]=(Math.random()-0.5)*500; starPositions[i*3+1]=(Math.random()-0.5)*500; starPositions[i*3+2]=(Math.random()-0.5)*500; starSizes[i]=(Math.random()*2+0.5)*3;} starGeo.setAttribute('position',new THREE.BufferAttribute(starPositions,3)); starGeo.setAttribute('size',new THREE.BufferAttribute(starSizes,1)); const starMat=new THREE.ShaderMaterial({ uniforms:{pointTexture:{value:starTex}, time:{value:0}}, vertexShader:`attribute float size; uniform float time; varying float vOpacity; void main(){vec4 mvPosition=modelViewMatrix*vec4(position,1.0); gl_PointSize=size*(300.0/-mvPosition.z); vOpacity=0.5+0.5*sin(time+position.x); gl_Position=projectionMatrix*mvPosition;}`, fragmentShader:`uniform sampler2D pointTexture; varying float vOpacity; void main(){vec4 texColor=texture2D(pointTexture,gl_PointCoord); gl_FragColor=vec4(texColor.rgb,texColor.a*vOpacity);}`, transparent:true}); const stars=new THREE.Points(starGeo,starMat); bgScene.add(stars);
-    // Meteors
-    const meteors=[]; function createMeteor(){const group=new THREE.Group(); const head=new THREE.Mesh(new THREE.SphereGeometry(0.2,8,8),new THREE.MeshBasicMaterial({color:0xffe066})); group.add(head); const trailGeo=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0),new THREE.Vector3(0,0,0)]); const trailMat=new THREE.LineBasicMaterial({color:0xffe066,transparent:true,opacity:0.7}); const trail=new THREE.Line(trailGeo,trailMat); group.add(trail); resetMeteor(group); meteors.push(group); bgScene.add(group);} function resetMeteor(m){m.position.set((Math.random()-0.5)*400,Math.random()*200+100,-50); m.userData.vel=new THREE.Vector3(-2-Math.random()*3,-2-Math.random()*2,0);} for(let i=0;i<(isMobile?2:4);i++) createMeteor(); function updateMeteors(){meteors.forEach(m=>{m.position.add(m.userData.vel); const pos=m.children[1].geometry.attributes.position.array; pos[0]=0; pos[1]=0; pos[2]=0; pos[3]=m.userData.vel.x*-5; pos[4]=m.userData.vel.y*-5; pos[5]=0; m.children[1].geometry.attributes.position.needsUpdate=true; if(m.position.y<-100) resetMeteor(m);});}
-    function animateStars(){requestAnimationFrame(animateStars); starMat.uniforms.time.value+=0.01; stars.rotation.y+=0.0002; stars.rotation.x+=0.0001; updateMeteors(); bgRenderer.render(bgScene,bgCam);} animateStars(); window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight); bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();bgRenderer.setSize(window.innerWidth,window.innerHeight);}); const topBtn=document.getElementById('back-to-top'); window.addEventListener('scroll',()=>topBtn.style.display=window.scrollY>300?'block':'none'); topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-  </script>
-</body>
-</html>
+   </style>
+ </head>
+ <body>
+   <!-- Realistic starfield background -->
+   <canvas id="bg"></canvas>
+   <header>
+     <nav class="container">
+       <div class="logo">Kevin's Junk Removal</div>
+       <div class="nav-links">
+         <a href="#home">Home</a>
+         <a href="#services">Services</a>
+         <a href="#areas">Areas</a>
+         <a href="#faqs">FAQs</a>
+         <a href="#contact">Contact</a>
+       </div>
+     </nav>
+   </header>
+ 
+   <!-- Hero Section -->
+   <section class="hero" id="home">
+     <canvas id="scene"></canvas>
+     <div class="overlay"></div>
+     <div class="hero-content" data-aos="fade-up">
+       <h1>Montreal's Premier Junk Removal & Cleaning</h1>
+-      <p>Fast, reliable, eco-friendly service. <a href="tel:438-529-7778" class="underline">438-529-7778</a></p>
++      <p class="mt-4 flex flex-col items-center space-y-1 text-base">
++        <span>📞 <a href="tel:438-529-7778" class="underline">438-529-7778</a></span>
++        <span>📍 Located in Montreal</span>
++        <span>Response Time: Avg. 15 minutes</span>
++      </p>
++      <button disabled class="mt-6 px-6 py-2 bg-[var(--primary)] rounded opacity-80">Get Quote Now (form coming soon)</button>
++    </div>
++  </section>
++
++  <!-- Overview -->
++  <section class="container text-center" data-aos="fade-up">
++    <h2 class="text-2xl mb-2">We Take Almost Everything</h2>
++    <p class="mb-4">If it’s in your way, it’s gone today!</p>
++    <div class="max-w-md mx-auto text-left text-sm space-y-4">
++      <div>
++        <h3 class="font-semibold mb-1">What We Don’t Take (unless urgent):</h3>
++        <ul class="list-disc list-inside space-y-1">
++          <li>Food waste</li>
++          <li>Hazardous materials</li>
++        </ul>
++      </div>
++      <div>
++        <h3 class="font-semibold mb-1">Extra Services:</h3>
++        <ul class="list-disc list-inside space-y-1">
++          <li>Deep cleaning after junk removal</li>
++          <li>Storage & organizing at affordable rates</li>
++        </ul>
++      </div>
+     </div>
+   </section>
+ 
+   <!-- Services -->
+   <section id="services" class="container" data-aos="fade-up">
+     <h2 class="text-center text-3xl mb-8">Our Services</h2>
+     <div class="services">
+       <div class="service-card" data-aos="zoom-in" data-aos-delay="100">
+-        <div class="service-body"><h3>Junk Removal</h3><p>Residential & commercial debris pickup and hauling.</p></div>
++        <div class="service-body">
++          <h3>Junk Removal</h3>
++          <p class="mt-2 text-sm"><strong>For:</strong> Homeowners, landlords, tenants, businesses</p>
++          <ul class="mt-2 list-disc list-inside text-sm space-y-1">
++            <li>Heavy lifting & loading from anywhere on property (construction debris must be easily accessible)</li>
++            <li>Donation drop-offs for usable items</li>
++            <li>Safe hauling</li>
++          </ul>
++          <p class="mt-2 text-sm"><strong>Pricing:</strong> Mainly based on volume and weight.</p>
++        </div>
+       </div>
+       <div class="service-card" data-aos="zoom-in" data-aos-delay="200">
+-        <div class="service-body"><h3>Estate Cleanouts</h3><p>Furniture, electronics, & more handled respectfully.</p></div>
++        <div class="service-body">
++          <h3>Estate Cleanouts</h3>
++          <p class="mt-2 text-sm"><strong>For:</strong> Property managers, real estate agents, landlords, homeowners</p>
++          <ul class="mt-2 list-disc list-inside text-sm space-y-1">
++            <li>Room-by-room item removal</li>
++            <li>Sorting for donation, recycling, disposal</li>
++            <li>Heavy lifting & hauling from any floor or location</li>
++          </ul>
++          <p class="mt-2 text-sm"><strong>Pricing:</strong></p>
++          <ul class="list-disc list-inside text-sm space-y-1">
++            <li>Small condo cleanout: $500 – $800</li>
++            <li>Full home cleanout: $600 – $1,800</li>
++            <li>Storage unit cleanout: $300 – $500</li>
++          </ul>
++        </div>
+       </div>
+       <div class="service-card" data-aos="zoom-in" data-aos-delay="300">
+-        <div class="service-body"><h3>Luxury Cleaning</h3><p>Deep-cleaning for high-end homes & offices.</p></div>
+-      </div>
+-      <div class="service-card" data-aos="zoom-in" data-aos-delay="400">
+-        <div class="service-body"><h3>Organizing & Hauling</h3><p>Declutter, organize, & haul away unwanted items.</p></div>
++        <div class="service-body">
++          <h3>Luxury Cleaning</h3>
++          <p class="mt-2 text-sm"><strong>For:</strong> Homeowners, businesses, property managers</p>
++          <ul class="mt-2 list-disc list-inside text-sm space-y-1">
++            <li>Floor-to-ceiling dusting & wipe-down</li>
++            <li>Detailed kitchen & bathroom cleaning</li>
++            <li>High-end surface care (granite, marble)</li>
++            <li>Interior & exterior window cleaning</li>
++            <li>Baseboards, vents, light fixtures</li>
++            <li>Eco-friendly & specialty products available</li>
++          </ul>
++          <p class="mt-2 text-sm"><strong>Pricing:</strong></p>
++          <ul class="list-disc list-inside text-sm space-y-1">
++            <li>Regular cleaning (dust, mop): Starting from $150 + $35/h (1 worker) or $60/h (2 workers)</li>
++            <li>Deep cleaning (detailed): Starting from $150 + $80/h (2 workers)</li>
++            <li>Extras: Move-in/move-out cleaning, fridge & oven cleaning, organizing, etc.</li>
++          </ul>
++        </div>
+       </div>
+     </div>
+   </section>
+ 
+   <!-- Areas -->
+   <section id="areas" class="container" data-aos="fade-up">
+     <h2 class="text-3xl mb-4">Service Areas</h2>
+-    <button id="toggle-areas" class="mb-4 px-4 py-2 bg-var(--primary) rounded">View All 108+ Areas</button>
++    <button id="toggle-areas" class="mb-4 px-4 py-2 bg-[var(--primary)] rounded">View All 108+ Areas</button>
+     <ul id="areas-list" class="columns-2 space-y-2 text-sm">
+       <li>Montreal</li><li>Laval</li><!-- etc -->
+     </ul>
+   </section>
+ 
+   <!-- FAQs -->
+   <section id="faqs" class="container" data-aos="fade-up">
+     <h2 class="text-3xl mb-6">FAQs</h2>
+     <div class="faq-item" data-aos="fade-up" data-aos-delay="100"><h4 class="font-semibold">Do you offer same-day pickups?</h4><p>Yes—ASAP service. Recurring plans available.</p></div>
+     <div class="faq-item" data-aos="fade-up" data-aos-delay="200"><h4 class="font-semibold">Which items do you accept?</h4><p>Furniture, electronics, debris, scrap vehicles, lawn debris, expired products, dirt, old sheds, pools. No hazardous materials/food waste.</p></div>
+   </section>
+ 
+   <!-- Contact -->
+   <section id="contact" class="container" data-aos="fade-up">
+     <h2 class="text-3xl mb-6">Contact Us</h2>
+     <form class="contact-form">
+       <input type="text" placeholder="Your Name" value="Kevin" required>
+       <input type="tel" placeholder="Phone Number" value="438-529-7778" required>
+-      <input type="email" placeholder="Email Address">\n      <select required><option value="">Select Service</option><option value="junk">Junk Removal</option><option value="cleaning">Luxury Cleaning</option></select>
++      <input type="email" placeholder="Email Address">
++      <select required>
++        <option value="">Select Service</option>
++        <option value="junk">Junk Removal</option>
++        <option value="cleaning">Luxury Cleaning</option>
++      </select>
+       <textarea rows="4" placeholder="Message..."></textarea>
+       <button type="submit" class="mt-4">Submit</button>
+     </form>
+   </section>
+ 
+   <footer data-aos="fade-up"><p>&copy; 2025 Kevin's Junk Removal & Cleaning</p></footer>
+   <div id="back-to-top">&#8679;</div>
+ 
+   <!-- Scripts -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+   <script>
+     AOS.init({ duration:800, once:true });
+     const btn = document.getElementById('toggle-areas'), list = document.getElementById('areas-list'); list.style.display='none'; btn.addEventListener('click',()=>{const v=list.style.display==='block'; list.style.display=v?'none':'block'; btn.textContent=v?'View All 108+ Areas':'Hide Areas';});
++    const isMobile=window.innerWidth<768;
+     // Hero animation
+-    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000); camera.position.z=2; const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('scene'),alpha:true}); renderer.setSize(window.innerWidth,window.innerHeight); const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(0.7,0.2,100,16),new THREE.MeshBasicMaterial({color:0x1d3557,wireframe:true,opacity:0.4,transparent:true})); scene.add(knot); const lightA=new THREE.DirectionalLight(0xffffff,1); lightA.position.set(5,5,5); scene.add(lightA); function animateHero(){requestAnimationFrame(animateHero); knot.rotation.x+=0.005; knot.rotation.y+=0.007; renderer.render(scene,camera);} animateHero();
++    const scene=new THREE.Scene(), camera=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,0.1,1000); camera.position.z=2; const renderer=new THREE.WebGLRenderer({canvas:document.getElementById('scene'),alpha:true}); renderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); renderer.setSize(window.innerWidth,window.innerHeight);
++    const knot=new THREE.Mesh(new THREE.TorusKnotGeometry(0.7,0.2,100,16),new THREE.MeshPhongMaterial({color:0xe63946,wireframe:true,emissive:0xe63946,emissiveIntensity:0.3,transparent:true,opacity:0.6})); scene.add(knot); const lightA=new THREE.DirectionalLight(0xffffff,1); lightA.position.set(5,5,5); scene.add(lightA); function animateHero(){requestAnimationFrame(animateHero); knot.rotation.x+=0.005; knot.rotation.y+=0.007; renderer.render(scene,camera);} animateHero();
+     // Starfield
+-    const bgScene=new THREE.Scene(), bgCam=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,1,1000); bgCam.position.z=50; const bgRenderer=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true}); bgRenderer.setSize(window.innerWidth,window.innerHeight);
+-    function createStarTexture(){const s=64, c=document.createElement('canvas'); c.width=s; c.height=s; const ctx=c.getContext('2d'); const grad=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2); grad.addColorStop(0,'rgba(255,255,255,1)'); grad.addColorStop(0.2,'rgba(255,255,255,1)'); grad.addColorStop(0.4,'rgba(200,200,200,0.4)'); grad.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=grad; ctx.fillRect(0,0,s,s); return new THREE.CanvasTexture(c);} const starTex=createStarTexture(); const starCount=1000; const starGeo=new THREE.BufferGeometry(); const starPositions=new Float32Array(starCount*3); const starSizes=new Float32Array(starCount); for(let i=0;i<starCount;i++){starPositions[i*3]=(Math.random()-0.5)*500; starPositions[i*3+1]=(Math.random()-0.5)*500; starPositions[i*3+2]=(Math.random()-0.5)*500; starSizes[i]=(Math.random()*2+0.5)*3;} starGeo.setAttribute('position',new THREE.BufferAttribute(starPositions,3)); starGeo.setAttribute('size',new THREE.BufferAttribute(starSizes,1)); const starMat=new THREE.ShaderMaterial({ uniforms:{pointTexture:{value:starTex}}, vertexShader:`attribute float size; void main(){vec4 mvPosition=modelViewMatrix*vec4(position,1.0); gl_PointSize=size*(300.0/-mvPosition.z); gl_Position=projectionMatrix*mvPosition;}`, fragmentShader:`uniform sampler2D pointTexture; void main(){gl_FragColor=texture2D(pointTexture,gl_PointCoord)*2.0;}`, transparent:true}); const stars=new THREE.Points(starGeo,starMat); bgScene.add(stars); function animateStars(){requestAnimationFrame(animateStars); stars.rotation.y+=0.0002; stars.rotation.x+=0.0001; bgRenderer.render(bgScene,bgCam);} animateStars(); window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight); bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();bgRenderer.setSize(window.innerWidth,window.innerHeight);}); const topBtn=document.getElementById('back-to-top'); window.addEventListener('scroll',()=>topBtn.style.display=window.scrollY>300?'block':'none'); topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
++    const bgScene=new THREE.Scene(), bgCam=new THREE.PerspectiveCamera(60,window.innerWidth/window.innerHeight,1,1000); bgCam.position.z=50; const bgRenderer=new THREE.WebGLRenderer({canvas:document.getElementById('bg'),alpha:true}); bgRenderer.setPixelRatio(Math.min(window.devicePixelRatio,2)); bgRenderer.setSize(window.innerWidth,window.innerHeight);
++    function createStarTexture(){const s=64, c=document.createElement('canvas'); c.width=s; c.height=s; const ctx=c.getContext('2d'); const grad=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2); grad.addColorStop(0,'rgba(255,255,255,1)'); grad.addColorStop(0.2,'rgba(255,255,255,1)'); grad.addColorStop(0.4,'rgba(200,200,200,0.4)'); grad.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=grad; ctx.fillRect(0,0,s,s); return new THREE.CanvasTexture(c);} const starTex=createStarTexture(); const starCount=isMobile?500:1000; const starGeo=new THREE.BufferGeometry(); const starPositions=new Float32Array(starCount*3); const starSizes=new Float32Array(starCount); const starRandom=new Float32Array(starCount);
++    for(let i=0;i<starCount;i++){starPositions[i*3]=(Math.random()-0.5)*500; starPositions[i*3+1]=(Math.random()-0.5)*500; starPositions[i*3+2]=(Math.random()-0.5)*500; starSizes[i]=(Math.random()*2+0.5)*3; starRandom[i]=Math.random()*10;}
++    starGeo.setAttribute('position',new THREE.BufferAttribute(starPositions,3)); starGeo.setAttribute('size',new THREE.BufferAttribute(starSizes,1)); starGeo.setAttribute('random',new THREE.BufferAttribute(starRandom,1));
++    const starMat=new THREE.ShaderMaterial({ uniforms:{pointTexture:{value:starTex}, time:{value:0}}, vertexShader:`attribute float size; attribute float random; varying float vRandom; void main(){vRandom=random; vec4 mvPosition=modelViewMatrix*vec4(position,1.0); gl_PointSize=size*(300.0/-mvPosition.z); gl_Position=projectionMatrix*mvPosition;}`, fragmentShader:`uniform sampler2D pointTexture; uniform float time; varying float vRandom; void main(){vec4 color=texture2D(pointTexture,gl_PointCoord); float twinkle=0.5+0.5*sin(time+vRandom); gl_FragColor=color*twinkle*1.5;}`, transparent:true}); const stars=new THREE.Points(starGeo,starMat); bgScene.add(stars);
++    // Meteors
++    function createMeteorTexture(){const c=document.createElement('canvas'); c.width=256; c.height=64; const ctx=c.getContext('2d'); const g=ctx.createLinearGradient(0,0,256,0); g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(1,'rgba(255,255,255,0)'); ctx.fillStyle=g; ctx.fillRect(0,0,256,64); return new THREE.CanvasTexture(c);} const meteorTex=createMeteorTexture(); const meteorGeo=new THREE.PlaneGeometry(2,0.2); const meteors=[]; const meteorCount=isMobile?2:5;
++    for(let i=0;i<meteorCount;i++){const m=new THREE.Mesh(meteorGeo,new THREE.MeshBasicMaterial({map:meteorTex,transparent:true,depthWrite:false})); resetMeteor(m); meteors.push(m); bgScene.add(m);}
++    function resetMeteor(m){m.position.set((Math.random()-0.5)*400,Math.random()*200+100,(Math.random()-0.5)*100); m.rotation.z=-Math.PI/4; m.material.opacity=1;}
++    function updateMeteor(m){m.position.x+=2; m.position.y-=2; m.material.opacity-=0.01; if(m.position.y<-200||m.material.opacity<=0) resetMeteor(m);}
++    function animateStars(t){requestAnimationFrame(animateStars); starMat.uniforms.time.value=t*0.001; stars.rotation.y+=0.0002; stars.rotation.x+=0.0001; meteors.forEach(updateMeteor); bgRenderer.render(bgScene,bgCam);} animateStars(0);
++    window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight); bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();bgRenderer.setSize(window.innerWidth,window.innerHeight);});
++    const topBtn=document.getElementById('back-to-top'); window.addEventListener('scroll',()=>topBtn.style.display=window.scrollY>300?'block':'none'); topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+   </script>
+ </body>
+ </html>
