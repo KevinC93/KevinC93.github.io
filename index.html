@@ -26,6 +26,7 @@
     .nav-links a { margin-left:1rem; font-weight:500; position:relative; }
     .nav-links a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--primary); transition:width .3s; }
     .nav-links a:hover::after { width:100%; }
+
     /* Background canvases */
     #bg { position:fixed; top:0; left:0; width:100%; height:100%; z-index:-2; }
     .hero { position:relative; height:100vh; overflow:hidden; }
@@ -33,21 +34,45 @@
     .hero-content { position:relative; z-index:10; text-align:center; top:50%; transform:translateY(-50%); padding:0 1rem; }
     .hero-content h1 { font-size:3rem; color:var(--accent); text-shadow:0 0 20px rgba(168,218,220,0.7); }
     .hero-content p { margin-top:1rem; font-size:1.2rem; }
+
     section { padding:4rem 0; position:relative; }
     .container { max-width:1200px; margin:0 auto; padding:0 1rem; }
     .overlay { position:absolute; inset:0; background:linear-gradient(135deg, rgba(29,53,87,0.4), rgba(22,22,39,0.4)); pointer-events:none; }
-    .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
-    .service-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px; backdrop-filter:blur(10px); overflow:hidden; transition:transform .3s; }
-    .service-card:hover { transform:scale(1.03); }
-    .service-body { padding:1.5rem; }
+    .services { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.25rem; }
+    @media (min-width:768px){ .services { gap:2rem; } }
+
+    .service-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; backdrop-filter:blur(10px); overflow:hidden; transition:transform .3s; }
+    .service-card:hover { transform:translateY(-2px); }
+    .service-body { padding:1.25rem; }
+    @media (min-width:768px){ .service-body { padding:1.5rem; } }
     .service-body h3 { color:var(--accent); }
-    .service-areas ul { display:none; columns:2; gap:1rem; margin-top:1rem; }
-    .faq-item + .faq-item { margin-top:1.5rem; }
-    .contact-form input, .contact-form select, .contact-form textarea { width:100%; padding:.75rem; margin-bottom:1rem; border:none; border-radius:4px; background:rgba(255,255,255,0.1); color:#fff; }
-    .contact-form button { width:100%; padding:.75rem; background:var(--primary); color:#fff; border:none; border-radius:4px; transition:background .3s; }
-    .contact-form button:hover { background:var(--accent); color:var(--dark); }
-    footer { text-align:center; padding:2rem 1rem; font-size:0.9rem; color:rgba(255,255,255,0.6); }
-    #back-to-top { position:fixed; bottom:2rem; right:2rem; background:var(--primary); color:#fff; padding:.75rem; border-radius:50%; cursor:pointer; display:none; z-index:100; }
+
+    .faq-item + .faq-item { margin-top:1.25rem; }
+
+    .contact-form input, .contact-form select, .contact-form textarea {
+      width:100%; padding:.75rem; margin-bottom:1rem; border:none; border-radius:8px; background:rgba(255,255,255,0.1); color:#fff;
+    }
+    .contact-form button {
+      width:100%; padding:.9rem; background:var(--primary); color:#fff; border:none; border-radius:10px; transition:filter .2s;
+    }
+    .contact-form button:hover { filter:brightness(1.08); }
+
+    footer { text-align:center; padding:2rem 1rem; font-size:0.9rem; color:rgba(255,255,255,0.7); }
+    #back-to-top { position:fixed; bottom:1.25rem; right:1.25rem; background:var(--primary); color:#fff; padding:.75rem; border-radius:50%; cursor:pointer; display:none; z-index:100; }
+
+    /* Quote form embedding */
+    .quote-card { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; }
+    .quote-iframe { width:100%; height:68vh; border:0; border-radius:12px; }
+    @media (max-width:640px){
+      .hero-content h1 { font-size:2.25rem; line-height:1.2; }
+      .hero-content p  { font-size:1rem; }
+      .quote-iframe { height:75vh; }
+    }
+
+    /* Modal tweaks for mobile */
+    dialog { max-width:900px; width:92vw; border:0; border-radius:16px; padding:0; }
+    @media (min-width:768px){ dialog { width:80vw; } }
+    dialog::backdrop { background:rgba(0,0,0,.7); }
   </style>
 </head>
 <body>
@@ -76,7 +101,28 @@
     </div>
   </section>
 
-  <!-- ✨ NEW: Quick Info + CTA (added; original hero/stars/logo unchanged) -->
+  <!-- TOP QUOTE FORM (just below hero) -->
+  <section id="quote-top" class="container" data-aos="fade-up">
+    <div class="quote-card p-4 md:p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+        <h2 class="text-2xl">Get a Quote (Top)</h2>
+        <div class="flex flex-wrap gap-2">
+          <a href="tel:438-529-7778" class="px-3 py-2 rounded bg-[var(--accent)] text-[var(--dark)] text-sm">📞 438-529-7778</a>
+          <a href="https://agent.jotform.com/0198a49834ac7c568f01d399ecc9032ed27b" target="_blank" rel="noopener" class="px-3 py-2 rounded bg-[var(--primary)] text-white text-sm">Chat with Agent</a>
+        </div>
+      </div>
+      <iframe
+        class="quote-iframe"
+        src="https://form.jotform.com/252245867890267"
+        title="Get Quote Form (Top)"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+      <p class="mt-2 text-xs opacity-70">If the form doesn’t load, <a class="underline" href="https://form.jotform.com/252245867890267" target="_blank" rel="noopener">open it in a new tab</a>.</p>
+    </div>
+  </section>
+
+  <!-- Quick Info + CTA -->
   <section id="quick-info" class="container" data-aos="fade-up">
     <div class="grid md:grid-cols-2 gap-6">
       <!-- Left: Contact + CTA -->
@@ -89,10 +135,10 @@
             <li>Response Time: Avg. 15 minutes</li>
           </ul>
           <div class="mt-4 flex flex-wrap gap-3">
-            <a id="openQuote" href="#quote" class="px-4 py-2 rounded bg-[var(--primary)] text-white">Get Quote Now</a>
+            <a id="openQuote" href="#quote-top" class="px-4 py-2 rounded bg-[var(--primary)] text-white">Get Quote Now</a>
             <a href="https://agent.jotform.com/0198a49834ac7c568f01d399ecc9032ed27b" target="_blank" rel="noopener" class="px-4 py-2 rounded bg-[var(--accent)] text-[var(--dark)]">Chat with Agent</a>
           </div>
-          <p class="mt-2 text-sm opacity-80">Form opens in a modal. If it doesn’t, use <a class="underline" href="https://form.jotform.com/252245867890267" target="_blank" rel="noopener">this direct link</a>.</p>
+          <p class="mt-2 text-sm opacity-80">If the modal doesn’t open on your device, scroll to the embedded forms or use <a class="underline" href="https://form.jotform.com/252245867890267" target="_blank" rel="noopener">this direct link</a>.</p>
         </div>
       </div>
       <!-- Right: Promise -->
@@ -121,7 +167,7 @@
     </div>
   </section>
 
-  <!-- ✨ NEW: Detailed Services (added) -->
+  <!-- Detailed Services -->
   <section id="service-details" class="container" data-aos="fade-up">
     <h2 class="text-center text-3xl mb-8">Service Details</h2>
     <div class="services">
@@ -183,7 +229,25 @@
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- MIDDLE QUOTE FORM -->
+  <section id="quote-middle" class="container" data-aos="fade-up">
+    <div class="quote-card p-4 md:p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+        <h2 class="text-2xl">Get a Quote (Middle)</h2>
+        <a href="https://agent.jotform.com/0198a49834ac7c568f01d399ecc9032ed27b" target="_blank" rel="noopener" class="px-3 py-2 rounded bg-[var(--primary)] text-white text-sm">Chat with Agent</a>
+      </div>
+      <iframe
+        class="quote-iframe"
+        src="https://form.jotform.com/252245867890267"
+        title="Get Quote Form (Middle)"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+      <p class="mt-2 text-xs opacity-70">If the form doesn’t load, <a class="underline" href="https://form.jotform.com/252245867890267" target="_blank" rel="noopener">open it in a new tab</a>.</p>
+    </div>
+  </section>
+
+  <!-- Original simple Services (kept) -->
   <section id="services" class="container" data-aos="fade-up">
     <h2 class="text-center text-3xl mb-8">Our Services</h2>
     <div class="services">
@@ -224,19 +288,41 @@
     <form class="contact-form">
       <input type="text" placeholder="Your Name" value="Kevin" required>
       <input type="tel" placeholder="Phone Number" value="438-529-7778" required>
-      <input type="email" placeholder="Email Address">\n      <select required><option value="">Select Service</option><option value="junk">Junk Removal</option><option value="cleaning">Luxury Cleaning</option></select>
+      <input type="email" placeholder="Email Address">
+      <select required>
+        <option value="">Select Service</option>
+        <option value="junk">Junk Removal</option>
+        <option value="cleaning">Luxury Cleaning</option>
+      </select>
       <textarea rows="4" placeholder="Message..."></textarea>
-      <button type="submit" class="mt-4">Submit</button>
+      <button type="submit" class="mt-2">Submit</button>
     </form>
-    <!-- Small link to agent as well -->
     <p class="mt-4 text-sm opacity-80">Prefer chat? <a class="underline" href="https://agent.jotform.com/0198a49834ac7c568f01d399ecc9032ed27b" target="_blank" rel="noopener">Open the agent</a>.</p>
+  </section>
+
+  <!-- BOTTOM QUOTE FORM -->
+  <section id="quote-bottom" class="container" data-aos="fade-up">
+    <div class="quote-card p-4 md:p-6">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
+        <h2 class="text-2xl">Get a Quote (Bottom)</h2>
+        <a href="tel:438-529-7778" class="px-3 py-2 rounded bg-[var(--accent)] text-[var(--dark)] text-sm">📞 438-529-7778</a>
+      </div>
+      <iframe
+        class="quote-iframe"
+        src="https://form.jotform.com/252245867890267"
+        title="Get Quote Form (Bottom)"
+        loading="lazy"
+        allowfullscreen>
+      </iframe>
+      <p class="mt-2 text-xs opacity-70">If the form doesn’t load, <a class="underline" href="https://form.jotform.com/252245867890267" target="_blank" rel="noopener">open it in a new tab</a>.</p>
+    </div>
   </section>
 
   <footer data-aos="fade-up"><p>&copy; 2025 Kevin's Junk Removal & Cleaning</p></footer>
   <div id="back-to-top">&#8679;</div>
 
-  <!-- Modal for JotForm (added) -->
-  <dialog id="quoteModal" class="backdrop:bg-black/70 rounded-xl w-11/12 md:w-3/4 lg:w-2/3">
+  <!-- Modal for JotForm (kept) -->
+  <dialog id="quoteModal">
     <div class="bg-[#0f1220] text-white p-4 md:p-6 rounded-xl">
       <div class="flex items-center justify-between mb-3">
         <h3 class="text-xl">Get a Quote</h3>
@@ -245,7 +331,7 @@
       <iframe
         src="https://form.jotform.com/252245867890267"
         style="width:100%;height:70vh;border:0;border-radius:10px;"
-        title="Get Quote Form"
+        title="Get Quote Form (Modal)"
         loading="lazy"
         allowfullscreen>
       </iframe>
@@ -265,19 +351,23 @@
     function createStarTexture(){const s=64, c=document.createElement('canvas'); c.width=s; c.height=s; const ctx=c.getContext('2d'); const grad=ctx.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2); grad.addColorStop(0,'rgba(255,255,255,1)'); grad.addColorStop(0.2,'rgba(255,255,255,1)'); grad.addColorStop(0.4,'rgba(200,200,200,0.4)'); grad.addColorStop(1,'rgba(0,0,0,0)'); ctx.fillStyle=grad; ctx.fillRect(0,0,s,s); return new THREE.CanvasTexture(c);} const starTex=createStarTexture(); const starCount=1000; const starGeo=new THREE.BufferGeometry(); const starPositions=new Float32Array(starCount*3); const starSizes=new Float32Array(starCount); for(let i=0;i<starCount;i++){starPositions[i*3]=(Math.random()-0.5)*500; starPositions[i*3+1]=(Math.random()-0.5)*500; starPositions[i*3+2]=(Math.random()-0.5)*500; starSizes[i]=(Math.random()*2+0.5)*3;} starGeo.setAttribute('position',new THREE.BufferAttribute(starPositions,3)); starGeo.setAttribute('size',new THREE.BufferAttribute(starSizes,1)); const starMat=new THREE.ShaderMaterial({ uniforms:{pointTexture:{value:starTex}}, vertexShader:`attribute float size; void main(){vec4 mvPosition=modelViewMatrix*vec4(position,1.0); gl_PointSize=size*(300.0/-mvPosition.z); gl_Position=projectionMatrix*mvPosition;}`, fragmentShader:`uniform sampler2D pointTexture; void main(){gl_FragColor=texture2D(pointTexture,gl_PointCoord)*2.0;}`, transparent:true}); const stars=new THREE.Points(starGeo,starMat); bgScene.add(stars); function animateStars(){requestAnimationFrame(animateStars); stars.rotation.y+=0.0002; stars.rotation.x+=0.0001; bgRenderer.render(bgScene,bgCam);} animateStars(); window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.innerHeight;camera.updateProjectionMatrix();renderer.setSize(window.innerWidth,window.innerHeight); bgCam.aspect=window.innerWidth/window.innerHeight;bgCam.updateProjectionMatrix();bgRenderer.setSize(window.innerWidth,window.innerHeight);}); const topBtn=document.getElementById('back-to-top'); window.addEventListener('scroll',()=>topBtn.style.display=window.scrollY>300?'block':'none'); topBtn.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
   </script>
 
-  <!-- NEW: minimal JS to handle modal (kept separate to avoid touching your original block) -->
+  <!-- Minimal JS to handle modal + smooth scroll -->
   <script>
     (function(){
       const modal = document.getElementById('quoteModal');
       const open = document.getElementById('openQuote');
       const close = document.getElementById('closeQuote');
-      if(open && modal?.showModal){
-        open.addEventListener('click', function(e){ e.preventDefault(); modal.showModal(); });
+
+      // Open modal if supported; otherwise just jump to top form
+      if(open){
+        open.addEventListener('click', function(e){
+          if (modal && modal.showModal) {
+            e.preventDefault();
+            modal.showModal();
+          }
+        });
       }
-      if(close){
-        close.addEventListener('click', function(){ modal.close(); });
-      }
-      // close on backdrop click
+      if(close){ close.addEventListener('click', function(){ modal.close(); }); }
       if(modal){
         modal.addEventListener('click', function(e){
           const rect = this.getBoundingClientRect();
