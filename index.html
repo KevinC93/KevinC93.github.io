@@ -82,12 +82,154 @@
     }
     .cta:hover .cta-arrow{
       transform:translateX(.25rem);
-    }    figure.service-img{ position:relative; overflow:hidden; border-radius:16px; border:1px solid rgba(255,255,255,.08); }
-    figure.service-img::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, transparent, rgba(11,13,19,.45)); opacity:0; transition:opacity .3s ease; }
-    figure.service-img:hover::after{ opacity:1; }
-    figure.service-img img{ width:100%; height:100%; object-fit:cover; display:block; }
+    }
+    figure.service-img{
+      position:relative;
+      overflow:hidden;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+    }
+    figure.service-img::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, transparent, rgba(11,13,19,.45));
+      opacity:0;
+      transition:opacity .3s ease;
+    }
+    figure.service-img:hover::after{
+      opacity:1;
+    }
+    figure.service-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .chat-widget{
+      position:fixed;
+      right:1rem;
+      bottom:1rem;
+      z-index:70;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:0.75rem;
+    }
+    .chat-floating-button{
+      width:64px;
+      height:64px;
+      border-radius:9999px;
+      border:none;
+      padding:0;
+      background:linear-gradient(135deg, #e63946 0%, #ff6f56 100%);
+      box-shadow:0 18px 36px rgba(230,57,70,.45);
+      cursor:pointer;
+      transition:transform .2s ease, box-shadow .2s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .chat-floating-button:hover{
+      transform:translateY(-3px);
+      box-shadow:0 22px 44px rgba(230,57,70,.55);
+    }
+    .chat-floating-button:focus-visible{
+      outline:3px solid rgba(255,255,255,.85);
+      outline-offset:3px;
+    }
+    .chat-floating-button img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      border-radius:inherit;
+    }
+    .chat-panel{
+      width:min(360px, calc(100vw - 2.5rem));
+      height:min(520px, calc(100vh - 6rem));
+      background:rgba(11,13,19,.92);
+      border:1px solid rgba(168,218,220,.22);
+      border-radius:24px;
+      box-shadow:0 28px 55px rgba(0,0,0,.6);
+      overflow:hidden;
+      pointer-events:none;
+      opacity:0;
+      transform:translateY(16px) scale(.96);
+      transition:opacity .25s ease, transform .25s ease;
+      backdrop-filter:saturate(1.4) blur(12px);
+    }
+    .chat-widget.active .chat-panel{
+      pointer-events:auto;
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+    .chat-panel-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:0.75rem;
+      padding:0.85rem 1rem;
+      background:rgba(8,11,18,.88);
+    }
+    .chat-panel-agent{
+      display:flex;
+      align-items:center;
+      gap:0.65rem;
+    }
+    .chat-panel-agent img{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      border:2px solid rgba(168,218,220,.6);
+      object-fit:cover;
+    }
+    .chat-agent-name{
+      font-weight:600;
+    }
+    .chat-agent-role{
+      font-size:0.75rem;
+      color:rgba(238,242,255,.72);
+    }
+    .chat-close{
+      background:none;
+      border:none;
+      color:rgba(248,250,252,.85);
+      font-size:1.5rem;
+      line-height:1;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      transition:color .2s ease;
+    }
+    .chat-close:hover{
+      color:#fff;
+    }
+    .chat-close:focus-visible{
+      outline:2px solid rgba(255,255,255,.85);
+      outline-offset:3px;
+    }
+    .chat-panel-body{
+      height:calc(100% - 74px);
+      background:rgba(6,8,12,.82);
+    }
+    .chat-panel-body iframe{
+      width:100%;
+      height:100%;
+      border:0;
+    }
+    @media (max-width: 640px){
+      .chat-panel{
+        width:min(100vw - 1.5rem, 340px);
+        height:min(75vh, 520px);
+      }
+      .chat-floating-button{
+        width:58px;
+        height:58px;
+      }
+    }
     /* Back to top */
-    #toTop{ position:fixed; right:1rem; bottom:1rem; z-index:40; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .3s ease, transform .3s ease; }
+    #toTop{ position:fixed; right:1rem; bottom:6rem; z-index:40;' opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .3s ease, transform .3s ease; }
     #toTop.is-visible{ opacity:1; pointer-events:auto; transform:translateY(0); }
     #toTop:focus-visible{ outline:2px solid rgba(255,255,255,.85); outline-offset:3px; }
 </style>
@@ -104,7 +246,7 @@
       <nav class="hidden sm:flex gap-5 text-sm">
         <a href="#services" class="hover:underline">Services</a>
         <a href="#pricing" class="hover:underline">Pricing</a>
-        <a href="#agent" class="hover:underline">Chat & Quote</a>
+        <a href="#chat" data-chat-open class="hover:underline">Chat & Quote</a>
         <a href="#form" class="hover:underline">Book Now</a>
         <a href="tel:438-529-7778" class="font-semibold text-[var(--accent)] transition-colors hover:text-[var(--accent)]/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0b0d13]">Call 438-529-7778</a>
       </nav>
@@ -131,7 +273,7 @@
           Book Same-Day Pickup
           <span class="cta-arrow" aria-hidden="true">&rarr;</span>
         </a>
-        <a href="#agent" class="cta cta-secondary">Chat With a Specialist</a>
+        <a href="#chat" data-chat-open class="cta cta-secondary">Chat With a Specialist</a>
         <a href="tel:438-529-7778" class="cta cta-outline">Call 438-529-7778</a>
       </div>
 
@@ -251,23 +393,31 @@
     </div>
   </section>
 
-  <!-- Agent embed -->
-  <section id="agent" class="mx-auto max-w-6xl px-4 py-10">
-    <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--accent)]">Chat with Our Agent</h2>
-    <div class="card p-2 overflow-hidden">
-      <!-- Your agent iframe (kept exactly as provided) -->
-      <iframe id="JotFormIFrame-0198a49834ac7c568f01d399ecc9032ed27b" title="Mily: Customer Support Agent"
-        onload="window.parent.scrollTo(0,0)" allowtransparency="true"
-        allow="geolocation; microphone; camera; fullscreen"
-        src="https://agent.jotform.com/0198a49834ac7c568f01d399ecc9032ed27b?embedMode=iframe&background=1&shadow=1"
-        frameborder="0" style="min-width:100%;max-width:100%;height:688px;border:none;width:100%;" scrolling="no">
-      </iframe>
-      <script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
-      <script>
-        window.jotformEmbedHandler("iframe[id='JotFormIFrame-0198a49834ac7c568f01d399ecc9032ed27b']", "https://www.jotform.com");
-      </script>
+  <!-- Chat widget -->
+  <div class="chat-widget" id="chat-widget" aria-live="polite">
+    <button type="button" class="chat-floating-button" data-chat-toggle aria-expanded="false" aria-controls="chat-panel">
+      <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=320&q=80" alt="Mily, your chat specialist" loading="lazy" decoding="async" />
+    </button>
+    <div class="chat-panel" id="chat-panel" data-chat-popup role="dialog" aria-modal="true" aria-hidden="true" aria-label="Live chat with Mily" tabindex="-1">
+      <div class="chat-panel-header">
+        <div class="chat-panel-agent">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=320&q=80" alt="Mily, your chat specialist" loading="lazy" decoding="async" />
+          <div>
+            <div class="chat-agent-name">Mily</div>
+            <div class="chat-agent-role">Live Support</div>
+          </div>
+        </div>
+        <button type="button" class="chat-close" data-chat-close aria-label="Close chat window">&times;</button>
+      </div>
+      <div class="chat-panel-body">
+        <iframe id="JotFormIFrame-0198a49834ac7c568f01d399ecc9032ed27b" title="Mily: Customer Support Agent" allow="geolocation; microphone; camera; fullscreen" src="https://agent.jotform.com/0198a49834ac7c568f01d399ecc9032ed27b?embedMode=iframe&background=1&shadow=1" frameborder="0" loading="lazy" decoding="async"></iframe>
+      </div>
     </div>
-  </section>
+  </div>
+  <script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
+  <script>
+    window.jotformEmbedHandler("iframe[id='JotFormIFrame-0198a49834ac7c568f01d399ecc9032ed27b']", "https://www.jotform.com");
+  </script>
 
   <!-- Quote form embed -->
   <section id="form" class="mx-auto max-w-6xl px-4 pb-14">
@@ -311,6 +461,92 @@
         }
       });
     }
+
+    // Chat widget
+    const chatWidget = document.getElementById('chat-widget');
+    const chatToggle = chatWidget?.querySelector('[data-chat-toggle]');
+    const chatPopup = chatWidget?.querySelector('[data-chat-popup]');
+    const chatClose = chatWidget?.querySelector('[data-chat-close]');
+    const chatOpeners = document.querySelectorAll('[data-chat-open]');
+    const focusableSelectors = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    let chatFocusable = [];
+    let lastFocusedElement = null;
+
+    const setChatState = (isOpen) => {
+      if (!chatWidget || !chatPopup || !chatToggle) return;
+      chatWidget.classList.toggle('active', isOpen);
+      chatPopup.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      chatToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    };
+
+    const trapFocus = (event) => {
+      if (event.key !== 'Tab' || chatFocusable.length === 0 || !chatWidget?.classList.contains('active')) return;
+      const first = chatFocusable[0];
+      const last = chatFocusable[chatFocusable.length - 1];
+
+      if (event.shiftKey) {
+        if (document.activeElement === first || !chatPopup?.contains(document.activeElement)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    const openChat = () => {
+      if (!chatWidget || !chatPopup) return;
+      lastFocusedElement = document.activeElement;
+      setChatState(true);
+      chatFocusable = Array.from(chatPopup.querySelectorAll(focusableSelectors)).filter((el) => !el.hasAttribute('disabled'));
+      document.addEventListener('keydown', trapFocus);
+      const focusTarget = chatClose || chatPopup;
+      setTimeout(() => focusTarget?.focus({ preventScroll: true }), 16);
+    };
+
+    const closeChat = () => {
+      if (!chatWidget || !chatPopup) return;
+      setChatState(false);
+      document.removeEventListener('keydown', trapFocus);
+      chatFocusable = [];
+      const target = (lastFocusedElement && typeof lastFocusedElement.focus === 'function') ? lastFocusedElement : chatToggle;
+      setTimeout(() => target?.focus({ preventScroll: true }), 16);
+    };
+
+    chatToggle?.addEventListener('click', () => {
+      const isOpen = chatToggle.getAttribute('aria-expanded') === 'true';
+      (isOpen ? closeChat : openChat)();
+    });
+
+    chatClose?.addEventListener('click', closeChat);
+
+    chatOpeners.forEach((trigger) => {
+      trigger.addEventListener('click', (event) => {
+        event.preventDefault();
+        openChat();
+      });
+      trigger.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openChat();
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && chatWidget?.classList.contains('active')) {
+        closeChat();
+      }
+    });
+
+    document.addEventListener('click', (event) => {
+      if (!chatWidget?.classList.contains('active')) return;
+      const target = event.target;
+      if (target instanceof Node && chatWidget.contains(target)) return;
+      if (target instanceof HTMLElement && target.closest('[data-chat-open]')) return;
+      closeChat();
+    });
 
     /* ===========================
        HERO KNOT (kept, no starfield)
