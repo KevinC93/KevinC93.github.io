@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Basic -->
+  <!-- Meta -->
   <meta charset="UTF-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
@@ -14,11 +14,12 @@
   <meta property="og:title" content="Kevin's Junk Removal & Cleaning - Montreal" />
   <meta property="og:description" content="Same-day junk removal & luxury cleaning. Eco-friendly, transparent pricing. Call/Text 438-529-7778." />
   <meta property="og:type" content="website" />
+  <!-- IMAGE: hero share (junk truck close-up) -->
   <meta property="og:image" content="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1600&q=80" />
   <meta name="twitter:card" content="summary_large_image" />
 
-  <!-- Favicons (data URIs keep it single-file) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0d13'/%3E%3Cpath d='M16 44h32l2-10H22l2-8h26l2-10H26l-2-6h-8l2 6-6 28z' fill='%23e63946'/%3E%3C/svg%3E" />
+  <!-- Favicon (inline SVG keeps it single-file) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0d13'/%3E%3Cpath d='M16 44h32l2-10H22l2-8h26l2-10H26l-2-6h-8l2 6-6 28z' fill='%23ff2f4d'/%3E%3C/svg%3E" />
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,7 +29,7 @@
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- AOS (subtle fades) -->
+  <!-- AOS -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 
@@ -38,66 +39,56 @@
   <style>
     :root{
       --primary:#ff2f4d; --primary-2:#ff8a5c;
-      --accent:#a8dadc; --ink:#eaeef3; --bg:#0b0d13; --card:rgba(255,255,255,.06);
+      --accent:#a8dadc; --bg:#0b0d13; --card:rgba(255,255,255,.06);
     }
     html,body{ height:100%; background:var(--bg); color:#fff; }
     body{ font-family:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; }
     h1,h2,h3{ font-family:'Playfair Display',Georgia,serif; letter-spacing:.2px; }
 
-    /* Fixed header */
     header{ position:sticky; top:0; z-index:50; backdrop-filter:saturate(1.2) blur(10px); background:rgba(0,0,0,.45); border-bottom:1px solid rgba(255,255,255,.08); }
 
-    /* Hero canvas (knot) */
+    /* Hero bg */
     #scene{ position:fixed; inset:0; width:100vw; height:100vh; z-index:-1; pointer-events:none; }
     .hero-overlay{ position:fixed; inset:0; background:linear-gradient(180deg, rgba(7,10,18,.6), rgba(7,10,18,.88)); z-index:-1; pointer-events:none; }
 
-    /* Card */
     .card{ background:var(--card); border:1px solid rgba(255,255,255,.09); border-radius:16px; box-shadow:0 10px 28px rgba(0,0,0,.28); }
 
-    /* FLASHY CTAs */
+    /* Flashy CTAs */
     .cta{
       display:inline-flex; align-items:center; justify-content:center; gap:.55rem;
-      padding:0.95rem 1.75rem; border-radius:1rem; font-weight:800; letter-spacing:.2px;
-      text-decoration:none; text-transform:uppercase; font-size:0.95rem;
+      padding:1rem 1.85rem; border-radius:1rem; font-weight:900; letter-spacing:.3px;
+      text-decoration:none; text-transform:uppercase; font-size:1rem;
       transition:transform .18s ease, box-shadow .18s ease, background-color .18s ease, filter .18s ease, border-color .18s ease;
       will-change:transform, box-shadow, filter;
     }
     .cta-primary{
       color:#fff; background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-      border:0; box-shadow:0 16px 36px rgba(255,47,77,.45), inset 0 -2px 0 rgba(0,0,0,.2);
+      border:0; box-shadow:0 18px 38px rgba(255,47,77,.5), inset 0 -2px 0 rgba(0,0,0,.2);
       position:relative; isolation:isolate;
     }
     .cta-primary::after{
       content:""; position:absolute; inset:-3px; border-radius:inherit; z-index:-1;
-      background:conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,.2), rgba(255,255,255,0), rgba(255,255,255,.2));
+      background:conic-gradient(from 0deg at 50% 50%, rgba(255,255,255,.22), rgba(255,255,255,0), rgba(255,255,255,.22));
       filter:blur(14px); opacity:.6; transition:opacity .18s ease; pointer-events:none;
       animation:spin 4s linear infinite;
     }
     @keyframes spin{ to{ transform:rotate(360deg); } }
-    .cta-primary:hover{ transform:translateY(-3px) scale(1.02); box-shadow:0 22px 48px rgba(255,47,77,.55); }
-    .cta-primary:active{ transform:translateY(-1px) scale(0.99); }
+    .cta-primary:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 26px 54px rgba(255,47,77,.6); }
+    .cta-primary:active{ transform:translateY(-1px) scale(.99); }
 
-    .cta-secondary{
-      color:#f8fafc; background:rgba(255,255,255,.12);
-      border:1px solid rgba(255,255,255,.22);
-    }
-    .cta-secondary:hover{ transform:translateY(-3px); filter:saturate(1.2) brightness(1.05); }
+    .cta-secondary{ color:#f8fafc; background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.22); }
+    .cta-secondary:hover{ transform:translateY(-3px); filter:saturate(1.25) brightness(1.05); }
 
-    .cta-outline{
-      color:#f8fafc; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.3);
-    }
+    .cta-outline{ color:#f8fafc; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.3); }
     .cta-outline:hover{ transform:translateY(-3px); background:rgba(255,255,255,.1); }
 
     .cta .cta-arrow{ transition:transform .18s ease; }
-    .cta:hover .cta-arrow{ transform:translateX(.25rem); }
+    .cta:hover .cta-arrow{ transform:translateX(.3rem); }
 
-    /* Pulse (reduced motion aware) */
+    /* Pulse (motion-aware) */
     @media (prefers-reduced-motion:no-preference){
       .pulse{ animation:pulseGlow 1.6s ease-in-out infinite; }
-      @keyframes pulseGlow{
-        0%,100%{ box-shadow:0 0 0 0 rgba(255,47,77,.45); }
-        50%{ box-shadow:0 0 0 16px rgba(255,47,77,0); }
-      }
+      @keyframes pulseGlow{ 0%,100%{ box-shadow:0 0 0 0 rgba(255,47,77,.5); } 50%{ box-shadow:0 0 0 16px rgba(255,47,77,0); } }
     }
 
     /* Service images */
@@ -109,12 +100,12 @@
     /* Chat widget */
     .chat-widget{ position:fixed; right:1rem; bottom:1rem; z-index:70; display:flex; flex-direction:column; align-items:flex-end; gap:0.75rem; }
     .chat-floating-button{
-      width:68px; height:68px; border-radius:9999px; border:none; padding:0; cursor:pointer;
+      width:70px; height:70px; border-radius:9999px; border:none; padding:0; cursor:pointer;
       background:linear-gradient(135deg, var(--primary) 0%, var(--primary-2) 100%);
-      box-shadow:0 22px 44px rgba(255,47,77,.5); display:flex; align-items:center; justify-content:center;
+      box-shadow:0 24px 50px rgba(255,47,77,.55); display:flex; align-items:center; justify-content:center;
       transition:transform .18s ease, box-shadow .18s ease;
     }
-    .chat-floating-button:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 26px 56px rgba(255,47,77,.6); }
+    .chat-floating-button:hover{ transform:translateY(-3px) scale(1.03); box-shadow:0 28px 60px rgba(255,47,77,.65); }
     .chat-floating-button:focus-visible{ outline:3px solid rgba(255,255,255,.85); outline-offset:3px; }
     .chat-floating-button img{ width:100%; height:100%; object-fit:cover; border-radius:inherit; }
 
@@ -137,56 +128,33 @@
     .chat-panel-body iframe{ width:100%; height:100%; border:0; }
     @media (max-width: 640px){
       .chat-panel{ width:min(100vw - 1.5rem, 360px); height:min(75vh, 560px); }
-      .chat-floating-button{ width:62px; height:62px; }
+      .chat-floating-button{ width:64px; height:64px; }
     }
 
-    /* Back to top (fixed stray quote bug) */
+    /* Back to top */
     #toTop{ position:fixed; right:1rem; bottom:6rem; z-index:40; opacity:0; pointer-events:none; transform:translateY(8px); transition:opacity .3s ease, transform .3s ease; }
     #toTop.is-visible{ opacity:1; pointer-events:auto; transform:translateY(0); }
     #toTop:focus-visible{ outline:2px solid rgba(255,255,255,.85); outline-offset:3px; }
 
-    /* Mobile sticky action bar */
+    /* Mobile sticky CTA */
     .sticky-cta{ position:fixed; left:0; right:0; bottom:0; z-index:60; background:linear-gradient(180deg, rgba(11,13,19,.2), rgba(11,13,19,.9)); backdrop-filter:blur(6px); border-top:1px solid rgba(255,255,255,.08); }
     .sticky-cta-inner{ max-width:72rem; margin:0 auto; display:flex; gap:.5rem; padding:.5rem .75rem; }
     .sticky-cta a{ flex:1; }
 
-    /* Performance hints */
+    /* Perf hints */
     .content-visual{ content-visibility:auto; contain-intrinsic-size:1px 500px; }
   </style>
 
-  <!-- JSON-LD: LocalBusiness + FAQ -->
+  <!-- JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"LocalBusiness",
-    "name":"Kevin's Junk Removal & Cleaning",
-    "image":"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1200&q=80",
-    "telephone":"+1-438-529-7778",
-    "address":{"@type":"PostalAddress","addressLocality":"Montreal","addressRegion":"QC","addressCountry":"CA"},
-    "areaServed":["Montreal","Laval","South Shore","West Island"],
-    "url":"https://kevinjunkremoval.example.com/",
-    "priceRange":"$$",
-    "sameAs":[],
-    "openingHoursSpecification":[
-      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"07:00","closes":"21:00"}
-    ],
-    "description":"Same-day junk removal and luxury cleaning. Eco-friendly disposal and transparent pricing."
-  }
+  {"@context":"https://schema.org","@type":"LocalBusiness","name":"Kevin's Junk Removal & Cleaning","image":"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1200&q=80","telephone":"+1-438-529-7778","address":{"@type":"PostalAddress","addressLocality":"Montreal","addressRegion":"QC","addressCountry":"CA"},"areaServed":["Montreal","Laval","South Shore","West Island"],"url":"https://kevinjunkremoval.example.com/","priceRange":"$$","openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"07:00","closes":"21:00"}],"description":"Same-day junk removal and luxury cleaning. Eco-friendly disposal and transparent pricing."}
   </script>
   <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {"@type":"Question","name":"Do you offer same-day junk removal?","acceptedAnswer":{"@type":"Answer","text":"Yes. Text photos to 438-529-7778 and we’ll confirm volume and arrival window within minutes."}},
-      {"@type":"Question","name":"How is pricing calculated?","acceptedAnswer":{"@type":"Answer","text":"Volume + weight + access. We donate and recycle whenever possible to reduce landfill fees."}},
-      {"@type":"Question","name":"Do you handle estate cleanouts?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. We sort for donation, recycling, and disposal—room by room—with discreet service."}}
-    ]
-  }
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Do you offer same-day junk removal?","acceptedAnswer":{"@type":"Answer","text":"Yes. Text photos to 438-529-7778 and we’ll confirm volume and arrival window within minutes."}},{"@type":"Question","name":"How is pricing calculated?","acceptedAnswer":{"@type":"Answer","text":"Volume + weight + access. We donate and recycle whenever possible to reduce landfill fees."}},{"@type":"Question","name":"Do you handle estate cleanouts?","acceptedAnswer":{"@type":"Answer","text":"Absolutely. We sort for donation, recycling, and disposal—room by room—with discreet service."}}]}
   </script>
 </head>
 <body>
-  <!-- Background hero knot only -->
+  <!-- Background -->
   <canvas id="scene" aria-hidden="true"></canvas>
   <div class="hero-overlay" aria-hidden="true"></div>
 
@@ -222,8 +190,7 @@
 
       <div class="mt-6 flex flex-col sm:flex-row flex-wrap gap-3 justify-center">
         <a href="#form" class="cta cta-primary pulse" aria-label="Book same-day pickup">
-          Book Same-Day Pickup
-          <span class="cta-arrow" aria-hidden="true">→</span>
+          Book Same-Day Pickup <span class="cta-arrow" aria-hidden="true">→</span>
         </a>
         <a href="#chat" data-chat-open class="cta cta-secondary" aria-label="Chat with a specialist for a quick quote">
           Chat With a Specialist
@@ -239,7 +206,7 @@
     </div>
   </section>
 
-  <!-- Quick badges -->
+  <!-- Badges -->
   <section class="mx-auto max-w-6xl px-4 pb-4">
     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
       <div class="card p-3 text-center text-sm">Same-Day Pickups</div>
@@ -258,7 +225,7 @@
       <div class="grid sm:grid-cols-3 gap-4">
         <div class="sm:col-span-1">
           <figure class="service-img aspect-[4/3]" aria-labelledby="junk-removal-title">
-            <!-- Junk removal truck + debris -->
+            <!-- IMAGE: junk truck / debris -->
             <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1200&q=80" alt="Crew loading mixed junk into a truck for removal" loading="lazy" decoding="async" />
           </figure>
         </div>
@@ -284,7 +251,7 @@
       <div class="grid sm:grid-cols-3 gap-4">
         <div class="sm:col-span-1">
           <figure class="service-img aspect-[4/3]" aria-labelledby="estate-cleanouts-title">
-            <!-- Estate cleanout cluttered interior -->
+            <!-- IMAGE: packed boxes / cleanout -->
             <img src="https://images.unsplash.com/photo-1582582621959-48d0b7f6b3d4?auto=format&fit=crop&w=1200&q=80" alt="Estate cleanout with boxed items and furniture ready for removal" loading="lazy" decoding="async" />
           </figure>
         </div>
@@ -316,8 +283,8 @@
       <div class="grid sm:grid-cols-3 gap-4">
         <div class="sm:col-span-1">
           <figure class="service-img aspect-[4/3]" aria-labelledby="luxury-cleaning-title">
-            <!-- Pro cleaner -->
-            <img src="https://images.unsplash.com/photo-1604882737766-4c48eff53d2a?auto=format&fit=crop&w=1200&q=80" alt="Professional cleaner detailing a modern kitchen" loading="lazy" decoding="async" />
+            <!-- IMAGE: office cleaning team (like your sample #1) -->
+            <img src="https://images.unsplash.com/photo-1604882737766-4c48eff53d2a?auto=format&fit=crop&w=1200&q=80" alt="Professional cleaners detailing office workstations with gloves" loading="lazy" decoding="async" />
           </figure>
         </div>
         <div class="sm:col-span-2">
@@ -368,7 +335,7 @@
     </div>
   </section>
 
-  <!-- Social proof / Reviews -->
+  <!-- Reviews -->
   <section id="reviews" class="mx-auto max-w-6xl px-4 py-8 content-visual">
     <div class="card p-5 sm:p-6" data-aos="fade-up">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -389,7 +356,7 @@
     </div>
   </section>
 
-  <!-- Pricing CTA strip -->
+  <!-- Pricing CTA -->
   <section id="pricing" class="mx-auto max-w-6xl px-4 pb-2 content-visual">
     <div class="card p-5 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
       <div class="text-white/90 text-center sm:text-left max-w-xl">
@@ -404,14 +371,15 @@
   </section>
 
   <!-- Chat widget -->
-  <div class="chat-widget" id="chat-widget" aria-live="polite">
+  <div id="chat" class="chat-widget" aria-live="polite">
     <button type="button" class="chat-floating-button pulse" data-chat-toggle aria-expanded="false" aria-controls="chat-panel" aria-label="Open live chat">
-      <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=320&q=80" alt="Mily, your chat specialist" loading="lazy" decoding="async" />
+      <!-- IMAGE: agent headshot (like your sample #3) -->
+      <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=320&q=80" alt="Live support agent" loading="lazy" decoding="async" />
     </button>
-    <div class="chat-panel" id="chat-panel" data-chat-popup role="dialog" aria-modal="true" aria-hidden="true" aria-label="Live chat with Mily" tabindex="-1">
+    <div class="chat-panel" id="chat-panel" data-chat-popup role="dialog" aria-modal="true" aria-hidden="true" aria-label="Live chat window" tabindex="-1">
       <div class="chat-panel-header">
         <div class="chat-panel-agent">
-          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=320&q=80" alt="Mily, your chat specialist" loading="lazy" decoding="async" />
+          <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=320&q=80" alt="Live support agent" loading="lazy" decoding="async" />
           <div>
             <div class="chat-agent-name">Mily</div>
             <div class="chat-agent-role">Live Support</div>
@@ -431,11 +399,10 @@
     });
   </script>
 
-  <!-- Quote form embed -->
+  <!-- Quote form -->
   <section id="form" class="mx-auto max-w-6xl px-4 pb-20 content-visual">
     <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--accent)]">Get a Free Quote</h2>
     <div class="card p-4">
-      <!-- Your JotForm (kept) -->
       <script type="text/javascript" src="https://form.jotform.com/jsform/252245867890267"></script>
     </div>
   </section>
@@ -449,7 +416,7 @@
   <!-- Back to top -->
   <button id="toTop" class="rounded-full bg-[var(--primary)] text-white px-3 py-2 text-sm shadow-lg" aria-label="Back to top">Top</button>
 
-  <!-- Mobile sticky CTA bar -->
+  <!-- Mobile sticky CTA -->
   <div class="sticky-cta sm:hidden" role="region" aria-label="Quick actions">
     <div class="sticky-cta-inner">
       <a href="tel:438-529-7778" class="cta cta-primary">Call</a>
@@ -462,7 +429,7 @@
   <script>
     const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-    // AOS init (safe if it fails; site still works)
+    // AOS
     document.addEventListener('DOMContentLoaded', () => {
       try { AOS.init({ duration: 700, once: true, disable: () => motionQuery.matches }); } catch (e) {}
     });
@@ -470,35 +437,23 @@
     // Back to top
     const toTop = document.getElementById('toTop');
     if (toTop) {
-      const toggleToTop = () => {
-        const shouldShow = window.scrollY > 400;
-        toTop.classList.toggle('is-visible', shouldShow);
-      };
+      const toggleToTop = () => { toTop.classList.toggle('is-visible', window.scrollY > 400); };
       window.addEventListener('scroll', toggleToTop, { passive: true });
       toggleToTop();
       toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-      toTop.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
+      toTop.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }});
     }
 
-    // Copy phone on long-press (mobile nicety)
+    // Copy phone on long-press
     const phoneLink = document.querySelector('[data-phone]');
     if (phoneLink) {
       let pressTimer;
-      phoneLink.addEventListener('touchstart', () => {
-        pressTimer = setTimeout(() => {
-          navigator.clipboard?.writeText('438-529-7778');
-        }, 700);
-      });
+      phoneLink.addEventListener('touchstart', () => { pressTimer = setTimeout(() => { navigator.clipboard?.writeText('438-529-7778'); }, 700); });
       ['touchend','touchmove','touchcancel'].forEach(evt => phoneLink.addEventListener(evt, () => clearTimeout(pressTimer)));
     }
 
     // Chat widget
-    const chatWidget = document.getElementById('chat-widget');
+    const chatWidget = document.getElementById('chat');
     const chatToggle = chatWidget?.querySelector('[data-chat-toggle]');
     const chatPopup = chatWidget?.querySelector('[data-chat-popup]');
     const chatClose = chatWidget?.querySelector('[data-chat-close]');
@@ -516,18 +471,10 @@
 
     const trapFocus = (event) => {
       if (event.key !== 'Tab' || chatFocusable.length === 0 || !chatWidget?.classList.contains('active')) return;
-      const first = chatFocusable[0];
-      const last = chatFocusable[chatFocusable.length - 1];
-
+      const first = chatFocusable[0], last = chatFocusable.at(-1);
       if (event.shiftKey) {
-        if (document.activeElement === first || !chatPopup?.contains(document.activeElement)) {
-          event.preventDefault();
-          last.focus();
-        }
-      } else if (document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+        if (document.activeElement === first || !chatPopup?.contains(document.activeElement)) { event.preventDefault(); last.focus(); }
+      } else if (document.activeElement === last) { event.preventDefault(); first.focus(); }
     };
 
     const openChat = () => {
@@ -553,39 +500,23 @@
       const isOpen = chatToggle.getAttribute('aria-expanded') === 'true';
       (isOpen ? closeChat : openChat)();
     });
-
     chatClose?.addEventListener('click', closeChat);
 
     chatOpeners.forEach((trigger) => {
-      trigger.addEventListener('click', (event) => {
-        event.preventDefault();
-        openChat();
-      });
-      trigger.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openChat();
-        }
-      });
+      trigger.addEventListener('click', (event) => { event.preventDefault(); openChat(); });
+      trigger.addEventListener('keydown', (event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openChat(); }});
     });
 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape' && chatWidget?.classList.contains('active')) {
-        closeChat();
-      }
-    });
-
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && chatWidget?.classList.contains('active')) closeChat(); });
     document.addEventListener('click', (event) => {
       if (!chatWidget?.classList.contains('active')) return;
-      const target = event.target;
-      if (target instanceof Node && chatWidget.contains(target)) return;
-      if (target instanceof HTMLElement && target.closest('[data-chat-open]')) return;
+      const t = event.target;
+      if (t instanceof Node && chatWidget.contains(t)) return;
+      if (t instanceof HTMLElement && t.closest('[data-chat-open]')) return;
       closeChat();
     });
 
-    /* ===========================
-       HERO KNOT (kept, wireframe)
-       =========================== */
+    /* ========= HERO ========= */
     const canvas = document.getElementById('scene');
     const shouldAnimateHero = () => canvas && typeof THREE !== 'undefined' && !motionQuery.matches;
 
@@ -616,32 +547,19 @@
       }
       animate();
 
-      const handleResize = () => {
-        camera.aspect = innerWidth / innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(innerWidth, innerHeight);
-      };
+      const handleResize = () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); };
       addEventListener('resize', handleResize);
 
-      const handleMotionChange = (event) => {
-        if (event.matches && canvas) {
-          canvas.remove();
-          removeEventListener('resize', handleResize);
-        }
-      };
-
-      if (typeof motionQuery.addEventListener === 'function') {
-        motionQuery.addEventListener('change', handleMotionChange);
-      } else if (typeof motionQuery.addListener === 'function') {
-        motionQuery.addListener(handleMotionChange);
-      }
+      const handleMotionChange = (event) => { if (event.matches && canvas) { canvas.remove(); removeEventListener('resize', handleResize); } };
+      if (typeof motionQuery.addEventListener === 'function') motionQuery.addEventListener('change', handleMotionChange);
+      else if (typeof motionQuery.addListener === 'function') motionQuery.addListener(handleMotionChange);
     }
 
     if (shouldAnimateHero()) { try { mountHero(); } catch(err){ console.warn('Hero background disabled:', err); canvas?.remove(); } }
     else { canvas?.remove(); }
   </script>
 
-  <!-- Optional privacy-friendly analytics (uncomment and set your domain)
+  <!-- Optional privacy-friendly analytics
   <script defer data-domain="YOUR-DOMAIN.com" src="https://plausible.io/js/plausible.js"></script>
   -->
 </body>
