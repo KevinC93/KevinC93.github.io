@@ -13,8 +13,7 @@
   <meta property="og:title" content="Kevin's Junk Removal — Montreal | Same-Day Pickups" />
   <meta property="og:description" content="Fast quote: text photos to 438-529-7778. Donation & recycling whenever possible." />
   <meta property="og:type" content="website" />
-  <!-- Your hero image used for link previews -->
-  <meta property="og:image" content="https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1600&q=80" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicon (inline SVG) -->
@@ -52,7 +51,7 @@
     "@context":"https://schema.org",
     "@type":["LocalBusiness","RubbishRemovalService"],
     "name":"Kevin's Junk Removal",
-    "image":"https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg",
+    "image":"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1200&q=80",
     "telephone":"+1-438-529-7778",
     "address":{"@type":"PostalAddress","addressLocality":"Montreal","addressRegion":"QC","addressCountry":"CA"},
     "areaServed":["Montreal","Laval","South Shore","West Island"],
@@ -98,12 +97,12 @@
 
   <!-- Hero -->
   <section id="home" class="hero-cover">
-    <!-- Hero uses your "Junk outside" photo -->
+    <!-- background image w/ fallback -->
     <img
-      src="https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg"
-      alt="Junk outside ready for pickup"
+      src="images/junk-01.jpg"
+      alt=""
       class="absolute inset-0 w-full h-full object-cover opacity-70"
-      loading="eager" decoding="async"
+      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1920&q=80';"
     />
     <div class="absolute inset-0"></div>
     <div class="relative mx-auto max-w-7xl px-4 h-full flex items-end pb-8">
@@ -178,22 +177,46 @@
 
     <!-- Mobile slider -->
     <div class="md:hidden overflow-x-auto snap-x flex gap-3 pb-2">
-      <img class="snap w-4/5 shrink-0 img-frame" src="https://i.postimg.cc/nLzH9Gs0/2025-07-27-2.jpg" alt="Junk on floor" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" src="https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg" alt="Junk outside" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" src="https://i.postimg.cc/mDmCNwVz/2025-08-06-1.jpg" alt="Scrap metal" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" src="https://i.postimg.cc/Mp1Brxdx/2025-08-26.jpg" alt="Scrap wood" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" src="https://i.postimg.cc/2yqbdfVX/2025-08-06.jpg" alt="Recycling junk" loading="lazy" decoding="async">
+      <img class="snap w-4/5 shrink-0 img-frame" alt="Curbside pile of mixed junk"
+           src="images/junk-01.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="snap w-4/5 shrink-0 img-frame" alt="Renovation debris and bags"
+           src="images/junk-02.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1569163139675-2b1f1dcf6b36?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="snap w-4/5 shrink-0 img-frame" alt="Black bags and boxes at curb"
+           src="images/junk-03.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598478357967-3b6f1b1f1e36?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="snap w-4/5 shrink-0 img-frame" alt="Garage cleanup"
+           src="images/junk-04.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1528323273322-d81458248d40?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="snap w-4/5 shrink-0 img-frame" alt="Old oil tank"
+           src="images/junk-05.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541976076758-347942db1970?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="snap w-4/5 shrink-0 img-frame" alt="Old wood planks stacked"
+           src="images/junk-06.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
     </div>
 
     <!-- Desktop grid -->
     <div class="hidden md:grid grid-cols-3 gap-3">
-      <img class="img-frame" src="https://i.postimg.cc/nLzH9Gs0/2025-07-27-2.jpg" alt="Junk on floor" loading="lazy" decoding="async">
-      <img class="img-frame" src="https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg" alt="Junk outside" loading="lazy" decoding="async">
-      <img class="img-frame" src="https://i.postimg.cc/mDmCNwVz/2025-08-06-1.jpg" alt="Scrap metal" loading="lazy" decoding="async">
-      <img class="img-frame" src="https://i.postimg.cc/Mp1Brxdx/2025-08-26.jpg" alt="Scrap wood" loading="lazy" decoding="async">
-      <img class="img-frame" src="https://i.postimg.cc/2yqbdfVX/2025-08-06.jpg" alt="Recycling junk" loading="lazy" decoding="async">
-      <!-- Repeat one strong image so the grid stays balanced -->
-      <img class="img-frame" src="https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg" alt="Junk outside" loading="lazy" decoding="async">
+      <img class="img-frame" alt="Curbside pile of mixed junk"
+           src="images/junk-01.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="img-frame" alt="Renovation debris and bags"
+           src="images/junk-02.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1569163139675-2b1f1dcf6b36?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="img-frame" alt="Black bags and boxes at curb"
+           src="images/junk-03.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598478357967-3b6f1b1f1e36?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="img-frame" alt="Garage cleanup"
+           src="images/junk-04.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1528323273322-d81458248d40?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="img-frame" alt="Old oil tank"
+           src="images/junk-05.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541976076758-347942db1970?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img class="img-frame" alt="Old wood planks stacked"
+           src="images/junk-06.jpg"
+           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
     </div>
   </section>
 
@@ -239,6 +262,7 @@
   <section id="quote" class="mx-auto max-w-7xl px-4 pb-24">
     <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--brand2)]">Get a Free Quote</h2>
     <div class="glass p-4">
+      <!-- Keep your existing JotForm. If it ever fails, visitors can still call/text using sticky buttons. -->
       <script type="text/javascript" src="https://form.jotform.com/jsform/252245867890267"></script>
     </div>
   </section>
@@ -264,88 +288,11 @@
     const btn = document.getElementById('menuBtn');
     const panel = document.getElementById('menuPanel');
     btn?.addEventListener('click', () => {
+      const hidden = panel.classList.contains('hidden');
       panel.classList.toggle('hidden');
       const box = panel.querySelector('.menu-enter');
-      if (box) {
-        box.classList.remove('menu-enter');
-        box.classList.add('menu-enter-active');
-        setTimeout(()=>box.classList.remove('menu-enter-active'), 220);
-      }
+      if (box) { box.classList.remove('menu-enter'); box.classList.add('menu-enter-active'); setTimeout(()=>box.classList.remove('menu-enter-active'), 220); }
     });
   </script>
 </body>
-</html>    .badge{ display:inline-flex; align-items:center; justify-content:center; padding:.5rem .75rem; border-radius:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.05); font-size:.9rem; }
-    .hero-cover{ position:relative; height:min(60vh,540px); background:#0b0d13; }
-    .hero-cover::after{ content:""; position:absolute; inset:0; background:radial-gradient(1200px 500px at 80% -20%, rgba(255,47,77,.25), transparent 60%), radial-gradient(1000px 400px at 0 0, rgba(168,218,220,.18), transparent 60%), linear-gradient(180deg, rgba(11,13,19,.25), rgba(11,13,19,.92) 60%, rgba(11,13,19,.97)); }
-    .img-frame{ border-radius:14px; border:1px solid var(--stroke); overflow:hidden; background:#0b0d13; }
-    .snap-x{ scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
-    .snap{ scroll-snap-align:center; }
-    /* mobile menu */
-    .menu-enter{ transform:translateY(-6px); opacity:0; }
-    .menu-enter-active{ transform:translateY(0); opacity:1; transition:.18s ease; }
-  </style>
-
-  <!-- Structured data -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":["LocalBusiness","RubbishRemovalService"],
-    "name":"Kevin's Junk Removal",
-    "image":"https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg",
-    "telephone":"+1-438-529-7778",
-    "address":{"@type":"PostalAddress","addressLocality":"Montreal","addressRegion":"QC","addressCountry":"CA"},
-    "areaServed":["Montreal","Laval","South Shore","West Island"],
-    "url":"https://kevinjunkremoval.example.com/",
-    "openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"07:00","closes":"21:00"}],
-    "description":"Same-day junk removal. Furniture, appliances, construction debris, estate & garage cleanouts. Donation & recycling."
-  }
-  </script>
-</head>
-
-<body class="min-h-screen">
-  <!-- Header -->
-  <header class="sticky top-0 z-40 bg-black/40 backdrop-blur border-b border-white/10">
-    <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-      <a href="#home" class="font-extrabold text-xl tracking-wide">Kevin's Junk Removal</a>
-
-      <!-- Desktop nav -->
-      <nav class="hidden md:flex items-center gap-6 text-sm text-white/90">
-        <a class="hover:underline" href="#services">Services</a>
-        <a class="hover:underline" href="#gallery">Gallery</a>
-        <a class="hover:underline" href="#faq">FAQ</a>
-        <a class="hover:underline" href="#quote">Book</a>
-        <a href="tel:438-529-7778" class="cta cta-primary text-sm">Call 438-529-7778</a>
-      </nav>
-
-      <!-- Mobile menu button -->
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg border border-white/20" aria-label="Open menu">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M3 6h16M3 12h16M3 18h16"/></svg>
-      </button>
-    </div>
-
-    <!-- Mobile menu -->
-    <div id="menuPanel" class="hidden md:hidden px-4 pb-3">
-      <div class="menu-enter glass p-3 grid gap-2 text-white/90 text-sm">
-        <a href="#services" class="py-2">Services</a>
-        <a href="#gallery" class="py-2">Gallery</a>
-        <a href="#faq" class="py-2">FAQ</a>
-        <a href="#quote" class="py-2">Book</a>
-        <a href="tel:438-529-7778" class="cta cta-primary mt-2 text-center">Call 438-529-7778</a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero -->
-  <section id="home" class="hero-cover">
-    <!-- Use your "Junk outside" image as hero -->
-    <img
-      src="https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg"
-      alt="Junk outside ready for pickup"
-      class="absolute inset-0 w-full h-full object-cover opacity-70"
-    />
-    <div class="absolute inset-0"></div>
-    <div class="relative mx-auto max-w-7xl px-4 h-full flex items-end pb-8">
-      <div class="glass p-5 sm:p-7 w-full">
-        <h1 class="text-3xl sm:text-5xl leading-tight">Same-Day <span class="text-[var(--brand2)]">Junk Removal</span> in Montreal</h1>
-        <p class="mt-3 text-white/85">Text photos to <a class="underline" href="sms:+14385297778">438-529-7778</a> for a fast quote. We donate & recycle whenever possible.</p>
-        <div
+    </html>
