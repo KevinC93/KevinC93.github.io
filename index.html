@@ -5,53 +5,51 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Kevin's Junk Removal — Montreal | Same-Day Pickups</title>
-  <meta name="description" content="Montreal junk removal. Same-day service. Construction debris, furniture, appliances, estate & garage cleanouts. Text photos to 438-529-7778." />
+  <meta name="description" content="Montreal junk removal. Same-day pickups, volume-based pricing, donation & recycling. Text photos to 438-529-7778 for a fast quote." />
   <meta name="theme-color" content="#0b0d13" />
   <link rel="canonical" href="https://kevinjunkremoval.example.com/" />
 
-  <!-- Social -->
+  <!-- Open Graph -->
   <meta property="og:title" content="Kevin's Junk Removal — Montreal | Same-Day Pickups" />
-  <meta property="og:description" content="Fast quote: text photos to 438-529-7778. Donation & recycling whenever possible." />
+  <meta property="og:description" content="Text photos to 438-529-7778. We haul furniture, appliances, reno debris, estate & garage cleanouts." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1600&q=80" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1600&auto=format&fit=crop" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Favicon (inline SVG) -->
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0d13'/%3E%3Cpath d='M16 44h32l2-10H22l2-8h26l2-10H26l-2-6h-8l2 6-6 28z' fill='%23ff2f4d'/%3E%3C/svg%3E"/>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0d13'/%3E%3Cpath d='M16 44h32l2-10H22l2-8h26l2-10H26l-2-6h-8l2 6-6 28z' fill='%23ff2f4d'/%3E%3C/svg%3E" />
 
-  <!-- Fonts & Tailwind -->
+  <!-- Fonts + Tailwind (CDN) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    :root{ --bg:#0b0d13; --ink:#e9f0f6; --muted:#a9bbce; --brand:#ff2f4d; --brand2:#ff8a5c; --glass:rgba(255,255,255,.06); --stroke:rgba(255,255,255,.10); }
-    html,body{ background:var(--bg); color:var(--ink); font-family:'DM Sans',system-ui,Segoe UI,Roboto,Arial,sans-serif; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+    :root{ --bg:#0b0d13; --muted:#9fb3c8; --brand:#ff2f4d; --brand2:#ff8a5c; --panel:rgba(255,255,255,.06); --stroke:rgba(255,255,255,.12); }
+    html,body{ background:var(--bg); color:#fff; font-family:'DM Sans',system-ui,Segoe UI,Roboto,Arial,sans-serif; -webkit-font-smoothing:antialiased; }
     h1,h2,h3{ font-family:'Playfair Display',Georgia,serif; letter-spacing:.2px; }
-    .glass{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; box-shadow:0 12px 32px rgba(0,0,0,.25); }
-    .cta{ display:inline-flex; align-items:center; justify-content:center; gap:.55rem; padding:.9rem 1.2rem; border-radius:14px; font-weight:800; letter-spacing:.3px; text-transform:uppercase; transition:transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+    .glass{ background:var(--panel); border:1px solid var(--stroke); border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,.25); }
+    .cta{ display:inline-flex; align-items:center; justify-content:center; gap:.55rem; padding:.9rem 1.2rem; border-radius:14px; font-weight:800; letter-spacing:.3px; text-transform:uppercase; transition:transform .18s ease, box-shadow .18s ease; }
     .cta-primary{ background:linear-gradient(135deg, var(--brand), var(--brand2)); box-shadow:0 18px 38px rgba(255,47,77,.45); }
     .cta-primary:hover{ transform:translateY(-2px); box-shadow:0 26px 54px rgba(255,47,77,.55); }
     .cta-ghost{ background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.25); }
-    .badge{ display:inline-flex; align-items:center; justify-content:center; padding:.5rem .75rem; border-radius:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.05); font-size:.9rem; }
-    .hero-cover{ position:relative; height:min(60vh,540px); background:#0b0d13; }
-    .hero-cover::after{ content:""; position:absolute; inset:0; background:radial-gradient(1200px 500px at 80% -20%, rgba(255,47,77,.25), transparent 60%), radial-gradient(1000px 400px at 0 0, rgba(168,218,220,.18), transparent 60%), linear-gradient(180deg, rgba(11,13,19,.25), rgba(11,13,19,.92) 60%, rgba(11,13,19,.97)); }
-    .img-frame{ border-radius:14px; border:1px solid var(--stroke); overflow:hidden; background:#0b0d13; }
+    .badge{ padding:.5rem .75rem; border-radius:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.05); font-size:.85rem; }
+    .hero-img{ background:#0b0d13 url('https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat; filter:saturate(1.05) contrast(1.05); }
     .snap-x{ scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
     .snap{ scroll-snap-align:center; }
-    /* mobile menu */
+    /* mobile menu animation */
     .menu-enter{ transform:translateY(-6px); opacity:0; }
     .menu-enter-active{ transform:translateY(0); opacity:1; transition:.18s ease; }
   </style>
 
-  <!-- Structured data -->
+  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
     "@type":["LocalBusiness","RubbishRemovalService"],
     "name":"Kevin's Junk Removal",
-    "image":"https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1200&q=80",
+    "image":"https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=1200&auto=format&fit=crop",
     "telephone":"+1-438-529-7778",
     "address":{"@type":"PostalAddress","addressLocality":"Montreal","addressRegion":"QC","addressCountry":"CA"},
     "areaServed":["Montreal","Laval","South Shore","West Island"],
@@ -66,7 +64,7 @@
   <!-- Header -->
   <header class="sticky top-0 z-40 bg-black/40 backdrop-blur border-b border-white/10">
     <div class="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-      <a href="#home" class="font-extrabold text-xl tracking-wide">Kevin's Junk Removal</a>
+      <a href="#home" class="font-extrabold text-xl text-white tracking-wide">Kevin's Junk Removal</a>
 
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-6 text-sm text-white/90">
@@ -96,19 +94,16 @@
   </header>
 
   <!-- Hero -->
-  <section id="home" class="hero-cover">
-    <!-- background image w/ fallback -->
-    <img
-      src="images/junk-01.jpg"
-      alt=""
-      class="absolute inset-0 w-full h-full object-cover opacity-70"
-      onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1920&q=80';"
-    />
-    <div class="absolute inset-0"></div>
-    <div class="relative mx-auto max-w-7xl px-4 h-full flex items-end pb-8">
-      <div class="glass p-5 sm:p-7 w-full">
-        <h1 class="text-3xl sm:text-5xl leading-tight">Same-Day <span class="text-[var(--brand2)]">Junk Removal</span> in Montreal</h1>
-        <p class="mt-3 text-white/85">Text photos to <a class="underline" href="sms:+14385297778">438-529-7778</a> for a fast quote. We donate & recycle whenever possible.</p>
+  <section id="home">
+    <div class="hero-img h-[44vh] sm:h-[58vh] w-full"></div>
+    <div class="mx-auto max-w-7xl px-4 -mt-24 sm:-mt-36 relative">
+      <div class="glass p-5 sm:p-7">
+        <h1 class="text-3xl sm:text-5xl leading-tight text-white drop-shadow">
+          Same-Day <span class="text-[var(--brand2)]">Junk Removal</span> in Montreal
+        </h1>
+        <p class="mt-3 text-white/85">
+          Text photos to <a class="underline" href="sms:+14385297778">438-529-7778</a> for a fast quote. We donate & recycle whenever possible.
+        </p>
         <div class="mt-5 flex flex-col sm:flex-row gap-2">
           <a href="#quote" class="cta cta-primary">Book Pickup</a>
           <a href="sms:+14385297778" class="cta cta-ghost">Text Photos</a>
@@ -127,14 +122,13 @@
   <!-- Services -->
   <section id="services" class="mx-auto max-w-7xl px-4 py-10">
     <h2 class="text-2xl sm:text-3xl mb-6 text-[var(--brand2)]">What We Do</h2>
-
     <div class="grid md:grid-cols-3 gap-4">
       <div class="glass p-5">
         <h3 class="text-xl font-semibold">Residential Junk Removal</h3>
         <ul class="mt-2 list-disc pl-5 text-white/85 space-y-1">
           <li>Furniture, mattresses, appliances</li>
           <li>Garage, basement & storage cleanouts</li>
-          <li>Stairs & heavy lifting included</li>
+          <li>Heavy lifting & stairs included</li>
         </ul>
       </div>
       <div class="glass p-5">
@@ -154,7 +148,6 @@
         </ul>
       </div>
     </div>
-
     <div class="mt-4 grid md:grid-cols-3 gap-4">
       <div class="glass p-5">
         <h3 class="text-xl font-semibold">Appliance & Metal Removal</h3>
@@ -162,7 +155,7 @@
       </div>
       <div class="glass p-5">
         <h3 class="text-xl font-semibold">Oil Tank & Bulky Items</h3>
-        <p class="mt-2 text-white/85">Non-hazardous pickup of empty tanks & bulky scrap. Ask about prep.</p>
+        <p class="mt-2 text-white/85">Pickup for empty/non-hazardous tanks & bulky scrap. Ask about prep.</p>
       </div>
       <div class="glass p-5">
         <h3 class="text-xl font-semibold">Yard Waste & Sheds</h3>
@@ -171,52 +164,28 @@
     </div>
   </section>
 
-  <!-- Gallery (mobile slider + desktop grid) -->
+  <!-- Gallery (placeholder photos that you can replace later) -->
   <section id="gallery" class="mx-auto max-w-7xl px-4 pb-10">
     <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--brand2)]">Recent Jobs</h2>
 
     <!-- Mobile slider -->
     <div class="md:hidden overflow-x-auto snap-x flex gap-3 pb-2">
-      <img class="snap w-4/5 shrink-0 img-frame" alt="Curbside pile of mixed junk"
-           src="images/junk-01.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" alt="Renovation debris and bags"
-           src="images/junk-02.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1569163139675-2b1f1dcf6b36?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" alt="Black bags and boxes at curb"
-           src="images/junk-03.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598478357967-3b6f1b1f1e36?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" alt="Garage cleanup"
-           src="images/junk-04.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1528323273322-d81458248d40?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" alt="Old oil tank"
-           src="images/junk-05.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541976076758-347942db1970?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="snap w-4/5 shrink-0 img-frame" alt="Old wood planks stacked"
-           src="images/junk-06.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1528323273322-d81458248d40?q=80&w=1400&auto=format&fit=crop" alt="Mixed curbside junk" class="snap w-4/5 shrink-0 rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1597007060971-2b5f9a2728f0?q=80&w=1400&auto=format&fit=crop" alt="Renovation debris" class="snap w-4/5 shrink-0 rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1503594384566-461fe158e797?q=80&w=1400&auto=format&fit=crop" alt="Bags & boxes at curb" class="snap w-4/5 shrink-0 rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=1400&auto=format&fit=crop" alt="Garage junk before removal" class="snap w-4/5 shrink-0 rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1400&auto=format&fit=crop" alt="Bulky metal item" class="snap w-4/5 shrink-0 rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1560185008-b033106af8ad?q=80&w=1400&auto=format&fit=crop" alt="Old lumber pile" class="snap w-4/5 shrink-0 rounded-xl border border-white/10" loading="lazy" decoding="async">
     </div>
 
     <!-- Desktop grid -->
     <div class="hidden md:grid grid-cols-3 gap-3">
-      <img class="img-frame" alt="Curbside pile of mixed junk"
-           src="images/junk-01.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="img-frame" alt="Renovation debris and bags"
-           src="images/junk-02.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1569163139675-2b1f1dcf6b36?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="img-frame" alt="Black bags and boxes at curb"
-           src="images/junk-03.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598478357967-3b6f1b1f1e36?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="img-frame" alt="Garage cleanup"
-           src="images/junk-04.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1528323273322-d81458248d40?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="img-frame" alt="Old oil tank"
-           src="images/junk-05.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1541976076758-347942db1970?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
-      <img class="img-frame" alt="Old wood planks stacked"
-           src="images/junk-06.jpg"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1600&q=80';" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1528323273322-d81458248d40?q=80&w=1200&auto=format&fit=crop" alt="Mixed curbside junk" class="rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1597007060971-2b5f9a2728f0?q=80&w=1200&auto=format&fit=crop" alt="Renovation debris" class="rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1503594384566-461fe158e797?q=80&w=1200&auto=format&fit=crop" alt="Bags & boxes at curb" class="rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?q=80&w=1200&auto=format&fit=crop" alt="Garage junk before removal" class="rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?q=80&w=1200&auto=format&fit=crop" alt="Bulky metal item" class="rounded-xl border border-white/10" loading="lazy" decoding="async">
+      <img src="https://images.unsplash.com/photo-1560185008-b033106af8ad?q=80&w=1200&auto=format&fit=crop" alt="Old lumber pile" class="rounded-xl border border-white/10" loading="lazy" decoding="async">
     </div>
   </section>
 
@@ -225,7 +194,7 @@
     <div class="glass p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center gap-4">
       <div class="text-white/90">
         <div class="font-semibold text-lg">Transparent, volume-based pricing</div>
-        <p class="text-white/80 mt-1 text-sm">Price = load size + weight + access. Send photos and we’ll confirm the estimate & arrival window.</p>
+        <p class="text-white/80 mt-1 text-sm">Price depends on load size, weight, and access. Text photos and we’ll confirm the estimate + arrival window.</p>
       </div>
       <div class="flex-1"></div>
       <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
@@ -241,7 +210,7 @@
     <div class="grid md:grid-cols-2 gap-4">
       <details class="glass p-4" open>
         <summary class="font-semibold cursor-pointer">Do you offer same-day service?</summary>
-        <p class="mt-2 text-white/85 text-sm">Yes—text photos to <a class="underline" href="sms:+14385297778">438-529-7778</a> and we’ll confirm timing.</p>
+        <p class="mt-2 text-white/85 text-sm">Yes — text photos to <a class="underline" href="sms:+14385297778">438-529-7778</a> and we’ll confirm timing.</p>
       </details>
       <details class="glass p-4">
         <summary class="font-semibold cursor-pointer">What don’t you take?</summary>
@@ -249,11 +218,11 @@
       </details>
       <details class="glass p-4">
         <summary class="font-semibold cursor-pointer">How do I get the best price?</summary>
-        <p class="mt-2 text-white/85 text-sm">Group items in one area and send clear, well-lit photos. Mention stairs/elevator/tight access.</p>
+        <p class="mt-2 text-white/85 text-sm">Group items in one area and send well-lit photos. Mention stairs, elevators, or tight access.</p>
       </details>
       <details class="glass p-4">
         <summary class="font-semibold cursor-pointer">Do you donate or recycle?</summary>
-        <p class="mt-2 text-white/85 text-sm">Whenever possible—we separate metals, electronics, and usable items for donation.</p>
+        <p class="mt-2 text-white/85 text-sm">Whenever possible. We separate metals, electronics, and reusable items.</p>
       </details>
     </div>
   </section>
@@ -262,7 +231,7 @@
   <section id="quote" class="mx-auto max-w-7xl px-4 pb-24">
     <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--brand2)]">Get a Free Quote</h2>
     <div class="glass p-4">
-      <!-- Keep your existing JotForm. If it ever fails, visitors can still call/text using sticky buttons. -->
+      <!-- Keep your Jotform embed -->
       <script type="text/javascript" src="https://form.jotform.com/jsform/252245867890267"></script>
     </div>
   </section>
@@ -275,7 +244,7 @@
   </footer>
 
   <!-- Sticky mobile CTA -->
-  <div class="fixed bottom-0 left-0 right-0 md:hidden bg-black/70 backdrop-blur border-t border-white/10">
+  <div class="fixed bottom-0 left-0 right-0 md:hidden bg-black/70 backdrop-blur border-top border-white/10">
     <div class="mx-auto max-w-7xl px-3 py-2 flex gap-2">
       <a href="tel:438-529-7778" class="cta cta-primary flex-1 text-center">Call</a>
       <a href="sms:+14385297778" class="cta cta-ghost flex-1 text-center">Text Photos</a>
@@ -283,16 +252,15 @@
     </div>
   </div>
 
-  <!-- Minimal JS (mobile menu only) -->
+  <!-- Tiny JS: mobile menu only -->
   <script>
     const btn = document.getElementById('menuBtn');
     const panel = document.getElementById('menuPanel');
     btn?.addEventListener('click', () => {
-      const hidden = panel.classList.contains('hidden');
       panel.classList.toggle('hidden');
       const box = panel.querySelector('.menu-enter');
-      if (box) { box.classList.remove('menu-enter'); box.classList.add('menu-enter-active'); setTimeout(()=>box.classList.remove('menu-enter-active'), 220); }
+      if (box){ box.classList.remove('menu-enter'); box.classList.add('menu-enter-active'); setTimeout(()=>box.classList.remove('menu-enter-active'),200); }
     });
   </script>
 </body>
-  </html>
+</html>
