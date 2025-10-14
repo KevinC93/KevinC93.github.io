@@ -6,7 +6,7 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Kevin's Junk Removal — Montreal | Same-Day Pickups</title>
-  <meta name="description" content="Montreal junk removal. Same-day service. Construction debris, furniture, appliances, estate & garage cleanouts. Text photos to 438-529-7778." />
+  <meta name="description" content="Montreal junk removal. Same-day pickups. Construction debris, furniture, appliances, estate & garage cleanouts. Text photos to 438-529-7778." />
   <meta name="theme-color" content="#0b0d13" />
   <link rel="canonical" href="https://kevinjunkremoval.example.com/" />
 
@@ -21,73 +21,77 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%230b0d13'/%3E%3Cpath d='M16 44h32l2-10H22l2-8h26l2-10H26l-2-6h-8l2 6-6 28z' fill='%23ff2f4d'/%3E%3C/svg%3E"/>
 
   <!-- Fonts & Tailwind -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
     :root{
       --bg:#0b0d13; --ink:#e9f0f6; --muted:#a9bbce;
-      --brand:#ff2f4d; --brand2:#ff8a5c;
+      --brand:#ff2f4d; --brand2:#ff8a5c; --brand3:#79c7ff;
       --glass:rgba(255,255,255,.08); --stroke:rgba(255,255,255,.12);
-      --header-h: 70px; /* tweak if you change header size */
-      --shadow: 0 12px 24px rgba(0,0,0,.25);
+      --header-h:72px; /* adjust if you tweak header */
     }
     html,body{
       background:var(--bg); color:var(--ink);
       font-family:'DM Sans',system-ui,Segoe UI,Roboto,Arial,sans-serif;
       -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
       scroll-behavior:smooth;
-      /* Stop first line from tucking under sticky header on anchor jump */
-      scroll-padding-top: calc(var(--header-h) + 10px);
+      scroll-padding-top: calc(var(--header-h) + 10px); /* keeps first line visible below sticky header */
     }
     h1,h2,h3{ font-family:'Playfair Display',Georgia,serif; letter-spacing:.2px; }
-    .glass{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; box-shadow:var(--shadow); }
-    .cta{ display:inline-flex; align-items:center; justify-content:center; gap:.55rem; padding:1rem 1.15rem; border-radius:14px; font-weight:800; letter-spacing:.3px; text-transform:uppercase; transition:transform .18s ease, box-shadow .18s ease, filter .18s ease; }
-    .cta-primary{ background:linear-gradient(135deg, var(--brand), var(--brand2)); box-shadow:0 18px 38px rgba(255,47,77,.45); }
-    .cta-primary:hover{ transform:translateY(-2px); box-shadow:0 26px 54px rgba(255,47,77,.55); }
-    .cta-ghost{ background:rgba(255,255,255,.09); border:1px solid rgba(255,255,255,.25); }
-    .badge{ display:inline-flex; align-items:center; justify-content:center; padding:.55rem .8rem; border-radius:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.07); font-size:.95rem; }
+    .glass{ background:var(--glass); border:1px solid var(--stroke); border-radius:16px; box-shadow:0 12px 30px rgba(0,0,0,.28); }
+    .cta{ display:inline-flex; align-items:center; justify-content:center; gap:.55rem; padding:.95rem 1.2rem; border-radius:14px; font-weight:800; letter-spacing:.3px; text-transform:uppercase; transition:transform .18s ease, box-shadow .18s ease; }
+    .cta-primary{ background:linear-gradient(135deg,var(--brand),var(--brand2)); box-shadow:0 18px 38px rgba(255,47,77,.45); }
+    .cta-primary:hover{ transform:translateY(-1px); box-shadow:0 26px 54px rgba(255,47,77,.55); }
+    .cta-ghost{ background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.25); }
+    .badge{ display:inline-flex; align-items:center; justify-content:center; padding:.5rem .75rem; border-radius:12px; border:1px solid var(--stroke); background:rgba(255,255,255,.07); font-size:.95rem; }
 
     /* Header */
     .safe-top{ padding-top: env(safe-area-inset-top); }
-    .header-blur{ backdrop-filter: blur(12px); background: rgba(5,7,11,.65); }
+    .header-blur{ backdrop-filter: blur(12px); background:rgba(6,8,12,.7); }
+    .header-edge{ box-shadow: 0 1px 0 rgba(255,255,255,.09), 0 10px 24px rgba(0,0,0,.35); }
 
-    /* Hero (animated gradient instead of photo) */
+    /* POP hero — animated gradient, super readable */
     .hero{
-      position:relative; min-height:min(62vh,560px); display:flex; align-items:end; isolation:isolate;
+      position:relative; min-height:min(62vh,560px); display:flex; align-items:end; isolation:isolate; overflow:hidden;
       background:
-        radial-gradient(900px 380px at 80% -10%, rgba(255,47,77,.35), transparent 60%),
-        radial-gradient(900px 380px at 0% 0%, rgba(121,199,255,.18), transparent 60%),
-        linear-gradient(180deg, rgba(11,13,19,.5), rgba(11,13,19,.95) 65%);
-      overflow:hidden;
+        radial-gradient(900px 420px at 85% -10%, rgba(255,47,77,.35), transparent 60%),
+        radial-gradient(1000px 420px at 0% 0%, rgba(121,199,255,.2), transparent 60%),
+        linear-gradient(180deg, rgba(11,13,19,.45), rgba(11,13,19,.96) 62%);
     }
-    .hero:before, .hero:after{
-      content:""; position:absolute; inset:-10%;
-      background: radial-gradient(60% 40% at 20% 10%, rgba(255,138,92,.18), transparent 60%),
-                  radial-gradient(45% 45% at 85% 20%, rgba(255,47,77,.22), transparent 60%),
-                  radial-gradient(55% 55% at 50% 120%, rgba(121,199,255,.14), transparent 70%);
-      filter: blur(30px);
-      animation: floatBg 12s ease-in-out infinite alternate;
+    .hero::before, .hero::after{
+      content:""; position:absolute; inset:-12%;
+      background:
+        radial-gradient(55% 45% at 20% 10%, rgba(255,138,92,.18), transparent 60%),
+        radial-gradient(45% 45% at 85% 20%, rgba(255,47,77,.22), transparent 60%),
+        radial-gradient(55% 55% at 50% 120%, rgba(121,199,255,.16), transparent 70%);
+      filter: blur(32px);
+      animation: floatBg 13s ease-in-out infinite alternate;
       z-index:-1;
     }
     @keyframes floatBg {
-      0% { transform: translate3d(0,0,0) scale(1);   opacity:.9; }
-      100%{ transform: translate3d(0,-12px,0) scale(1.02); opacity:1; }
+      0% { transform: translate3d(0,0,0) scale(1); opacity:.9; }
+      100%{ transform: translate3d(0,-14px,0) scale(1.02); opacity:1; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .hero::before,.hero::after{ animation: none; }
     }
 
-    /* Carousel */
+    /* Carousel (mobile-first) */
     .no-scrollbar::-webkit-scrollbar{ display:none; }
     .no-scrollbar{ -ms-overflow-style:none; scrollbar-width:none; }
     .snap-x{ scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; }
     .snap{ scroll-snap-align:center; }
-    .caro-btn{ position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:9999px; border:1px solid var(--stroke); background:rgba(0,0,0,.55); display:grid; place-items:center; }
-    .caro-btn:hover{ background:rgba(0,0,0,.7); }
-    .caro-prev{ left:8px; } .caro-next{ right:8px; }
     .img-frame{ border-radius:14px; border:1px solid var(--stroke); overflow:hidden; background:#0b0d13; }
+    .caro-btn{ position:absolute; top:50%; transform:translateY(-50%); width:44px; height:44px; border-radius:9999px; border:1px solid var(--stroke); background:rgba(0,0,0,.6); display:grid; place-items:center; }
+    .caro-btn:hover{ background:rgba(0,0,0,.75); }
+    .caro-prev{ left:8px; } .caro-next{ right:8px; }
+    .dot{ width:8px; height:8px; border-radius:9999px; background:#556070; }
+    .dot.active{ background:linear-gradient(135deg,var(--brand),var(--brand2)); }
 
-    /* Sections respect sticky header on in-page nav */
+    /* Section anchoring below sticky header */
     section{ scroll-margin-top: calc(var(--header-h) + 12px); }
   </style>
 
@@ -109,10 +113,11 @@
 </head>
 
 <body class="min-h-screen">
+
   <!-- Header -->
-  <header class="sticky top-0 z-50 header-blur border-b border-white/10 safe-top" style="height: var(--header-h);">
+  <header class="sticky top-0 z-50 header-blur header-edge safe-top" style="height:var(--header-h)">
     <div class="mx-auto max-w-7xl px-4 h-full flex items-center justify-between">
-      <a href="#home" class="font-extrabold text-lg sm:text-xl tracking-wide">Kevin's Junk Removal</a>
+      <a href="#home" class="font-extrabold text-[18px] sm:text-[20px] tracking-wide">Kevin's Junk Removal</a>
 
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-6 text-[15px] text-white/95">
@@ -120,12 +125,12 @@
         <a class="hover:underline" href="#gallery">Gallery</a>
         <a class="hover:underline" href="#faq">FAQ</a>
         <a class="hover:underline" href="#quote">Book</a>
-        <a href="tel:438-529-7778" class="cta cta-primary text-sm">Call 438-529-7778</a>
+        <a href="tel:438-529-7778" class="cta cta-primary text-xs">Call 438-529-7778</a>
       </nav>
 
-      <!-- Mobile: menu + call -->
+      <!-- Mobile: call + menu -->
       <div class="md:hidden flex items-center gap-2">
-        <a href="tel:438-529-7778" class="cta cta-primary text-xs px-3 py-2" aria-label="Call now">Call</a>
+        <a href="tel:438-529-7778" class="cta cta-primary text-[12px] px-3 py-2" aria-label="Call now">Call</a>
         <button id="menuBtn" class="p-2 rounded-lg border border-white/20" aria-label="Open menu">
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-width="2" d="M3 6h16M3 12h16M3 18h16"/></svg>
         </button>
@@ -147,15 +152,15 @@
     </div>
   </header>
 
-  <!-- Hero (no busy photo; animated gradient + glass card) -->
+  <!-- HERO (animated gradient, very legible on phones) -->
   <section id="home" class="hero">
     <div class="relative mx-auto max-w-7xl w-full px-4 pb-8 pt-6">
-      <div class="glass p-5 sm:p-7 w-full">
-        <span class="badge text-sm">Same-day pickups in Montreal</span>
-        <h1 class="mt-3 text-[clamp(28px,6vw,44px)] leading-tight">
+      <div class="glass p-5 sm:p-7">
+        <span class="badge text-[14px]">Same-day pickups in Montreal</span>
+        <h1 class="mt-3 text-[clamp(30px,6.5vw,46px)] leading-tight">
           Fast, Friendly <span class="text-[var(--brand2)]">Junk Removal</span>
         </h1>
-        <p class="mt-3 text-white/92 text-[clamp(16px,3.8vw,18px)]">
+        <p class="mt-3 text-white/92 text-[clamp(16px,4vw,18px)]">
           Text photos to <a class="underline font-semibold" href="sms:+14385297778">438-529-7778</a> for a quick quote. We donate & recycle whenever possible.
         </p>
         <div class="mt-5 flex flex-col sm:flex-row gap-2">
@@ -173,10 +178,9 @@
     </div>
   </section>
 
-  <!-- Services -->
+  <!-- SERVICES -->
   <section id="services" class="mx-auto max-w-7xl px-4 py-10">
     <h2 class="text-2xl sm:text-3xl mb-6 text-[var(--brand2)]">What We Do</h2>
-
     <div class="grid md:grid-cols-3 gap-4">
       <div class="glass p-5">
         <h3 class="text-xl font-semibold">Residential Junk Removal</h3>
@@ -203,7 +207,6 @@
         </ul>
       </div>
     </div>
-
     <div class="mt-4 grid md:grid-cols-3 gap-4">
       <div class="glass p-5">
         <h3 class="text-xl font-semibold">Appliance & Metal Removal</h3>
@@ -220,12 +223,12 @@
     </div>
   </section>
 
-  <!-- Gallery (single responsive carousel with your 5 photos) -->
+  <!-- GALLERY: your 5 pictures in a single responsive carousel -->
   <section id="gallery" class="mx-auto max-w-7xl px-4 pb-10">
     <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--brand2)]">Recent Jobs</h2>
 
     <div class="relative">
-      <!-- Buttons -->
+      <!-- Arrows -->
       <button class="caro-btn caro-prev" aria-label="Previous">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
@@ -234,8 +237,7 @@
       </button>
 
       <!-- Track -->
-      <div id="caroTrack" class="no-scrollbar overflow-x-auto snap-x scroll-smooth flex gap-3 pb-2" tabindex="0">
-        <!-- Slides -->
+      <div id="caroTrack" class="no-scrollbar overflow-x-auto snap-x scroll-smooth flex gap-3 pb-2" tabindex="0" aria-label="Job photos">
         <figure class="snap shrink-0 w-[88%] sm:w-[70%] md:w-[55%] lg:w-[45%]">
           <img class="img-frame w-full h-64 sm:h-80 object-cover"
                src="https://i.postimg.cc/nLzH9Gs0/2025-07-27-2.jpg"
@@ -276,10 +278,13 @@
                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598478357967-3b6f1b1f1e36?auto=format&fit=crop&w=1600&q=80';">
         </figure>
       </div>
+
+      <!-- Dots -->
+      <div id="caroDots" class="mt-3 flex items-center justify-center gap-2" aria-hidden="true"></div>
     </div>
   </section>
 
-  <!-- Pricing explainer -->
+  <!-- PRICING / EXPLAINER -->
   <section class="mx-auto max-w-7xl px-4 pb-10">
     <div class="glass p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center gap-4">
       <div class="text-white/92">
@@ -317,16 +322,16 @@
     </div>
   </section>
 
-  <!-- Quote / Booking -->
+  <!-- QUOTE / BOOKING -->
   <section id="quote" class="mx-auto max-w-7xl px-4 pb-28">
     <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--brand2)]">Get a Free Quote</h2>
     <div class="glass p-4">
-      <!-- Keep your existing JotForm. If it ever fails, visitors can still call/text using sticky buttons. -->
+      <!-- Keep existing JotForm -->
       <script type="text/javascript" src="https://form.jotform.com/jsform/252245867890267"></script>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- FOOTER -->
   <footer class="border-t border-white/10">
     <div class="mx-auto max-w-7xl px-4 py-6 text-center text-sm text-white/80">
       &copy; 2025 Kevin's Junk Removal — Montreal, QC • <a href="tel:438-529-7778" class="underline">438-529-7778</a>
@@ -334,7 +339,7 @@
   </footer>
 
   <!-- Sticky mobile CTA -->
-  <div class="fixed bottom-0 left-0 right-0 md:hidden bg-black/75 backdrop-blur border-t border-white/10" style="padding-bottom: env(safe-area-inset-bottom);">
+  <div class="fixed bottom-0 left-0 right-0 md:hidden bg-black/78 backdrop-blur border-t border-white/10" style="padding-bottom: env(safe-area-inset-bottom);">
     <div class="mx-auto max-w-7xl px-3 py-2 flex gap-2">
       <a href="tel:438-529-7778" class="cta cta-primary flex-1 text-center">Call</a>
       <a href="sms:+14385297778" class="cta cta-ghost flex-1 text-center">Text Photos</a>
@@ -349,14 +354,37 @@
     const panel = document.getElementById('menuPanel');
     btn?.addEventListener('click', () => panel.classList.toggle('hidden'));
 
-    // Carousel controls
+    // Carousel
     const track = document.getElementById('caroTrack');
     const prev = document.querySelector('.caro-prev');
     const next = document.querySelector('.caro-next');
-    const snapSize = () => Math.round(track.clientWidth * 0.88); // matches slide width on mobile
+    const dotsWrap = document.getElementById('caroDots');
+
+    // Build dots based on slide count
+    const slides = Array.from(track?.querySelectorAll('figure') || []);
+    slides.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot'; d.setAttribute('aria-label', 'Go to slide ' + (i+1));
+      d.addEventListener('click', () => {
+        const w = Math.round(track.clientWidth * 0.88);
+        track.scrollTo({ left: i * (w + 12), behavior: 'smooth' });
+      });
+      dotsWrap.appendChild(d);
+    });
+
+    const updateDots = () => {
+      const idx = Math.round(track.scrollLeft / (track.clientWidth * 0.88));
+      dotsWrap.querySelectorAll('.dot').forEach((el, i) => el.classList.toggle('active', i === idx));
+    };
+    const snapSize = () => Math.round(track.clientWidth * 0.88); // matches slide width
 
     prev?.addEventListener('click', () => track.scrollBy({ left: -snapSize(), behavior: 'smooth' }));
     next?.addEventListener('click', () => track.scrollBy({ left:  snapSize(), behavior: 'smooth' }));
+    track?.addEventListener('scroll', () => updateDots(), { passive: true });
+    window.addEventListener('resize', () => updateDots());
+
+    // Init dots state
+    updateDots();
 
     // Keyboard support (desktop)
     track?.addEventListener('keydown', (e) => {
@@ -365,4 +393,4 @@
     });
   </script>
 </body>
-  </html>
+</html>
