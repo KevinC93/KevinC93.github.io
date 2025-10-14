@@ -148,4 +148,221 @@
   </header>
 
   <!-- Hero (no busy photo; animated gradient + glass card) -->
-  <section id="home"
+  <section id="home" class="hero">
+    <div class="relative mx-auto max-w-7xl w-full px-4 pb-8 pt-6">
+      <div class="glass p-5 sm:p-7 w-full">
+        <span class="badge text-sm">Same-day pickups in Montreal</span>
+        <h1 class="mt-3 text-[clamp(28px,6vw,44px)] leading-tight">
+          Fast, Friendly <span class="text-[var(--brand2)]">Junk Removal</span>
+        </h1>
+        <p class="mt-3 text-white/92 text-[clamp(16px,3.8vw,18px)]">
+          Text photos to <a class="underline font-semibold" href="sms:+14385297778">438-529-7778</a> for a quick quote. We donate & recycle whenever possible.
+        </p>
+        <div class="mt-5 flex flex-col sm:flex-row gap-2">
+          <a href="#quote" class="cta cta-primary">Book Pickup</a>
+          <a href="sms:+14385297778" class="cta cta-ghost">Text Photos</a>
+          <a href="tel:438-529-7778" class="cta cta-ghost">Call</a>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-2 text-xs sm:text-sm text-white/85">
+          <span class="badge">Construction Debris</span>
+          <span class="badge">Furniture & Appliances</span>
+          <span class="badge">Estate & Garage Cleanouts</span>
+          <span class="badge">Donation & Recycling</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="mx-auto max-w-7xl px-4 py-10">
+    <h2 class="text-2xl sm:text-3xl mb-6 text-[var(--brand2)]">What We Do</h2>
+
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="glass p-5">
+        <h3 class="text-xl font-semibold">Residential Junk Removal</h3>
+        <ul class="mt-2 list-disc pl-5 text-white/90 space-y-1.5">
+          <li>Furniture, mattresses, appliances</li>
+          <li>Garage, basement & storage cleanouts</li>
+          <li>Stairs & heavy lifting included</li>
+        </ul>
+      </div>
+      <div class="glass p-5">
+        <h3 class="text-xl font-semibold">Construction & Reno Debris</h3>
+        <ul class="mt-2 list-disc pl-5 text-white/90 space-y-1.5">
+          <li>Wood, drywall, tiles, fixtures</li>
+          <li>Contractor & homeowner friendly</li>
+          <li>Volume-based pricing</li>
+        </ul>
+      </div>
+      <div class="glass p-5">
+        <h3 class="text-xl font-semibold">Estate & Property Cleanouts</h3>
+        <ul class="mt-2 list-disc pl-5 text-white/90 space-y-1.5">
+          <li>Room-by-room sorting</li>
+          <li>Donation receipts on request</li>
+          <li>Discreet, respectful service</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-4 grid md:grid-cols-3 gap-4">
+      <div class="glass p-5">
+        <h3 class="text-xl font-semibold">Appliance & Metal Removal</h3>
+        <p class="mt-2 text-white/90">Fridges, stoves, washers/dryers, BBQs. Proper recycling.</p>
+      </div>
+      <div class="glass p-5">
+        <h3 class="text-xl font-semibold">Oil Tank & Bulky Items</h3>
+        <p class="mt-2 text-white/90">Non-hazardous pickup of empty tanks & bulky scrap. Ask about prep.</p>
+      </div>
+      <div class="glass p-5">
+        <h3 class="text-xl font-semibold">Yard Waste & Sheds</h3>
+        <p class="mt-2 text-white/90">Branches, dirt, old lumber, small demo. Seasonal cleanups.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery (single responsive carousel with your 5 photos) -->
+  <section id="gallery" class="mx-auto max-w-7xl px-4 pb-10">
+    <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--brand2)]">Recent Jobs</h2>
+
+    <div class="relative">
+      <!-- Buttons -->
+      <button class="caro-btn caro-prev" aria-label="Previous">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 6l-6 6 6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="caro-btn caro-next" aria-label="Next">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M9 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+
+      <!-- Track -->
+      <div id="caroTrack" class="no-scrollbar overflow-x-auto snap-x scroll-smooth flex gap-3 pb-2" tabindex="0">
+        <!-- Slides -->
+        <figure class="snap shrink-0 w-[88%] sm:w-[70%] md:w-[55%] lg:w-[45%]">
+          <img class="img-frame w-full h-64 sm:h-80 object-cover"
+               src="https://i.postimg.cc/nLzH9Gs0/2025-07-27-2.jpg"
+               alt="Junk on floor"
+               loading="lazy" decoding="async" referrerpolicy="no-referrer"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=1600&q=80';">
+        </figure>
+
+        <figure class="snap shrink-0 w-[88%] sm:w-[70%] md:w-[55%] lg:w-[45%]">
+          <img class="img-frame w-full h-64 sm:h-80 object-cover"
+               src="https://i.postimg.cc/7YfM9pF9/2025-07-27-1.jpg"
+               alt="Junk outside"
+               loading="lazy" decoding="async" referrerpolicy="no-referrer"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1569163139675-2b1f1dcf6b36?auto=format&fit=crop&w=1600&q=80';">
+        </figure>
+
+        <figure class="snap shrink-0 w-[88%] sm:w-[70%] md:w-[55%] lg:w-[45%]">
+          <img class="img-frame w-full h-64 sm:h-80 object-cover"
+               src="https://i.postimg.cc/mDmCNwVz/2025-08-06-1.jpg"
+               alt="Scrap metal"
+               loading="lazy" decoding="async" referrerpolicy="no-referrer"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1519710164239-da123dc03ef4?auto=format&fit=crop&w=1600&q=80';">
+        </figure>
+
+        <figure class="snap shrink-0 w-[88%] sm:w-[70%] md:w-[55%] lg:w-[45%]">
+          <img class="img-frame w-full h-64 sm:h-80 object-cover"
+               src="https://i.postimg.cc/Mp1Brxdx/2025-08-26.jpg"
+               alt="Scrap wood"
+               loading="lazy" decoding="async" referrerpolicy="no-referrer"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1528323273322-d81458248d40?auto=format&fit=crop&w=1600&q=80';">
+        </figure>
+
+        <figure class="snap shrink-0 w-[88%] sm:w-[70%] md:w-[55%] lg:w-[45%]">
+          <img class="img-frame w-full h-64 sm:h-80 object-cover"
+               src="https://i.postimg.cc/2yqbdfVX/2025-08-06.jpg"
+               alt="Recycling junk"
+               loading="lazy" decoding="async" referrerpolicy="no-referrer"
+               onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1598478357967-3b6f1b1f1e36?auto=format&fit=crop&w=1600&q=80';">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing explainer -->
+  <section class="mx-auto max-w-7xl px-4 pb-10">
+    <div class="glass p-5 sm:p-6 flex flex-col md:flex-row items-start md:items-center gap-4">
+      <div class="text-white/92">
+        <div class="font-semibold text-lg">Transparent, volume-based pricing</div>
+        <p class="text-white/88 mt-1 text-[15px]">Price = load size + weight + access. Send photos and we’ll confirm the estimate & arrival window.</p>
+      </div>
+      <div class="flex-1"></div>
+      <div class="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
+        <a href="#quote" class="cta cta-primary text-center">Start Free Quote</a>
+        <a href="tel:438-529-7778" class="cta cta-ghost text-center">Call 438-529-7778</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="mx-auto max-w-7xl px-4 pb-10">
+    <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--brand2)]">FAQ</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <details class="glass p-4" open>
+        <summary class="font-semibold cursor-pointer">Do you offer same-day service?</summary>
+        <p class="mt-2 text-white/90 text-[15px]">Yes—text photos to <a class="underline" href="sms:+14385297778">438-529-7778</a> and we’ll confirm timing.</p>
+      </details>
+      <details class="glass p-4">
+        <summary class="font-semibold cursor-pointer">What don’t you take?</summary>
+        <p class="mt-2 text-white/90 text-[15px]">Hazardous waste (paint, chemicals, fuel) without prior approval. We can help route you to the right facility.</p>
+      </details>
+      <details class="glass p-4">
+        <summary class="font-semibold cursor-pointer">How do I get the best price?</summary>
+        <p class="mt-2 text-white/90 text-[15px]">Group items in one area and send clear, well-lit photos. Mention stairs/elevator/tight access.</p>
+      </details>
+      <details class="glass p-4">
+        <summary class="font-semibold cursor-pointer">Do you donate or recycle?</summary>
+        <p class="mt-2 text-white/90 text-[15px]">Whenever possible—we separate metals, electronics, and usable items for donation.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Quote / Booking -->
+  <section id="quote" class="mx-auto max-w-7xl px-4 pb-28">
+    <h2 class="text-2xl sm:text-3xl mb-4 text-[var(--brand2)]">Get a Free Quote</h2>
+    <div class="glass p-4">
+      <!-- Keep your existing JotForm. If it ever fails, visitors can still call/text using sticky buttons. -->
+      <script type="text/javascript" src="https://form.jotform.com/jsform/252245867890267"></script>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/10">
+    <div class="mx-auto max-w-7xl px-4 py-6 text-center text-sm text-white/80">
+      &copy; 2025 Kevin's Junk Removal — Montreal, QC • <a href="tel:438-529-7778" class="underline">438-529-7778</a>
+    </div>
+  </footer>
+
+  <!-- Sticky mobile CTA -->
+  <div class="fixed bottom-0 left-0 right-0 md:hidden bg-black/75 backdrop-blur border-t border-white/10" style="padding-bottom: env(safe-area-inset-bottom);">
+    <div class="mx-auto max-w-7xl px-3 py-2 flex gap-2">
+      <a href="tel:438-529-7778" class="cta cta-primary flex-1 text-center">Call</a>
+      <a href="sms:+14385297778" class="cta cta-ghost flex-1 text-center">Text Photos</a>
+      <a href="#quote" class="cta cta-ghost flex-1 text-center">Book</a>
+    </div>
+  </div>
+
+  <!-- Minimal JS (menu + carousel) -->
+  <script>
+    // Mobile menu
+    const btn = document.getElementById('menuBtn');
+    const panel = document.getElementById('menuPanel');
+    btn?.addEventListener('click', () => panel.classList.toggle('hidden'));
+
+    // Carousel controls
+    const track = document.getElementById('caroTrack');
+    const prev = document.querySelector('.caro-prev');
+    const next = document.querySelector('.caro-next');
+    const snapSize = () => Math.round(track.clientWidth * 0.88); // matches slide width on mobile
+
+    prev?.addEventListener('click', () => track.scrollBy({ left: -snapSize(), behavior: 'smooth' }));
+    next?.addEventListener('click', () => track.scrollBy({ left:  snapSize(), behavior: 'smooth' }));
+
+    // Keyboard support (desktop)
+    track?.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') next.click();
+      if (e.key === 'ArrowLeft')  prev.click();
+    });
+  </script>
+</body>
+  </html>
